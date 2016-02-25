@@ -5,15 +5,14 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>通用语料库协同标注平台</title>
-
+	<link href="/css/metisMenu.css" rel="stylesheet">
+	<link href="/css/sb-admin-2.css" rel="stylesheet">
 	<link href="/css/app.css" rel="stylesheet">
-
-	<!-- Fonts -->
-  <link href='http://fonts.useso.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+	<link href="/css/font-awesome.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
+		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 					<span class="sr-only">Toggle Navigation</span>
@@ -42,15 +41,14 @@
 			</div>
 		</div>
 	</nav>
-	
-	<div style="margin-top: 80px">
-	  	@yield('content')
 
-	  	<div id="footer">
-	    ©2015 大数据与语言教育中心
-	  	</div>
-	</div>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  	@yield('content')
+
+  	@yield('footer')
+  	
+	<script src="/js/jquery.js"></script>
+	<script src="/js/bootstrap.js"></script>
+	<script src="/js/metisMenu.js"></script>
+	<script src="/js/sb-admin-2.js"></script>
 </body>
 </html>
