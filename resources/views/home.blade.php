@@ -78,7 +78,7 @@
 	    </div>
 	</div>
 
-@stop
+@endsection
 
 @section('footer')
 	<div id="footer">
@@ -91,4 +91,4 @@
 		})
 	})
 	</script>
-@stop
+@endsection

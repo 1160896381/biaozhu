@@ -6,9 +6,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>通用语料库协同标注平台</title>
 	<link href="/css/metisMenu.css" rel="stylesheet">
-	<link href="/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/css/dataTables.bootstrap.css" rel="stylesheet">
 	<link href="/css/app.css" rel="stylesheet">
+	<link href="/css/sb-admin-2.css" rel="stylesheet">
 	<link href="/css/font-awesome.css" rel="stylesheet" type="text/css">
+	<script src="/js/jquery.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -45,10 +47,11 @@
   	@yield('content')
 
   	@yield('footer')
-  	
-	<script src="/js/jquery.js"></script>
+
 	<script src="/js/bootstrap.js"></script>
 	<script src="/js/metisMenu.js"></script>
+	<script src="/js/jquery.dataTables.min.js"></script>
+	<script src="/js/dataTables.bootstrap.min.js"></script>
 	<script src="/js/sb-admin-2.js"></script>
 </body>
 </html>

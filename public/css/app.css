@@ -6239,10 +6239,12 @@ label,
   margin-top: 50px;
 }
 #myCarousel .carousel-inner .item {
-  height: 300px;
+  height: 320px;
 }
 #myCarousel .carousel-inner .item img {
   margin: 0 auto;
+  height: 100%;
+  width: 50%;
 }
 .login-panel {
   margin-top: 25%;
