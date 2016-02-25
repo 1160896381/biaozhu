@@ -6244,5 +6244,8 @@ label,
 #myCarousel .carousel-inner .item img {
   margin: 0 auto;
 }
+.login-panel {
+  margin-top: 25%;
+}
 
 /*# sourceMappingURL=app.css.map */
