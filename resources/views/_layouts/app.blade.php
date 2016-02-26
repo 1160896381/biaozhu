@@ -10,7 +10,6 @@
 	<link href="/css/app.css" rel="stylesheet">
 	<link href="/css/sb-admin-2.css" rel="stylesheet">
 	<link href="/css/font-awesome.css" rel="stylesheet" type="text/css">
-	<script src="/js/jquery.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -44,14 +43,17 @@
 		</div>
 	</nav>
 
-  	@yield('content')
+  	@yield('contentApp')
 
   	@yield('footer')
 
+	<script src="/js/jquery.js"></script>
 	<script src="/js/bootstrap.js"></script>
 	<script src="/js/metisMenu.js"></script>
 	<script src="/js/jquery.dataTables.min.js"></script>
 	<script src="/js/dataTables.bootstrap.min.js"></script>
 	<script src="/js/sb-admin-2.js"></script>
+
+	@yield('script')
 </body>
 </html>

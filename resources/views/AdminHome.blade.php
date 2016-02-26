@@ -18,7 +18,7 @@
                                     <th>文件名</th>
                                     <th>文件大小</th>
                                     <th>增加时间</th>
-                                    <th>操作</th>
+                                    <th data-sortable="false">操作</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -433,16 +433,10 @@
 
 @endsection
 
-@section('footerAdmin')
+@section('script')
 <script>
     $(function(){
-        $('#dataTables-example').DataTable({
-                responsive: true,
-                columnDefs:[{
-                    orderable:false,
-                    targets:[4]
-                }]
-        });
+        $('#dataTables-example').DataTable();
     });
 </script>
 @endsection

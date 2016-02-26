@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePagesTable extends Migration {
+class CreateResourceTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,13 @@ class CreatePagesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('pages', function(Blueprint $table)
+		Schema::create('resource', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('title');
+			$table->integer('classid');
 			$table->string('slug')->nullable();
 			$table->text('body')->nullable();
+			$table->string('image')->nullable();
 			$table->integer('user_id');
 			$table->timestamps();
 		});
@@ -30,7 +31,7 @@ class CreatePagesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('pages');
+		Schema::drop('resource');
 	}
 
 }
