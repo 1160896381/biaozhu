@@ -24,8 +24,7 @@ class UploadFileRequest extends Request
     public function rules()
     {
         return [
-            'file' => 'required',
-            'folder' => 'required',
+            'file' => 'required'
         ];
     }
 }

@@ -3,64 +3,27 @@
 @section('contentAdmin')
 
 <div id="page-wrapper">
-    <div class="row page-title-row">
+    <div class="row" style="margin-bottom: 10px">
         <div class="col-md-6">
-            <h3 class="pull-left">Uploads </h3>
-            <div class="pull-left">
-                <ul class="breadcrumb">
-                    @foreach ($breadcrumbs as $path => $disp)
-                        <li><a href="/admin/upload?folder={{ $path }}">{{ $disp }}</a></li>
-                    @endforeach
-                    <li class="active">{{ $folderName }}</li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-6 text-right">
-            <button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#modal-folder-create">
-                <i class="fa fa-plus-circle"></i> New Folder
-            </button>
             <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#modal-file-upload">
-                <i class="fa fa-upload"></i> Upload
+                <i class="fa fa-upload"></i> 上传资源
             </button>
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm-12">
-
-
             <table id="uploads-table" class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Date</th>
-                        <th>Size</th>
-                        <th data-sortable="false">Actions</th>
+                        <th>文件名</th>
+                        <th>文件类型</th>
+                        <th>上传日期</th>
+                        <th>文件大小</th>
+                        <th data-sortable="false">操作</th>
                     </tr>
                 </thead>
                 <tbody>
-
-                {{-- 子目录 --}}
-                @foreach ($subfolders as $path => $name)
-                    <tr>
-                        <td>
-                            <a href="/admin/upload?folder={{ $path }}">
-                                <i class="fa fa-folder fa-lg fa-fw"></i>
-                                {{ $name }}
-                            </a>
-                        </td>
-                        <td>Folder</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>
-                            <button type="button" class="btn btn-xs btn-danger" onclick="delete_folder('{{ $name }}')">
-                                <i class="fa fa-times-circle fa-lg"></i>
-                                Delete
-                            </button>
-                         </td>
-                    </tr>
-                @endforeach
 
                 {{-- 所有文件 --}}
                 @foreach ($files as $file)
@@ -95,7 +58,6 @@
 
                 </tbody>
             </table>
-
         </div>
     </div>
 </div>
@@ -112,13 +74,6 @@
         $("#delete-file-name1").html(name);
         $("#delete-file-name2").val(name);
         $("#modal-file-delete").modal("show");
-    }
-
-    // 确认目录删除
-    function delete_folder(name) {
-        $("#delete-folder-name1").html(name);
-        $("#delete-folder-name2").val(name);
-        $("#modal-folder-delete").modal("show");
     }
 
     // 预览图片

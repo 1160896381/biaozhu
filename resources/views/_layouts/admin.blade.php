@@ -20,7 +20,7 @@
 	            	  	<a href="#"><i class="fa fa-dashboard fa-fw"></i> 资源管理<span class="fa arrow"></span></a>
 		              	<ul class="nav nav-second-level">
 		                  	<li>
-		                  		<a href="#">查看</a>
+		                  		<a href="/admin/resource">查看</a>
 		                  	</li>
 		                  	<li>
                       			<a href="flot.html">批量上传文本</a>

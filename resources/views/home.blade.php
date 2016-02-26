@@ -1,6 +1,6 @@
 @extends('_layouts.app')
 
-@section('content')
+@section('contentApp')
 
 	<div id="myCarousel" class="carousel slide" data-ride="carousel">
 	    <ol class="carousel-indicators">
@@ -84,6 +84,9 @@
 	<div id="footer">
 		©2015 大数据与语言教育中心
 	</div>
+@endsection
+
+@section('script')
 	<script>
 	$(function(){
 		$('#myCarousel').carousel({

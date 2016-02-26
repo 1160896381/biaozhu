@@ -31,28 +31,6 @@ class UploadController extends Controller
     }
 
     /**
-    * 创建新目录
-    */
-    public function createFolder(UploadNewFolderRequest $request)
-    {
-        $new_folder = $request->get('new_folder');
-        $folder = $request->get('folder').'/'.$new_folder;
-
-        $result = $this->manager->createDirectory($folder);
-
-        if ($result === true) {
-            return redirect()
-                ->back()
-                ->withSuccess("Folder '$new_folder' created.");
-        }
-
-        $error = $result ? : "An error occurred creating directory.";
-        return redirect()
-                ->back()
-                ->withErrors([$error]);
-    }
-
-    /**
      * 删除文件
      */
     public function deleteFile(Request $request)
@@ -69,28 +47,6 @@ class UploadController extends Controller
         }
 
         $error = $result ? : "An error occurred deleting file.";
-        return redirect()
-                ->back()
-                ->withErrors([$error]);
-    }
-
-    /**
-     * 删除目录
-     */
-    public function deleteFolder(Request $request)
-    {
-        $del_folder = $request->get('del_folder');
-        $folder = $request->get('folder').'/'.$del_folder;
-
-        $result = $this->manager->deleteDirectory($folder);
-
-        if ($result === true) {
-            return redirect()
-                ->back()
-                ->withSuccess("Folder '$del_folder' deleted.");
-        }
-
-        $error = $result ? : "An error occurred deleting directory.";
         return redirect()
                 ->back()
                 ->withErrors([$error]);
