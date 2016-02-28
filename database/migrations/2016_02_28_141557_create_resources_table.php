@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResourceTable extends Migration {
+class CreateResourcesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,14 +12,14 @@ class CreateResourceTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('resource', function(Blueprint $table)
+		Schema::create('resources', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('classid');
-			$table->string('slug')->nullable();
-			$table->text('body')->nullable();
-			$table->string('image')->nullable();
-			$table->integer('user_id');
+			$table->string('mimeType');
+			$table->string('fileName');
+			$table->string('fileSize');
+			$table->string('webPath');
+			$table->integer('userId');
 			$table->timestamps();
 		});
 	}
@@ -31,7 +31,7 @@ class CreateResourceTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('resource');
+		Schema::drop('resources');
 	}
 
 }

@@ -13,6 +13,10 @@
 
     <div class="row">
         <div class="col-sm-12">
+            
+            @include('admin.partials.errors')     
+            @include('admin.partials.success')       
+            
             <table id="uploads-table" class="table table-striped table-bordered">
                 <thead>
                     <tr>
@@ -25,7 +29,7 @@
                 </thead>
                 <tbody>
 
-                {{-- 所有文件 --}}
+                 {{-- 所有文件 --}}
                 @foreach ($files as $file)
                     <tr>
                         <td>

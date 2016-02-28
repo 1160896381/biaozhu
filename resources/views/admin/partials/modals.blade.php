@@ -20,7 +20,6 @@
                 <form method="POST" action="/admin/resource/file">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="_method" value="DELETE">
-                    <input type="hidden" name="folder" value="{{ $folder }}">
                     <input type="hidden" name="del_file" id="delete-file-name2">
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         Cancel
@@ -40,13 +39,12 @@
         <div class="modal-content">
             <form method="POST" action="/admin/resource/file" class="form-horizontal" enctype="multipart/form-data">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="folder" value="{{ $folder }}">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">
                         ×
                     </button>
                     <h4 class="modal-title">Upload New File</h4>
-                </div>
+                </div>  
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="file" class="col-sm-3 control-label">

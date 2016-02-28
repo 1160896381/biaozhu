@@ -52,17 +52,14 @@ class UploadsManager
     /**
      * 返回文件详细信息数组
      */
-    protected function fileDetails($path)
+    public function fileDetails($path)
     { 
         $path = '/' . ltrim($path, '/');
-
+        
         return [
-            'name' => basename($path),
             'fullPath' => $path,
             'webPath' => $this->fileWebpath($path),
-            'mimeType' => $this->fileMimeType($path),
-            'size' => $this->fileSize($path),
-            'modified' => $this->fileModified($path),
+            'mimeType' => $this->fileMimeType($path)
         ];
     }
 

@@ -13,9 +13,10 @@ Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function()
 
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware' => 'auth'], function()
 {
-	Route::get('/', 'ResourceController@index');
+	Route::get('/', 'ResourcesController@index');
 
-	Route::get('resource', 'ResourceController@index');
-	Route::post('resource/file', 'ResourceController@uploadFile');
-	Route::delete('resource/file', 'ResourceController@deleteFile');
+	Route::get('resource', 'ResourcesController@index');
+	Route::post('resource/file', 'ResourcesController@uploadFile');
+	Route::delete('resource/file', 'ResourcesController@deleteFile');
 });
+
