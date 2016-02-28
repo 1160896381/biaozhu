@@ -18,3 +18,11 @@ function is_image($mimeType)
 {
     return starts_with($mimeType, 'image/');
 }
+
+/**
+ * 判断文件的MIME类型是否为文本
+ */
+function is_text($mimeType)
+{
+    return starts_with($mimeType, 'text/');
+}

@@ -38,7 +38,12 @@
                                 {{ $file['name'] }}
                             </a>
                         </td>
-                        <td>{{ $file['mimeType'] or 'Unknown' }}</td>
+                        <td>
+                            @if (is_image($file['mimeType']))
+                            图片
+                            @elseif (is_text($file['mimeType']))
+                            文本
+                            @endif
                         <td>{{ $file['modified']->format('j-M-y g:ia') }}</td>
                         <td>{{ human_filesize($file['size']) }}</td>
                         <td>

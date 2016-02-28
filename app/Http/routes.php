@@ -18,8 +18,4 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware' => 'auth'], 
 	Route::get('resource', 'ResourceController@index');
 	Route::post('resource/file', 'ResourceController@uploadFile');
 	Route::delete('resource/file', 'ResourceController@deleteFile');
-	// Route::resource('pages', 'PagesController');
-	// Route::resource('comments', 'CommentsController');
 });
-
-// Route::post('comment/store', 'CommentsController@store');
