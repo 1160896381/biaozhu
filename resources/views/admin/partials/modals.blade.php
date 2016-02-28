@@ -1,39 +1,3 @@
-{{-- 创建目录 --}}
-<div class="modal fade" id="modal-folder-create">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form method="POST" action="/admin/upload/folder" class="form-horizontal">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="folder" value="{{ $folder }}">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        ×
-                    </button>
-                    <h4 class="modal-title">Create New Folder</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="new_folder_name" class="col-sm-3 control-label">
-                            Folder Name
-                        </label>
-                        <div class="col-sm-8">
-                            <input type="text" id="new_folder_name" name="new_folder" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                        Cancel
-                    </button>
-                    <button type="submit" class="btn btn-primary">
-                        Create Folder
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 {{-- 删除文件 --}}
 <div class="modal fade" id="modal-file-delete">
     <div class="modal-dialog">
@@ -53,7 +17,7 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <form method="POST" action="/admin/upload/file">
+                <form method="POST" action="/admin/resource/file">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="folder" value="{{ $folder }}">
@@ -70,47 +34,11 @@
     </div>
 </div>
 
-{{-- 删除目录 --}}
-<div class="modal fade" id="modal-folder-delete">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                    ×
-                </button>
-                <h4 class="modal-title">Please Confirm</h4>
-            </div>
-            <div class="modal-body">
-                <p class="lead">
-                    <i class="fa fa-question-circle fa-lg"></i>
-                        Are you sure you want to delete the
-                        <kbd><span id="delete-folder-name1">folder</span></kbd>
-                        folder?
-                 </p>
-            </div>
-            <div class="modal-footer">
-                <form method="POST" action="/admin/upload/folder">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <input type="hidden" name="folder" value="{{ $folder }}">
-                    <input type="hidden" name="del_folder" id="delete-folder-name2">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                        Cancel
-                    </button>
-                    <button type="submit" class="btn btn-danger">
-                        Delete Folder
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
 {{-- 上传文件 --}}
 <div class="modal fade" id="modal-file-upload">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="/admin/upload/file" class="form-horizontal" enctype="multipart/form-data">
+            <form method="POST" action="/admin/resource/file" class="form-horizontal" enctype="multipart/form-data">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="folder" value="{{ $folder }}">
                 <div class="modal-header">
@@ -161,7 +89,7 @@
                 <h4 class="modal-title">Image Preview</h4>
             </div>
             <div class="modal-body">
-                <img id="preview-image" src="x" class="img-responsive">
+                <img id="preview-image" class="img-responsive">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">

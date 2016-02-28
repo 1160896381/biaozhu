@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Services\UploadsManager;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\UploadFileRequest;
-use App\Http\Requests\UploadNewFolderRequest;
+use App\Services\UploadsManager;
 use Illuminate\Support\Facades\File;
 
-class UploadController extends Controller
+class ResourceController extends Controller
 {
     protected $manager;
 
@@ -27,7 +26,7 @@ class UploadController extends Controller
         $folder = $request->get('folder');
         $data = $this->manager->folderInfo($folder);
 
-        return view('admin.upload.index', $data);
+        return view('admin.resource.index', $data);
     }
 
     /**

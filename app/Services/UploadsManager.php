@@ -13,7 +13,7 @@ class UploadsManager
 
     public function __construct(PhpRepository $mimeDetect)
     {
-        $this->disk = Storage::disk(config('uploads.storage'));
+        $this->disk = Storage::disk(config('resource.uploads.storage'));
         $this->mimeDetect = $mimeDetect;
     }
 
@@ -109,7 +109,8 @@ class UploadsManager
      */
     public function fileWebpath($path)
     { 
-        $path = rtrim(config('uploads.webpath'), '/') . '/' .ltrim($path, '/');
+        $path = rtrim(config('resource.uploads.webpath'), '/') . '/' .ltrim($path, '/');
+        // return url($path);
         return url($path);
     }
 
@@ -139,38 +140,6 @@ class UploadsManager
         return Carbon::createFromTimestamp(
             $this->disk->lastModified($path)
         );
-    }
-
-    /**
-     * 创建新目录
-     */
-    public function createDirectory($folder)
-    {
-        $folder = $this->cleanFolder($folder);
-
-        if ($this->disk->exists($folder)) {
-            return "Folder '$folder' already exists.";
-        }
-
-        return $this->disk->makeDirectory($folder);
-    }
-
-    /**
-     * 删除目录
-     */
-    public function deleteDirectory($folder)
-    {
-        $folder = $this->cleanFolder($folder);
-
-        $filesFolders = array_merge(
-            $this->disk->directories($folder),
-            $this->disk->files($folder)
-        );
-        if (! empty($filesFolders)) {
-            return "Directory must be empty to delete it.";
-        }
-
-        return $this->disk->deleteDirectory($folder);
     }
 
     /**
