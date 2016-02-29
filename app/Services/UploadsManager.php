@@ -18,38 +18,6 @@ class UploadsManager
     }
 
     /**
-     * Return files and directories within a folder
-     *
-     * @param string $folder
-     * @return array of [
-     *     'folder' => 'path to current folder',
-     *     'files' => array of file details on each file in folder
-     * ]
-     */
-    public function folderInfo($folder)
-    {
-        $folder = $this->cleanFolder($folder);
-
-        $files = [];
-        foreach ($this->disk->files($folder) as $path) {
-            $files[] = $this->fileDetails($path);
-        }
-
-        return compact(
-            'folder',
-            'files'
-        );
-    }
-
-    /**
-     * Sanitize the folder name
-     */
-    protected function cleanFolder($folder)
-    {
-        return '/' . trim(str_replace('..', '', $folder), '/');
-    }
-
-    /**
      * 返回文件详细信息数组
      */
     public function fileDetails($path)
@@ -83,30 +51,10 @@ class UploadsManager
     }
 
     /**
-     * 返回文件大小
-     */
-    public function fileSize($path)
-    {
-        return $this->disk->size($path);
-    }
-
-    /**
-     * 返回最后修改时间
-     */
-    public function fileModified($path)
-    {
-        return Carbon::createFromTimestamp(
-            $this->disk->lastModified($path)
-        );
-    }
-
-    /**
      * 删除文件
      */
     public function deleteFile($path)
     {
-        $path = $this->cleanFolder($path);
-
         if (! $this->disk->exists($path)) {
             return "File does not exist.";
         }
@@ -119,11 +67,9 @@ class UploadsManager
      */
     public function saveFile($path, $content)
     {
-        $path = $this->cleanFolder($path);
-
-        if ($this->disk->exists($path)) {
-            return "File already exists.";
-        }
+        // if ($this->disk->exists($path)) {
+        //     return "File already exists.";
+        // }
 
         return $this->disk->put($path, $content);
     }

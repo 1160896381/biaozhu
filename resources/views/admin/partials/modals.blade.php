@@ -20,7 +20,8 @@
                 <form method="POST" action="/admin/resource/file">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="_method" value="DELETE">
-                    <input type="hidden" name="del_file" id="delete-file-name2">
+                    <input type="hidden" name="del_file_name" id="delete-file-name">
+                    <input type="hidden" name="del_file_id" id="delete-file-id">
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         Cancel
                     </button>

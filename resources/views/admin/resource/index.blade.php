@@ -30,7 +30,7 @@
                 <tbody>
 
                  {{-- 所有文件 --}}
-                @foreach ($files as $file)
+                @foreach ($resources as $file)
                     <tr>
                         <td>
                             <a href="{{ $file['webPath'] }}">
@@ -39,7 +39,7 @@
                                 @else
                                 <i class="fa fa-file-o fa-lg fa-fw"></i>
                                 @endif
-                                {{ $file['name'] }}
+                                {{ $file['fileName'] }}
                             </a>
                         </td>
                         <td>
@@ -48,10 +48,10 @@
                             @elseif (is_text($file['mimeType']))
                             文本
                             @endif
-                        <td>{{ $file['modified']->format('j-M-y g:ia') }}</td>
-                        <td>{{ human_filesize($file['size']) }}</td>
+                        <td>{{ $file['updated_at']->format('j-M-y g:ia') }}</td>
+                        <td>{{ human_filesize($file['fileSize']) }}</td>
                         <td>
-                            <button type="button" class="btn btn-xs btn-danger" onclick="delete_file('{{ $file['name'] }}')">
+                            <button type="button" class="btn btn-xs btn-danger" onclick="delete_file('{{ $file['fileName'] }}', '{{ $file['id'] }}')">
                                 <i class="fa fa-times-circle fa-lg"></i>
                                 Delete
                             </button>
@@ -79,9 +79,10 @@
 <script>
 
     // 确认文件删除
-    function delete_file(name) {
+    function delete_file(name, id) {
         $("#delete-file-name1").html(name);
-        $("#delete-file-name2").val(name);
+        $("#delete-file-id").val(id);
+        $("#delete-file-name").val(name);
         $("#modal-file-delete").modal("show");
     }
 

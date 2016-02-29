@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Resources;
+use App\Resource;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -11,7 +11,7 @@ use App\Services\UploadsManager;
 use Illuminate\Support\Facades\File;
 
 
-class ResourcesController extends Controller
+class ResourceController extends Controller
 {
     protected $manager;
 
@@ -23,10 +23,8 @@ class ResourcesController extends Controller
     public function index(Request $request)
     {
         $userId = \Auth::user()->id;
-        $resources = Resources::find($userId);
-        dd($resources);
-        // return view('admin.resource.index', compact('resources'));
-        return view('admin.resource.index');
+        $resources = Resource::where('userId', '=', $userId)->get();
+        return view('admin.resource.index', compact('resources'));
     }
 
     /**
@@ -34,15 +32,18 @@ class ResourcesController extends Controller
      */
     public function deleteFile(Request $request)
     {
-        $del_file = $request->get('del_file');
-        $path = $request->get('folder').'/'.$del_file;
+        $del_file_name = $request->get('del_file_name');
+        $del_file_id = $request->get('del_file_id');
+        
+        $path = $request->get('folder').'/'.$del_file_name;
 
         $result = $this->manager->deleteFile($path);
 
         if ($result === true) {
+            Resource::where('id', '=', $del_file_id)->delete();
             return redirect()
                 ->back()
-                ->withSuccess("File '$del_file' deleted.");
+                ->withSuccess("File '$del_file_name' deleted.");
         }
 
         $error = $result ? : "An error occurred deleting file.";
@@ -75,6 +76,7 @@ class ResourcesController extends Controller
                     ['userId'   => \Auth::user()->id],
                     ['mimeType' => $file['mimeType']],
                     ['fileName' => $fileName], 
+                    ['fileSize' => $file_['size']],
                     ['webPath'  => $file['webPath']]
                 ));
             return redirect()
