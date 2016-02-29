@@ -36,16 +36,11 @@
 		success:function( data ) { console.info( data ); },
 		error:function( err ) { console.info( err ); },
 		buttonText:'点击选择文本',
-	    formData: 
-	    {
-	        classId: 1
-	    },
 		chunked:true,
 		chunkSize:512 * 1024,
 		fileNumLimit:100,
 		fileSizeLimit:5000 * 1024,
 		fileSingleSizeLimit:5000000 * 1024,
-		method:"POST",
 		accept:
 		{
 			title:"Texts",
@@ -59,10 +54,6 @@
 		success:function( data ) {console.info( data ); },
 		error:function( err ) { console.info( err ); },
 		buttonText:'点击选择图片',
-		formData: 
-	    {
-	        classId: 2
-	    },
 		//是否已二进制的流的方式发送文件，这样整个上传内容php://input都为文件内容
 		sendAsBinary:false,
 		// 开起分片上传。 thinkphp的上传类测试分片无效,图片丢失;

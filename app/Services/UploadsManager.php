@@ -36,7 +36,7 @@ class UploadsManager
      */
     public function fileWebpath($path)
     { 
-        $path = rtrim(config('resource.uploads.webpath'), '/') . '/' .ltrim($path, '/');        
+        $path = rtrim(config('resource.uploads.webpath'), '/') . '/' .ltrim($path, '/');   
         return url($path);
     }
 

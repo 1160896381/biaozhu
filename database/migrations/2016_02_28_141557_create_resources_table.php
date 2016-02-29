@@ -16,9 +16,10 @@ class CreateResourcesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('mimeType');
-			$table->string('fileName');
-			$table->string('fileSize');
 			$table->string('webPath');
+			$table->string('fileName');
+			$table->string('fileReal');
+			$table->string('fileSize');
 			$table->integer('userId');
 			$table->timestamps();
 		});

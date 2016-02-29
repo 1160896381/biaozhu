@@ -10,7 +10,7 @@ class Resource extends Model {
 	
 	use SoftDeletes;
 
-	protected $fillable = ['mimeType', 'fileName', 'updated_at', 'userId', 'fileSize', 'webPath', 'deleted_at'];
+	protected $fillable = ['mimeType', 'fileName', 'fileReal', 'updated_at', 'userId', 'fileSize', 'subPath', 'webPath', 'deleted_at'];
 
 	protected $dates = ['updated_at', 'deleted_at'];
 

@@ -60,11 +60,20 @@ class ResourceController extends Controller
         $file_ = $_FILES['file'];
         $fileName = $request->get('file_name');
         $fileName = $fileName ?: $file_['name'];
-        $path = str_finish($request->get('folder'), '/') . $fileName;
         $content = File::get($file_['tmp_name']);
-        
+        $subPath = date("Y-m-d");
+        $mimeType = $file_['type'];
+
+        $fileType = GetFiletype($fileName);
+        $insertFile = ReturnDoTranFilename();
+        // 实际存在磁盘上的
+        $fileReal = $insertFile . $fileType;
+
+        if (is_text($mimeType)) $path = 'text/' . $subPath . '/' . $fileReal;
+        if (is_image($mimeType)) $path = 'pic/' . $subPath . '/' . $fileReal;
+
         // 获得文件详情
-        $file = $this->manager->fileDetails($path);
+        $webPath = $this->manager->fileWebpath($path);
 
         // 成功标志
         $result = $this->manager->saveFile($path, $content);
@@ -74,10 +83,12 @@ class ResourceController extends Controller
             Resource::create(
                 array_merge(
                     ['userId'   => \Auth::user()->id],
-                    ['mimeType' => $file['mimeType']],
+                    ['mimeType' => $mimeType],
                     ['fileName' => $fileName], 
+                    ['fileReal' => $fileReal], 
                     ['fileSize' => $file_['size']],
-                    ['webPath'  => $file['webPath']]
+                    ['subPath'  => $subPath],
+                    ['webPath'  => $webPath]
                 ));
             return redirect()
                     ->back()
@@ -100,15 +111,12 @@ class ResourceController extends Controller
 
     public function batchUploadFile(Request $request)
     {
-        // Make sure file is not cached (as it happens for example on iOS devices)
         header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
         header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
         header("Cache-Control: no-store, no-cache, must-revalidate");
         header("Cache-Control: post-check=0, pre-check=0", false);
         header("Pragma: no-cache");
-        // Support CORS
-        // header("Access-Control-Allow-Origin: *");
-        // other CORS headers if any...
+
         if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') 
         {
             exit; // finish preflight CORS requests here
@@ -130,40 +138,41 @@ class ResourceController extends Controller
         // Uncomment this one to fake upload time
         usleep(5000);
 
-        $title = $request->get('name');
-        $subPath = date("Y-m-d");
-        $classId = $request->get('classId');
-        $published_at = time();
+        $fileName = $request->get('name');
         $fileSize = $request->get('size');
+        $subPath = date("Y-m-d");
+        $published_at = time();
 
-        $fileType = GetFiletype($title);
+        $fileType = GetFiletype($fileName);
         $insertFile = ReturnDoTranFilename();
-        $title_u = $insertFile.$fileType;
+        // 实际存在磁盘上的
+        $fileReal = $insertFile . $fileType;
 
-        $title_raw = preg_replace("/\..*$/", "", $title);
+        $file_ = $_FILES['file'];
+        $mimeType = $file_['type'];
+        $content = File::get($file_['tmp_name']);
+        $path = '/' . $fileName;
 
-        if ($classId == 1)
-        {
-            $uploadDir = 'text/'.$subPath;    
+        if (is_text($mimeType)) {
+
+            $uploadDir = 'uploads/text/' . $subPath;    
             
-            $text=file_get_contents($_FILES["file"]["tmp_name"]);    
-            $text=mb_convert_encoding($text, 'UTF-8','GBK,UTF-8');
-            $tempPath=$_FILES["file"]["tmp_name"];
-            file_put_contents($tempPath, $text);
-            $upText = '/d/file/'.$uploadDir.'/'.$title_u;
-            $init_xml = '<UnitCorpus type="text" title="'.$title_raw.'" content="'.$upText.'"></UnitCorpus>';
+            $text = mb_convert_encoding($content, 'UTF-8', 'GBK,UTF-8');
+
+            $upText = $uploadDir . '/' . $fileReal;
+            $init_xml = '<UnitCorpus type="text" title="' . $fileName . '" content="' . $upText . '"></UnitCorpus>';
             
             // $query="insert into {$dbtbpre}ecms_text(classid,newspath,userid,username,truetime,lastdotime,title,newstime,upload,claim,init_xml) values('$classid','$newspath','$logininid','$loginin','$newstime','$newstime','$title_raw','$newstime','$uptext',5,'$init_xml')";
-        }
-        elseif ($classId == 2) 
-        {
-            $uploadDir = 'tupian/'.$subPath;
-            $upPic = '/d/file/'.$uploadDir.'/'.$title_u;
-            $init_xml = '<UnitCorpus type="picture" title="'.$title_raw.'" content="'.$upPic.'"><Pages><Page><OriginalPictureName>'.$uppic.'</OriginalPictureName><PreProcessedPictureName></PreProcessedPictureName></Page></Pages></UnitCorpus>';
+        } elseif (is_image($mimeType)) {
+            
+            $uploadDir = 'uploads/pic/' . $subPath;
+
+            $upPic = $uploadDir . '/' . $fileReal;
+            $init_xml = '<UnitCorpus type="picture" title="' . $fileName . '" content="' . $upPic . '"><Pages><Page><OriginalPictureName>' . $upPic . '</OriginalPictureName><PreProcessedPictureName></PreProcessedPictureName></Page></Pages></UnitCorpus>';
             // $query="insert into {$dbtbpre}ecms_pic(classid,newspath,userid,username,truetime,lastdotime,title,newstime,upload,claim,init_xml) values('$classid','$newspath','$logininid','$loginin','$newstime','$newstime','$title_raw','$newstime','$uppic',5,'$init_xml')";
         }
 
-        $targetDir = 'upload_tmp';
+        $targetDir = 'uploads/upload_tmp';
         $cleanupTargetDir = true; // Remove old files
         $maxFileAge = 5 * 3600; // Temp file age in seconds
 
@@ -182,12 +191,12 @@ class ResourceController extends Controller
         // Get a file name
         if (isset($_REQUEST["name"])) 
         {
-            $fileName = $title_u;
+            $file_name = $fileReal;
         } elseif (!empty($_FILES)) {
-            $fileName = $_FILES["file"]["name"];
+            $file_name = $_FILES["file"]["name"];
         } else 
         {
-            $fileName = uniqid("file_");
+            $file_name = uniqid("file_");
         }
 
         $md5File = @file('md5list.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -199,10 +208,9 @@ class ResourceController extends Controller
             die('{"jsonrpc" : "2.0", "result" : null, "id" : "id", "exist": 1}');
         }
 
-        $filePath = $targetDir . '/' . $fileName;
-        $uploadPath = $uploadDir . '/' . $fileName;
+        $filePath = $targetDir . '/' . $file_name;
+        $uploadPath = $uploadDir . '/' . $file_name;
 
-        dd($uploadPath);
         // Chunking might be enabled
         $chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
         $chunks = isset($_REQUEST["chunks"]) ? intval($_REQUEST["chunks"]) : 1;
@@ -317,6 +325,16 @@ class ResourceController extends Controller
             }
             @fclose($out);
         }
+
+        Resource::create(
+            array_merge(
+                ['userId'   => \Auth::user()->id],
+                ['mimeType' => $mimeType],
+                ['fileName' => $fileName],
+                ['fileReal' => $fileReal],
+                ['fileSize' => $fileSize],
+                ['subPath'  => $subPath]
+            ));
 
         // Return Success JSON-RPC response
         die('{"jsonrpc" : "2.0", "result" : null, "id" : "id"}');
