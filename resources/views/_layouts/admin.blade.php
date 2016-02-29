@@ -23,10 +23,7 @@
 		                  		<a href="/admin/resource">查看</a>
 		                  	</li>
 		                  	<li>
-                      			<a href="flot.html">批量上传文本</a>
-		                  	</li>
-		                  	<li>
-	                      		<a href="morris.html">批量上传图片</a>
+                      			<a href="/admin/resource/batch">批量上传</a>
 		                  	</li>
 		              	</ul>	
 		          	</li>

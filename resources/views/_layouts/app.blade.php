@@ -9,7 +9,8 @@
     <link href="/css/dataTables.bootstrap.css" rel="stylesheet">
 	<link href="/css/app.css" rel="stylesheet">
 	<link href="/css/sb-admin-2.css" rel="stylesheet">
-	<link href="/css/font-awesome.css" rel="stylesheet" type="text/css">
+	<link href="/css/font-awesome.css" rel="stylesheet">
+	@yield('style')
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">

@@ -2,6 +2,7 @@
 
 Route::get('/', 'HomeController@index');
 
+// 登录注册
 Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function()
 {
 	Route::get('register', 'AuthController@getRegister');
@@ -11,6 +12,7 @@ Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function()
 	Route::get('logout', 'AuthController@getLogout');
 });
 
+// 资源管理
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware' => 'auth'], function()
 {
 	Route::get('/', 'ResourceController@index');
@@ -18,5 +20,10 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware' => 'auth'], 
 	Route::get('resource', 'ResourceController@index');
 	Route::post('resource/file', 'ResourceController@uploadFile');
 	Route::delete('resource/file', 'ResourceController@deleteFile');
+
+	// 批量上传
+	Route::get('resource/batch', 'ResourceController@batchIndex');
+	Route::post('resource/batch/file', 'ResourceController@batchUploadFile');
+	Route::delete('resource/batch/file', 'ResourceController@batchDeleteFile');	
 });
 

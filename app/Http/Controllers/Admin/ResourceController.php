@@ -20,7 +20,7 @@ class ResourceController extends Controller
         $this->manager = $manager;
     }
 
-    public function index(Request $request)
+    public function index()
     {
         $userId = \Auth::user()->id;
         $resources = Resource::where('userId', '=', $userId)->get();
@@ -88,5 +88,13 @@ class ResourceController extends Controller
         return redirect()
                 ->back()
                 ->withErrors([$error]);
+    }
+
+    /**
+     * 批量上传文件
+     */
+    public function batchIndex()
+    {
+        return view('admin.resource.batch');
     }
 }
