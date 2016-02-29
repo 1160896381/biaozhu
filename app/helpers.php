@@ -26,3 +26,30 @@ function is_text($mimeType)
 {
     return starts_with($mimeType, 'text/');
 }
+
+/**
+ * 返回上传文件名
+ */
+function ReturnDoTranFilename()
+{
+	$filename=md5(uniqid(microtime()));
+	return $filename;
+}
+
+/**
+ * 取得文件扩展名
+ */
+function GetFiletype($filename)
+{
+	$filer=explode(".",$filename);
+	$count=count($filer)-1;
+	return strtolower(".".RepGetFiletype($filer[$count]));
+}
+
+function RepGetFiletype($filetype)
+{
+	$filetype=str_replace('|','_',$filetype);
+	$filetype=str_replace(',','_',$filetype);
+	$filetype=str_replace('.','_',$filetype);
+	return $filetype;
+}

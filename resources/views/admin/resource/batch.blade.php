@@ -32,21 +32,20 @@
 	*/
 
 	$('#text').diyUpload({
-		url:'../../fileupload.php',
+		url:'/admin/resource/batch/file',
 		success:function( data ) { console.info( data ); },
 		error:function( err ) { console.info( err ); },
 		buttonText:'点击选择文本',
 	    formData: 
 	    {
-	    	// 注意这里变量慎选
-	        leixing: 1,
-	        classid: 1
+	        classId: 1
 	    },
 		chunked:true,
 		chunkSize:512 * 1024,
 		fileNumLimit:100,
 		fileSizeLimit:5000 * 1024,
 		fileSingleSizeLimit:5000000 * 1024,
+		method:"POST",
 		accept:
 		{
 			title:"Texts",
@@ -56,14 +55,13 @@
 	});
 
 	$('#pic').diyUpload({
-		url:'../../fileupload.php',
+		url:'/admin/resource/batch/file',
 		success:function( data ) {console.info( data ); },
 		error:function( err ) { console.info( err ); },
 		buttonText:'点击选择图片',
 		formData: 
 	    {
-	        leixing: 2,
-	        classid: 2
+	        classId: 2
 	    },
 		//是否已二进制的流的方式发送文件，这样整个上传内容php://input都为文件内容
 		sendAsBinary:false,
