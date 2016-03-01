@@ -1,5 +1,9 @@
 @extends('_layouts.admin')
 
+@section('style')
+<link href="/css/jquery.ui.datepicker.css" rel="stylesheet">
+@endsection
+
 @section('contentAdmin')
 
 <div id="page-wrapper">
@@ -81,16 +85,23 @@
 @endsection
 
 @section('script')
+<script src="/js/jquery.ui.core.js"></script>
+<script src="/js/jquery.ui.datepicker.js"></script>
 <script>
 
 	// 分配任务
 	function assign_task() {
 	    $("#modal-task-assign").modal("show");
 	}
-
+	
     // 初始化数据
     $(function() {
         $("#assign-table").DataTable();
+
+        $("#dead-time").datepicker({
+            changeMonth: true,
+            changeYear: true
+        });
     });
 </script>
 @endsection

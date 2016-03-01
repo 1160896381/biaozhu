@@ -114,19 +114,39 @@
                 </div>  
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="file" class="col-sm-3 control-label">
+                        <label for="claim" class="col-sm-3 control-label">
                             任务状态
                         </label>
                         <div class="col-sm-8">
-                            <input type="file" id="file" name="file">
+                            <label class="radio-inline">
+                                <input type="radio" name="claim" id="none" value="" checked> 只分配
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="claim" id="claim" value=""> 发布
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="claim" id="proof" value=""> 校对
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="claim" id="over" value=""> 完成
+                            </label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="file_name" class="col-sm-3 control-label">
                             任务分配
                         </label>
-                        <div class="col-sm-4">
-                            <input type="text" id="file_name" name="file_name" class="form-control">
+                        <div class="col-sm-8">
+                            <div style="width: 40%; float: left; margin-right: 2%">
+                                <select name="state" class="form-control">
+                                  <option value="0">请选择</option>
+                                </select>
+                            </div>
+                            <div style="width: 40%; float: left">
+                                <select name="state" class="form-control">
+                                  <option value="0">请选择</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -134,7 +154,7 @@
                             截止时间
                         </label>
                         <div class="col-sm-4">
-                            <input type="text" id="file_name" name="file_name" class="form-control">
+                            <input type="text" name="deadtime" id="dead-time" class="test-style width150 form-control" value="<?=date('Y-m-d H:i:s', time())?>">
                         </div>
                     </div>
                     <div class="form-group">
@@ -142,15 +162,21 @@
                             标注者
                         </label>
                         <div class="col-sm-4">
-                            <input type="text" id="file_name" name="file_name" class="form-control">
+                            <select multiple="multiple" class="form-control">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="file_name" class="col-sm-3 control-label">
                             说明
                         </label>
-                        <div class="col-sm-4">
-                            <input type="text" id="file_name" name="file_name" class="form-control">
+                        <div class="col-sm-8">
+                            <textarea class="form-control" rows="2"></textarea>
                         </div>
                     </div>
                 </div>
