@@ -180,21 +180,20 @@ class ResourceController extends Controller
 
         if (is_text($mimeType)) {
 
+            $classId = 1;
             $uploadDir = 'uploads/text/' . $subPath;    
             
             $text = mb_convert_encoding($content, 'UTF-8', 'GBK,UTF-8');
 
             $upText = $uploadDir . '/' . $fileReal;
-            $init_xml = '<UnitCorpus type="text" title="' . $fileName . '" content="' . $upText . '"></UnitCorpus>';
-            
-            // $query="insert into {$dbtbpre}ecms_text(classid,newspath,userid,username,truetime,lastdotime,title,newstime,upload,claim,init_xml) values('$classid','$newspath','$logininid','$loginin','$newstime','$newstime','$title_raw','$newstime','$uptext',5,'$init_xml')";
+            $initXml = '<UnitCorpus type="text" title="' . $fileName . '" content="' . $upText . '"></UnitCorpus>';
         } elseif (is_image($mimeType)) {
             
+            $classId = 2;
             $uploadDir = 'uploads/pic/' . $subPath;
 
             $upPic = $uploadDir . '/' . $fileReal;
-            $init_xml = '<UnitCorpus type="picture" title="' . $fileName . '" content="' . $upPic . '"><Pages><Page><OriginalPictureName>' . $upPic . '</OriginalPictureName><PreProcessedPictureName></PreProcessedPictureName></Page></Pages></UnitCorpus>';
-            // $query="insert into {$dbtbpre}ecms_pic(classid,newspath,userid,username,truetime,lastdotime,title,newstime,upload,claim,init_xml) values('$classid','$newspath','$logininid','$loginin','$newstime','$newstime','$title_raw','$newstime','$uppic',5,'$init_xml')";
+            $initXml = '<UnitCorpus type="picture" title="' . $fileName . '" content="' . $upPic . '"><Pages><Page><OriginalPictureName>' . $upPic . '</OriginalPictureName><PreProcessedPictureName></PreProcessedPictureName></Page></Pages></UnitCorpus>';
         }
 
         $targetDir = 'uploads/upload_tmp';
@@ -361,6 +360,17 @@ class ResourceController extends Controller
                 ['subPath'  => $subPath]
             ));
 
+        Assign::create(
+            array_merge(
+                ['classId'    => $classId],
+                ['userId'     => \Auth::user()->id],
+                ['title'      => $fileName],
+                ['claim'      => 5],
+                ['finishTime' => null],
+                ['deadTime'   => null],
+                ['initXml'    => $initXml]
+            ));
+        
         // Return Success JSON-RPC response
         die('{"jsonrpc" : "2.0", "result" : null, "id" : "id"}');
     }

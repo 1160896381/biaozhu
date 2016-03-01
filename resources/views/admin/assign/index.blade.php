@@ -13,6 +13,7 @@
 	        <table id="assign-table" class="table table-striped table-bordered">
 	            <thead>
 	                <tr>
+	                    <th>ID</th>
 	                    <th>文件名</th>
 	                    <th>当前状态</th>
 	                    <th>发布时间</th>
@@ -28,6 +29,9 @@
 				 {{-- 所有文件 --}}
 				@foreach ($assigns as $assign)
 				    <tr>
+				        <td>
+				            {{ $assign['id'] }}
+				        </td>
 				        <td>
 				            {{ $assign['title'] }}
 				        </td>
@@ -58,7 +62,7 @@
 				        	{{ $assign['state'] }}
 			        	</td>
 				        <td>
-				            <button type="button" class="btn btn-xs btn-info" onclick="assign_task()">
+				            <button type="button" class="btn btn-xs btn-info" onclick="assign_task({{ $assign['id'] }}, {{ $assign['classId'] }}, {{ $assign['claim'] }})">
 				                <i class="fa fa-code-fork fa-lg"></i>
 				                分配
 				            </button>
@@ -90,18 +94,110 @@
 <script>
 
 	// 分配任务
-	function assign_task() {
+	function assign_task(id, classId, claim) {
+		$("#assign-id").val(id);
+		$("#class-id").val(classId);
+		$("#current-claim").val(claim);
 	    $("#modal-task-assign").modal("show");
 	}
-	
+
+	// 选择单选按钮
+	function select_radio(change) {
+		var cur = $("#current-claim").val();
+
+		if (change == 6) {
+			
+			if (cur==5 || cur==1 || cur==2) {
+				$("#task-flag").attr("value", "CurrentTask");
+			} else {
+				$("#task-flag").attr("value", "NewTask");
+			}
+
+			$("#task-assign-outter").show();
+			$("#labeler-outter").show();
+			$("#dead-time-outter").show();
+
+		} else if (change == 1) {
+
+			if (cur == 5) {
+				$("#task-flag").attr("value", "CurrentTask");
+			} else {
+				$("#task-flag").attr("value", "NewTask");
+			}
+			
+			for (var i=0; i<$("#labeler option").length; i++) {
+				$("#labeler option")[i].selected = false;
+			}
+
+			$("#task-assign-outter").show();
+			$("#dead-time-outter").show();
+			$("#labeler-outter").hide();
+
+		} else if (change == 3) {
+			
+			$("#task-flag").attr("value", "CurrentTask");
+			$("#task-assign-outter").show();
+			$("#dead-time-outter").show();
+			$("#labeler-outter").show();			
+		
+		} else if (change == 4) {
+
+			$("#task-flag").attr("value", "CurrentTask");
+			$("#task-assign-outter").hide();
+			$("#dead-time-outter").hide();
+			$("#labeler-outter").hide();
+		
+		}
+	}
+
+	// 提交前验证
+	function valid_before_submit() {
+		// 如果state下拉框选择的是“请选择”，alert
+		if (!$("#wancheng:checked").val()) { // 在没有选择“完成”的情况下
+
+			if (!$("#dead-time").val()) {
+				alert("请选择截止日期！");
+				return false;
+			}
+			
+			if (!$("#fabu:checked").val()) { // 在没有选择“发布”的情况下
+				
+				if ($("#jiaodui:checked").val() || $("#fenpei:checked").val()) { // 如果“校对”或者“分配”被选择了
+					
+					for (var i=0; i<$("#labeler option").length; i++) {
+						
+						if ($("#labeler option")[i].selected) {
+							return true;
+						} else {
+						  continue;
+						}
+					}
+
+					alert("请选择标注者！");
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
     // 初始化数据
     $(function() {
+        
         $("#assign-table").DataTable();
 
         $("#dead-time").datepicker({
             changeMonth: true,
             changeYear: true
         });
+
+        var cur = $("#current-claim").val();
+        if (cur==1 || cur==2 || cur==5) {
+        	$("#task-flag").val('CurrentTask');
+        } else {
+        	$("#task-flag").val('NewTask');
+        }
+
     });
 </script>
 @endsection
