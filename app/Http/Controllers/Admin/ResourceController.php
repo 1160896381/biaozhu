@@ -107,11 +107,13 @@ class ResourceController extends Controller
             // 存储到任务表
             Assign::create(
                 array_merge(
-                    ['classId' => $classId],
-                    ['userId'  => \Auth::user()->id],
-                    ['title'   => $fileName],
-                    ['claim'   => 5],
-                    ['initXml' => $initXml]
+                    ['classId'    => $classId],
+                    ['userId'     => \Auth::user()->id],
+                    ['title'      => $fileName],
+                    ['claim'      => 5],
+                    ['finishTime' => null],
+                    ['deadTime'   => null],
+                    ['initXml'    => $initXml]
                 ));
             return redirect()
                     ->back()

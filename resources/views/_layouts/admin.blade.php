@@ -17,29 +17,29 @@
 		              	</div>
 		          	</li>
 		          	<li>
-	            	  	<a href="#"><i class="fa fa-dashboard fa-fw"></i> 资源管理<span class="fa arrow"></span></a>
+	            	  	<a href="#"><i class="fa fa-sitemap fa-fw"></i> 资源管理<span class="fa arrow"></span></a>
 		              	<ul class="nav nav-second-level">
 		                  	<li>
-		                  		<a href="/admin/resource">查看</a>
+		                  		<a href="/admin/resource"><i class="fa fa-eye fa-fw"></i>查看</a>
 		                  	</li>
 		                  	<li>
-                      			<a href="/admin/resource/batch">批量上传</a>
+                      			<a href="/admin/resource/batch"><i class="fa fa-cloud-upload fa-fw"></i>批量上传</a>
 		                  	</li>
 		              	</ul>	
 		          	</li>
 		          	<li>
-		              	<a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 任务管理<span class="fa arrow"></span></a>
+		              	<a href="#"><i class="fa fa-table fa-fw"></i> 任务管理<span class="fa arrow"></span></a>
 		              	<ul class="nav nav-second-level">
 		                  	<li>
-                      			<a href="/admin/assign/text">文本数据表</a>
+                      			<a href="/admin/assign/1"><i class="fa fa-file-text fa-fw"></i>文本数据表</a>
 		                  	</li>
 		                  	<li>
-	                      		<a href="/admin/assign/pic">图片数据表</a>
+	                      		<a href="/admin/assign/2"><i class="fa fa-file-image-o fa-fw"></i>图片数据表</a>
 		                  	</li>
 		              	</ul>
 		          	</li>
 		          	<li>
-	              		<a href="#"><i class="fa fa-table fa-fw"></i> 人员管理<span class="fa arrow"></span></a>
+	              		<a href="#"><i class="fa fa-user fa-fw"></i> 人员管理<span class="fa arrow"></span></a>
 		              	<ul class="nav nav-second-level">
 		                  	<li>
                       			<a href="flot.html">注册</a>
@@ -63,8 +63,8 @@
   		                  	</li>
 		              	</ul>
 		          	</li>
-		          	<li>
-		              	<a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 可视化统计<span class="fa arrow"></span></a>
+		          	<!--li>
+		              	<a href="#"><i class="fa fa-pie-chart-o fa-fw"></i> 可视化统计<span class="fa arrow"></span></a>
 		              	<ul class="nav nav-second-level">
 		                  	<li>
                       			<a href="flot.html">资源</a>
@@ -76,7 +76,7 @@
 	                      		<a href="morris.html">人员</a>
 		                  	</li>
 		              	</ul>
-		          	</li>
+		          	</li-->
 		      	</ul>
 		    </div>
 		</div>

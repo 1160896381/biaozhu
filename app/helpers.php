@@ -53,3 +53,42 @@ function RepGetFiletype($filetype)
 	$filetype=str_replace('.','_',$filetype);
 	return $filetype;
 }
+
+/**
+ * 获得当前状态
+ */
+function GetClaimtype($claim)
+{	
+	$ret = '未分配';
+	switch ($claim) {
+		case 1:
+			$ret = '<font color="red">认领中</font>';
+			break;
+		case 2:
+			$ret = '<font color="orange">已认领</font>';
+			break;
+		case 3:
+			$ret = '<font color="blue">校对中</font>';
+			break;
+		case 4:
+			$ret = '<font color="green">已完成</font>';
+			break;
+		case 5:
+			$ret = '<font color="red">未分配</font>';
+			break;
+		case 6:
+			$ret = '<font color="blue">工作中</font>';
+			break;
+		case 7:
+			$ret = '<font color="orange">已提交</font>';
+			break;
+		case 8:
+			$ret = '<font color="black">已过期</font>';
+			break;
+		default:
+			$ret = '<font color="red">未分配</font>';
+			break;
+	}
+
+	return $ret;
+}

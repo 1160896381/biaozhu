@@ -53,12 +53,12 @@
                         <td>
                             <button type="button" class="btn btn-xs btn-danger" onclick="delete_file('{{ $file['fileReal'] }}', '{{ $file['fileName'] }}', '{{ $file['id'] }}', '{{ $file['type'] . '/' . $file['subPath'] }}')">
                                 <i class="fa fa-times-circle fa-lg"></i>
-                                Delete
+                                删除
                             </button>
                             @if (is_image($file['mimeType']))
                                 <button type="button" class="btn btn-xs btn-success" onclick="preview_image('{{ $file['webPath'] }}')">
                                     <i class="fa fa-eye fa-lg"></i>
-                                    Preview
+                                    预览
                                 </button>
                             @endif
                         </td>
