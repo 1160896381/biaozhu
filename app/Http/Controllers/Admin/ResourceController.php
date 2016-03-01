@@ -1,13 +1,13 @@
-<?php
-
-namespace App\Http\Controllers\Admin;
+<?php namespace App\Http\Controllers\Admin;
 
 use App\Resource;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Assign;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\UploadFileRequest;
 use App\Services\UploadsManager;
+
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 
@@ -24,6 +24,7 @@ class ResourceController extends Controller
     {
         $userId = \Auth::user()->id;
         $resources = Resource::where('userId', '=', $userId)->get();
+        
         return view('admin.resource.index', compact('resources'));
     }
 
@@ -35,7 +36,7 @@ class ResourceController extends Controller
         $del_file_name = $request->get('del_file_name');
         $del_file_id = $request->get('del_file_id');
         
-        $path = $request->get('folder').'/'.$del_file_name;
+        $path = $request->get('del_file_path').'/'.$del_file_name;
 
         $result = $this->manager->deleteFile($path);
 
@@ -69,26 +70,48 @@ class ResourceController extends Controller
         // 实际存在磁盘上的
         $fileReal = $insertFile . $fileType;
 
-        if (is_text($mimeType)) $path = 'text/' . $subPath . '/' . $fileReal;
-        if (is_image($mimeType)) $path = 'pic/' . $subPath . '/' . $fileReal;
+        if (is_text($mimeType)) {
+            $path = 'text/' . $subPath . '/' . $fileReal;
+            $path_ = 'uploads/' . $path;
+            $classId = 1;
+            $type = 'text';
+            $initXml = '<UnitCorpus type="text" title="'.$fileName.'" content="'.$path_.'"></UnitCorpus>';
+        } elseif (is_image($mimeType)) {
+            $path = 'pic/' . $subPath . '/' . $fileReal;
+            $path_ = 'uploads/' . $path;
+            $classId = 2;
+            $type = 'pic';
+            $initXml = '<UnitCorpus type="picture" title="'.$fileName.'" content="'.$path_.'"><Pages><Page><OriginalPictureName>'.$path_.'</OriginalPictureName><PreProcessedPictureName></PreProcessedPictureName></Page></Pages></UnitCorpus>';
+        }
 
-        // 获得文件详情
+        // 获得文件网络存储路径
         $webPath = $this->manager->fileWebpath($path);
 
         // 成功标志
         $result = $this->manager->saveFile($path, $content);
 
-        // dd($file);
+        
         if ($result === true) {
+            // 存储到资源表
             Resource::create(
                 array_merge(
                     ['userId'   => \Auth::user()->id],
                     ['mimeType' => $mimeType],
+                    ['type'     => $type],
                     ['fileName' => $fileName], 
                     ['fileReal' => $fileReal], 
                     ['fileSize' => $file_['size']],
                     ['subPath'  => $subPath],
                     ['webPath'  => $webPath]
+                ));
+            // 存储到任务表
+            Assign::create(
+                array_merge(
+                    ['classId' => $classId],
+                    ['userId'  => \Auth::user()->id],
+                    ['title'   => $fileName],
+                    ['claim'   => 5],
+                    ['initXml' => $initXml]
                 ));
             return redirect()
                     ->back()

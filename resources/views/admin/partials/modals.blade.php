@@ -22,6 +22,7 @@
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="del_file_name" id="delete-file-name">
                     <input type="hidden" name="del_file_id" id="delete-file-id">
+                    <input type="hidden" name="del_file_path" id="delete-file-path">
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         Cancel
                     </button>

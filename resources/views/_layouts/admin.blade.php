@@ -31,10 +31,10 @@
 		              	<a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 任务管理<span class="fa arrow"></span></a>
 		              	<ul class="nav nav-second-level">
 		                  	<li>
-                      			<a href="flot.html">文本数据表</a>
+                      			<a href="/admin/assign/text">文本数据表</a>
 		                  	</li>
 		                  	<li>
-	                      		<a href="morris.html">图片数据表</a>
+	                      		<a href="/admin/assign/pic">图片数据表</a>
 		                  	</li>
 		              	</ul>
 		          	</li>

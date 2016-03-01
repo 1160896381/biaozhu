@@ -17,7 +17,7 @@
             @include('admin.partials.errors')     
             @include('admin.partials.success')       
             
-            <table id="uploads-table" class="table table-striped table-bordered">
+            <table id="resource-table" class="table table-striped table-bordered">
                 <thead>
                     <tr>
                         <th>文件名</th>
@@ -51,7 +51,7 @@
                         <td>{{ $file['updated_at']->format('j-M-y g:ia') }}</td>
                         <td>{{ human_filesize($file['fileSize']) }}</td>
                         <td>
-                            <button type="button" class="btn btn-xs btn-danger" onclick="delete_file('{{ $file['fileName'] }}', '{{ $file['id'] }}')">
+                            <button type="button" class="btn btn-xs btn-danger" onclick="delete_file('{{ $file['fileReal'] }}', '{{ $file['fileName'] }}', '{{ $file['id'] }}', '{{ $file['type'] . '/' . $file['subPath'] }}')">
                                 <i class="fa fa-times-circle fa-lg"></i>
                                 Delete
                             </button>
@@ -79,10 +79,11 @@
 <script>
 
     // 确认文件删除
-    function delete_file(name, id) {
+    function delete_file(name1, name, id, path) {
         $("#delete-file-name1").html(name);
         $("#delete-file-id").val(id);
-        $("#delete-file-name").val(name);
+        $("#delete-file-name").val(name1);
+        $("#delete-file-path").val(path);
         $("#modal-file-delete").modal("show");
     }
 
@@ -94,7 +95,7 @@
 
     // 初始化数据
     $(function() {
-        $("#uploads-table").DataTable();
+        $("#resource-table").DataTable();
     });
 </script>
 @endsection
