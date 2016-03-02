@@ -250,3 +250,103 @@
         </div>
     </div>
 </div>
+
+{{-- 查看标注者完成的任务 --}}
+<div class="modal fade" id="modal-labeler-see">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    ×
+                </button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    取消
+                </button>
+                <button type="submit" class="btn btn-danger">
+                    
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- 修改标注者信息 --}}
+<div class="modal fade" id="modal-labeler-modify">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    ×
+                </button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    取消
+                </button>
+                <button type="submit" class="btn btn-danger">
+                    
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- 删除标注者 --}}
+<div class="modal fade" id="modal-labeler-delete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    ×
+                </button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    取消
+                </button>
+                <button type="submit" class="btn btn-danger">
+                    
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- 审核标注者 --}}
+<div class="modal fade" id="modal-labeler-verify">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    ×
+                </button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    取消
+                </button>
+                <button type="submit" class="btn btn-danger">
+                    
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

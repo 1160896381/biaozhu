@@ -38,5 +38,11 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware' => 'auth'], 
 	Route::post('labeler/add', 'AssignController@addLabeler');
 	Route::post('labeler/verify', 'AssignController@verifyLabeler');
 	Route::delete('labeler/delete', 'AssignController@deleteLabeler');
+
+	// 规范
+	Route::get('norm/type', 'NormController@typeShow');
+	Route::get('norm/detail', 'NormController@detailShow');
+	Route::post('norm/type', 'NormController@typeChange');
+	Route::post('norm/detail', 'NormController@detailChange');
 });
 

@@ -11,7 +11,9 @@ class LabelerController extends Controller {
 
 	public function index()
 	{
-		return view('admin.labeler.index');
+		$userId = \Auth::user()->id;
+		$labelers = Labeler::where('userId', '=', $userId)->get();
+		return view('admin.labeler.index', compact('labelers'));
 	}
 
 	public function register(Request $request)
@@ -23,12 +25,14 @@ class LabelerController extends Controller {
 
 		if ($password != $password_confirmation) {
 			$error = "两次输入密码不一致！";
-			
+
 			return redirect()
 			        ->back()
 			        ->withErrors([$error]);
 		}
 
+		// 邮箱名不应该重复
+		
 		$salt = MakePassword(20);
 		$password = GeneratePassword($password, $salt);
 

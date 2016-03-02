@@ -28,7 +28,41 @@
                     </tr>
                 </thead>
                 <tbody>
-
+					 {{-- 所有文件 --}}
+					@foreach ($labelers as $labeler)
+					    <tr>
+					        <td>
+					            {{ $labeler['id'] }}
+					        </td>
+					        <td>
+					            {{ $labeler['labelerName'] }}
+					        </td>
+					        <td>
+					        	{{ $labeler['updated_at']->format('j-M-y g:ia') }}
+				        	</td>
+				        	<td>
+					        	{{ $labeler['verify'] }}
+				        	</td>
+				        	<td>
+					            <button type="button" class="btn btn-xs btn-info" onclick="see_labeler()">
+					                <i class="fa fa-eye fa-lg"></i>
+					                查看
+					            </button>
+					            <button type="button" class="btn btn-xs btn-info" onclick="modify_labeler()">
+					                <i class="fa fa-eraser fa-lg"></i>
+					                修改
+					            </button>
+					            <button type="button" class="btn btn-xs btn-danger" onclick="delete_labeler()">
+					                <i class="fa fa-times-circle fa-lg"></i>
+					                删除
+					            </button>
+					            <button type="button" class="btn btn-xs btn-warning" onclick="verify_labeler()">
+					                <i class="fa fa-bug fa-lg"></i>
+					                审核
+					            </button>
+					        </td>
+					    </tr>
+					@endforeach
                 </tbody>
             </table>
         </div>
@@ -41,7 +75,25 @@
 
 @section('script')
 <script>
-	
 
+function see_labeler() {
+
+	$("#modal-labeler-see").modal("show");
+}
+
+function modify_labeler() {
+	
+	$("#modal-labeler-modify").modal("show");
+}
+
+function delete_labeler() {
+	
+	$("#modal-labeler-delete").modal("show");
+}
+
+function verify_labeler() {
+	
+	$("#modal-labeler-verify").modal("show");
+}
 </script>
 @endsection

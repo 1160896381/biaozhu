@@ -45,13 +45,10 @@
 	              		<a href="#"><i class="fa fa-edit fa-fw"></i> 规范制定<span class="fa arrow"></span></a>
 	              		<ul class="nav nav-second-level">
 		                  	<li>
-                      			<a href="flot.html">标注任务</a>
-		                  	</li>
-		                  	<li>
-	                      		<a href="morris.html">任务类型（一级名称）</a>
+	                      		<a href="/admin/norm/type">标注类型</a>
 		                  	</li>
   		                  	<li>
-  	                      		<a href="morris.html">任务类型（二级名称）</a>
+  	                      		<a href="/admin/norm/detail">具体名称</a>
   		                  	</li>
 		              	</ul>
 		          	</li>
