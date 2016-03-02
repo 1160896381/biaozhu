@@ -39,15 +39,7 @@
 		              	</ul>
 		          	</li>
 		          	<li>
-	              		<a href="#"><i class="fa fa-user fa-fw"></i> 人员管理<span class="fa arrow"></span></a>
-		              	<ul class="nav nav-second-level">
-		                  	<li>
-                      			<a href="flot.html">注册</a>
-		                  	</li>
-		                  	<li>
-	                      		<a href="morris.html">名单列表</a>
-		                  	</li>
-		              	</ul>
+	              		<a href="/admin/labeler/"><i class="fa fa-users fa-fw"></i> 人员管理</a>
 		          	</li>
 		          	<li>
 	              		<a href="#"><i class="fa fa-edit fa-fw"></i> 规范制定<span class="fa arrow"></span></a>
