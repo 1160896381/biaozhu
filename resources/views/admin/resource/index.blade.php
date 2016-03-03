@@ -1,5 +1,9 @@
 @extends('_layouts.admin')
 
+@section('style')
+<link href="/css/dataTables.bootstrap.css" rel="stylesheet">
+@endsection
+
 @section('contentAdmin')
 
 <div id="page-wrapper">
@@ -76,6 +80,8 @@
 @endsection
 
 @section('script')
+<script src="/js/jquery.dataTables.min.js"></script>
+<script src="/js/dataTables.bootstrap.min.js"></script>
 <script>
 
     // 确认文件删除

@@ -1,6 +1,7 @@
 @extends('_layouts.admin')
 
 @section('style')
+<link href="/css/dataTables.bootstrap.css" rel="stylesheet">
 <link href="/css/jquery.ui.datepicker.css" rel="stylesheet">
 @endsection
 
@@ -89,6 +90,8 @@
 @endsection
 
 @section('script')
+<script src="/js/jquery.dataTables.min.js"></script>
+<script src="/js/dataTables.bootstrap.min.js"></script>
 <script src="/js/jquery.ui.core.js"></script>
 <script src="/js/jquery.ui.datepicker.js"></script>
 <script>

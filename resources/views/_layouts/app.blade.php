@@ -6,7 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>通用语料库协同标注平台</title>
 	<link href="/css/metisMenu.css" rel="stylesheet">
-    <link href="/css/dataTables.bootstrap.css" rel="stylesheet">
 	<link href="/css/app.css" rel="stylesheet">
 	<link href="/css/sb-admin-2.css" rel="stylesheet">
 	<link href="/css/font-awesome.css" rel="stylesheet">
@@ -51,8 +50,6 @@
 	<script src="/js/jquery.js"></script>
 	<script src="/js/bootstrap.js"></script>
 	<script src="/js/metisMenu.js"></script>
-	<script src="/js/jquery.dataTables.min.js"></script>
-	<script src="/js/dataTables.bootstrap.min.js"></script>
 	<script src="/js/sb-admin-2.js"></script>
 
 	@yield('script')

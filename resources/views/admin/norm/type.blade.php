@@ -5,7 +5,7 @@
 <div id="page-wrapper">
 	
 	<ul class="nav nav-tabs">
-		@for ($i = 0; $i < 2; $i++)
+		@for ($i = 0; $i < count($types); $i++)
 			@if ($i == 0) 
 				<li class="active">
 					<a href="#tab0" data-toggle="tab">
@@ -25,7 +25,7 @@
 	</ul>
 
 	<div class="tab-content" style="min-height: 200px">
-		@for ($i = 0; $i < 2; $i++)
+		@for ($i = 0; $i < count($types); $i++)
 			@if ($i == 0)
 				<div class="tab-pane active tab-norm" id="tab0">
 			  		<p id="tag0"></p>
@@ -38,8 +38,7 @@
 		@endfor
 	</div>
 	
-
-	<div class="row">
+	<div class="row" style="margin-top: 20px">
 	    <div class="col-md-6">
 	        <button type="button" class="btn btn-primary btn-md" id="getTab">
 	            <i class="fa fa-send"></i> 提交
@@ -55,7 +54,9 @@
 <script>
 	$(function() {
 
-		for (var i=0; i<2; i++) {
+		var size = $(".nav >li").size();
+
+		for (var i=0; i<size; i++) {
 			$("#tag" + i).tabControl(
 				{ maxTabCount:100, tabW:80 }, 
 				$("div[num-index=" + i + "]").attr("first-level")
@@ -64,7 +65,7 @@
 
 		$("#getTab").click(function() {
 			var tab_val = '';
-			for (var i=0; i<2; i++) {
+			for (var i=0; i<size; i++) {
 				tab_val += $("#tag" + i).getTabVals() + ' ';
 			}
 		    // console.log(typeof(tab_val))
@@ -73,11 +74,7 @@
 		    $.ajax({
 		        type: 'POST',
 		        url: 'type',
-		        data: encodeURI(param),
-		        success: function() {
-		            alert("请继续填写名称，否则规范不会更改！");
-		            window.location.reload();
-		        }
+		        data: encodeURI(param)
 		    });
 		});
 
