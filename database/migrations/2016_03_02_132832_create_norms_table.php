@@ -25,8 +25,8 @@ class CreateNormsTable extends Migration {
 			$table->string('zeroLevel');
 			$table->string('firstLevel');
 			$table->string('secondLevel');
-			$table->integer('hasNorm');
-			$table->integer('hasBS');
+			$table->boolean('hasNorm');
+			$table->boolean('hasBS');
 			$table->timestamps();
 		});
 	}
