@@ -54,7 +54,7 @@
 <script>
 	$(function() {
 
-		var size = $(".nav >li").size();
+		var size = $(".nav-tabs li").length;
 
 		for (var i=0; i<size; i++) {
 			$("#tag" + i).tabControl(

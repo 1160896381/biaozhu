@@ -31,7 +31,7 @@
 			  		<table class="table table-bordered table-condensed">
 			  			@for ($j=0; $j < count(explode(',', $types[0]['firstLevel'])); $j++)
 			  			<tr>
-			  				<td>{{ explode(',', $types[0]['firstLevel'])[$j] }}</td>
+			  				<td style="min-width: 50px;">{{ explode(',', $types[0]['firstLevel'])[$j] }}</td>
 			  				<td id="tag{{ '0A'.$j }}"></td>
 			  			</tr>
 			  			@endfor
@@ -42,7 +42,7 @@
 			  		<table class="table table-bordered table-condensed">
 			  			@for ($j=0; $j < count(explode(',', $types[$i]['firstLevel'])); $j++)
 			  			<tr>
-			  				<td>{{ explode(',', $types[$i]['firstLevel'])[$j] }}</td>
+			  				<td style="min-width: 50px;">{{ explode(',', $types[$i]['firstLevel'])[$j] }}</td>
 			  				<td id="tag{{ $i.'A'.$j }}"></td>
 			  			</tr>
 			  			@endfor
@@ -69,7 +69,7 @@
 <script>
 	$(function() {
 
-		var li_size = $(".nav li").size();
+		var li_size = $(".nav-tabs li").length
 
 		for (var i=0; i<li_size; i++) {
 			var tr_size = $("#tab" + i + " tr").size();
@@ -86,17 +86,19 @@
 		
 		// 注意合法字符里不能含有“.”以及“。”
 		$("#getTab").click(function() {
-			var tab_val = '';
+			var tab_val = [];
 			for (var i=0; i<li_size; i++) {
 				var tr_size = $("#tab" + i + " tr").size();
 				for (var j=0; j<tr_size; j++) {
-					tab_val += $("#tag" + i + "A" + j).getTabVals() + '.';
+					tab_val.push($("#tag" + i + "A" + j).getTabVals());
+					tab_val.push(".");
 				}
-				tab_val += '。';
+				tab_val.push("。");
 			}
 		    // console.log(typeof(tab_val))
 		    var param = "tab_val=" 
 	    			+ tab_val
+	    				.join(",")
 	    				.replace(/([\.|。]$)/, "")
     					.replace(/\+/gi, '＋');
 		    
