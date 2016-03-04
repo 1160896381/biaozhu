@@ -23,15 +23,14 @@ class LabelerController extends Controller {
 		$labelerName = $request->get('labelerName');
 		$password = $request->get('password');
 
-		$salt = MakePassword(20);
-		$password = GeneratePassword($password, $salt);
-
+		// $salt = MakePassword(20);
+		// $password = GeneratePassword($password, $salt);
+		$password = \Hash::make($password);
 		$labeler = Labeler::create(
 			array_merge(
                 ['userId'      => \Auth::user()->id],
                 ['labelerName' => $labelerName],
                 ['password'    => $password],
-                ['salt'        => $salt],
                 ['email' 	   => $email]
             ));
 
