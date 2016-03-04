@@ -6289,5 +6289,12 @@ a#deltab :hover {
   color: #D2D2D2;
   text-decoration: none;
 }
+.login-vline {
+  position: absolute;
+  height: 40%;
+  border-left: 1px solid #eee;
+  left: 50%;
+  top: 20%;
+}
 
 /*# sourceMappingURL=app.css.map */

@@ -6,6 +6,7 @@ Route::get('/', 'HomeController@index');
 Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function()
 {
 	Route::get('login', 'AuthController@getLogin');
+	Route::post('labelerLogin', 'AuthController@postLabelerLogin');
 	Route::post('login', 'AuthController@postLogin');
 	Route::get('logout', 'AuthController@getLogout');
 });

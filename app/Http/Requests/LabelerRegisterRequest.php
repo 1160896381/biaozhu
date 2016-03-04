@@ -14,7 +14,7 @@ class LabelerRegisterRequest extends Request {
 	    return [
 	        "labelerName" => ['required','min:3','max:16','unique:labelers'],
 	        "password" => ['required','min:6','max:16','confirmed'],
-	        "email" => ['required', 'unique:labelers']
+	        "email" => ['required', 'unique:labelers', 'email']
 	    ]; 
 	}
 
