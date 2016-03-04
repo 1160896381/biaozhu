@@ -3,6 +3,7 @@
 use App\Labeler;
 
 use App\Http\Requests;
+use App\Http\Requests\LabelerRegisterRequest;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -16,21 +17,12 @@ class LabelerController extends Controller {
 		return view('admin.labeler.index', compact('labelers'));
 	}
 
-	public function register(Request $request)
+	public function postRegister(LabelerRegisterRequest $request)
 	{
 		$email = $request->get('email');
-		$labelerName = $request->get('name');
+		$labelerName = $request->get('labelerName');
 		$password = $request->get('password');
-		$password_confirmation = $request->get('password_confirmation');
 
-		if ($password != $password_confirmation) {
-			$error = "两次输入密码不一致！";
-
-			return redirect()
-			        ->back()
-			        ->withErrors([$error]);
-		}
-		
 		$salt = MakePassword(20);
 		$password = GeneratePassword($password, $salt);
 
@@ -40,11 +32,9 @@ class LabelerController extends Controller {
                 ['labelerName' => $labelerName],
                 ['password'    => $password],
                 ['salt'        => $salt],
-                ['email' 	   => $email],
-                ['verify'      => '已审核']
+                ['email' 	   => $email]
             ));
 
-		// dd($labeler);
 		return redirect()->back();
 	}
 

@@ -21,7 +21,6 @@ class CreateLabelersTable extends Migration {
 			$table->string('email')->unique();
 			$table->string('password', 60);
 			$table->string('salt');
-			$table->string('verify');
 			$table->timestamps();
 		});
 	}

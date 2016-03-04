@@ -28,7 +28,6 @@
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())
 						<li><a href="/auth/login">登录</a></li>
-						<li><a href="/auth/register">注册</a></li>
 					@else
 						<li><a href="/admin">后台首页</a></li>
 						<li class="dropdown">

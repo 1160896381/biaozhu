@@ -2,11 +2,9 @@
 
 Route::get('/', 'HomeController@index');
 
-// 登录注册
+// 管理员登录，不开放注册，注册通过超级管理员
 Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function()
 {
-	Route::get('register', 'AuthController@getRegister');
-	Route::post('register', 'AuthController@postRegister');
 	Route::get('login', 'AuthController@getLogin');
 	Route::post('login', 'AuthController@postLogin');
 	Route::get('logout', 'AuthController@getLogout');
@@ -31,12 +29,12 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware' => 'auth'], 
 	Route::post('assign/task', 'AssignController@addTask');
 	Route::delete('assign/task', 'AssignController@deleteTask');
 
-	// 人员
+	// 人员，不开放注册，注册通过管理员
 	Route::get('labeler', 'LabelerController@index');
-	Route::post('labeler/register', 'LabelerController@register');
+	Route::post('labeler/register', 'LabelerController@postRegister');
 	Route::post('labeler/modify', 'AssignController@modifyLabeler');
-	Route::delete('labeler/delete', 'AssignController@deleteLabeler');
 	Route::post('labeler/verify', 'AssignController@verifyLabeler');
+	Route::delete('labeler/delete', 'AssignController@deleteLabeler');
 
 	// 规范
 	Route::get('norm/type', 'NormController@typeShow');

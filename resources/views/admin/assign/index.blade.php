@@ -156,9 +156,19 @@
 
 	// 提交前验证
 	function valid_before_submit() {
-		// 如果state下拉框选择的是“请选择”，alert
 		if (!$("#wancheng:checked").val()) { // 在没有选择“完成”的情况下
 
+			// 如果state下拉框选择的是“请选择”，alert
+			if ($("select[name='state'] option:selected").val() == 0) {
+				alert("请选择分配状态！");
+				return false;
+			}
+
+			if ($("select[name='state'] option:selected").val()==0 
+				&& $("select[name='state']").style.display!='none') {
+				alert("请选择分配状态！");
+				return false;	
+			}
 			if (!$("#dead-time").val()) {
 				alert("请选择截止日期！");
 				return false;
@@ -213,7 +223,7 @@
 	    // 当选择完一级规范后,依据一级规范确定二级规范
 	    $("select[name='state']").change(function() {
 	        // 得到state中被选中option的value值
-	        var $proId = $(this).attr("value");
+	        var $proId = $("select[name='state'] option:selected").attr("value");
 	        var url = "/flash/assets/xml/label_types_" + userId + ".xml";
 
 	        $.ajax({
