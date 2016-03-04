@@ -201,10 +201,13 @@ function BuildLayer($tag3)
     $newarr = explode("<>", $tag3);
 
     // 重新插入特殊符号
-    for ($i=0; $i<count($newarr); $i++)
-    {
-        array_splice($newarr, 2*$i+1, 0, $deli[$i]);
-    }
+	if (!empty($deli)) 
+	{
+	    for ($i=0; $i<count($deli); $i++)
+	    {
+        	array_splice($newarr, 2*$i+1, 0, $deli[$i]);
+	    }
+	}
 
 	// 存放层数的数组
 	$cs = array();
@@ -247,6 +250,7 @@ function BuildLayer($tag3)
     		}
     	}
     }
+    $str = '';
     // 3/错字/4/错字1/5/错字11/6/错字111/6/错字112/5/错字12/4/错字2/3/别字/4/别字1/5/别字11/5/别字12/4/别字2
     // 3/错字
     if (count($cs) == 2)

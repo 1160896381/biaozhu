@@ -18,8 +18,8 @@ class CreateLabelersTable extends Migration {
 			$table->increments('id');
 			$table->string('labelerName');
 			$table->integer('userId');
-			$table->string('email');
-			$table->string('password');
+			$table->string('email')->unique();
+			$table->string('password', 60);
 			$table->string('salt');
 			$table->string('verify');
 			$table->timestamps();

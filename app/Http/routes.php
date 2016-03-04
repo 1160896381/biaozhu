@@ -12,7 +12,6 @@ Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function()
 	Route::get('logout', 'AuthController@getLogout');
 });
 
-// 资源管理
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware' => 'auth'], function()
 {
 	Route::get('/', 'ResourceController@index');
@@ -35,9 +34,9 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware' => 'auth'], 
 	// 人员
 	Route::get('labeler', 'LabelerController@index');
 	Route::post('labeler/register', 'LabelerController@register');
-	Route::post('labeler/add', 'AssignController@addLabeler');
-	Route::post('labeler/verify', 'AssignController@verifyLabeler');
+	Route::post('labeler/modify', 'AssignController@modifyLabeler');
 	Route::delete('labeler/delete', 'AssignController@deleteLabeler');
+	Route::post('labeler/verify', 'AssignController@verifyLabeler');
 
 	// 规范
 	Route::get('norm/type', 'NormController@typeShow');

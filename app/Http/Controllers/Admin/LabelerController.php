@@ -30,13 +30,11 @@ class LabelerController extends Controller {
 			        ->back()
 			        ->withErrors([$error]);
 		}
-
-		// 邮箱名不应该重复
 		
 		$salt = MakePassword(20);
 		$password = GeneratePassword($password, $salt);
 
-		Labeler::create(
+		$labeler = Labeler::create(
 			array_merge(
                 ['userId'      => \Auth::user()->id],
                 ['labelerName' => $labelerName],
@@ -46,6 +44,7 @@ class LabelerController extends Controller {
                 ['verify'      => '已审核']
             ));
 
+		// dd($labeler);
 		return redirect()->back();
 	}
 

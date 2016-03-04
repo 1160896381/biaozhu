@@ -21,12 +21,13 @@
             @include('admin.partials.errors')     
             @include('admin.partials.success')       
             
-            <table id="resource-table" class="table table-striped table-bordered">
+            <table id="labeler-table" class="table table-striped table-bordered">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>用户名</th>
                         <th>注册时间</th>
+                        <th>邮箱</th>
                         <th>审核状态</th>
                         <th data-sortable="false">操作</th>
                     </tr>
@@ -43,6 +44,9 @@
 					        </td>
 					        <td>
 					        	{{ $labeler['updated_at']->format('j-M-y g:ia') }}
+				        	</td>
+				        	<td>
+				        		{{ $labeler['email'] }}
 				        	</td>
 				        	<td>
 					        	{{ $labeler['verify'] }}
@@ -101,5 +105,10 @@ function verify_labeler() {
 	
 	$("#modal-labeler-verify").modal("show");
 }
+
+$(function() {
+	$("#labeler-table").DataTable();
+});
+
 </script>
 @endsection
