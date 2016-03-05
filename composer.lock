@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c96717778b8a21fabb1a4aadc0c1a02f",
-    "content-hash": "3498b87346805425235e24c4628b23f3",
+    "hash": "aeebc418a52fa342a950f26df22de0fe",
+    "content-hash": "53a400382a1c98c19e0e2d1851dcc6e3",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1784,6 +1784,47 @@
                 "environment"
             ],
             "time": "2014-12-05 15:19:21"
+        },
+        {
+            "name": "wuifdesign/laravel-multiauth",
+            "version": "v0.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wuifdesign/laravel-multiauth.git",
+                "reference": "0c0eb68d6ea2bb95e492abb545adb7abbf7a941b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wuifdesign/laravel-multiauth/zipball/0c0eb68d6ea2bb95e492abb545adb7abbf7a941b",
+                "reference": "0c0eb68d6ea2bb95e492abb545adb7abbf7a941b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WuifDesign\\MultiAuth\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Wohlfahrter",
+                    "email": "design.wuif@gmail.com"
+                }
+            ],
+            "description": "MultiAuth integration for Laravel",
+            "keywords": [
+                "laravel",
+                "multiauth"
+            ],
+            "time": "2016-01-02 23:04:43"
         }
     ],
     "packages-dev": [

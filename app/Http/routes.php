@@ -2,11 +2,28 @@
 
 Route::get('/', 'HomeController@index');
 
+// Route::get('/', array(
+//     'uses' => function () {
+//         return 'Hello World';
+//     },
+//     'middleware' => [ 'auth' ],
+//     'auth' => 'user',
+// ));
+
+// Route::get('/', array(
+//     'auth' => 'labeler',
+//     'uses' => function () {
+//         return 'Hello World';
+//     },
+//     'middleware' => [ 'auth' ]
+// ));
+
+Route::post('auth/login/labeler', 'Auth\AuthController@postLabelerLogin');
+
 // 管理员登录，不开放注册，注册通过超级管理员
 Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function()
 {
 	Route::get('login', 'AuthController@getLogin');
-	Route::post('labelerLogin', 'AuthController@postLabelerLogin');
 	Route::post('login', 'AuthController@postLogin');
 	Route::get('logout', 'AuthController@getLogout');
 });

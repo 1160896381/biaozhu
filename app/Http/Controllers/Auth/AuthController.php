@@ -19,4 +19,12 @@ class AuthController extends Controller {
 
 		$this->middleware('guest', ['except' => 'getLogout']);
 	}
+
+	public function postLabelerLogin(Request $request) 
+	{
+		// dd($request);
+		// dd($this->auth);
+		dd(\Auth::currentType());
+		// dd(\Auth::type('labeler')->check());
+	}
 }
