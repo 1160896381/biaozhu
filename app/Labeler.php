@@ -8,6 +8,10 @@ class Labeler extends Model {
 
 	use SoftDeletes;
 
-	protected $fillable = ['userId', 'labelerName', 'password', 'salt', 'email', 'type', 'verify'];
+	protected $table = 'labelers';
+	
+	protected $fillable = ['userId', 'labelerName', 'password', 'email', 'type', 'verify'];
+
+	protected $hidden = ['password', 'remember_token'];
 
 }

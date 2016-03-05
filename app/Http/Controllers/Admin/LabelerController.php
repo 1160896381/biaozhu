@@ -26,6 +26,7 @@ class LabelerController extends Controller {
 		// $salt = MakePassword(20);
 		// $password = GeneratePassword($password, $salt);
 		$password = \Hash::make($password);
+		
 		$labeler = Labeler::create(
 			array_merge(
                 ['userId'      => \Auth::user()->id],
