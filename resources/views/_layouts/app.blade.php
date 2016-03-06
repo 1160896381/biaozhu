@@ -37,7 +37,7 @@
 							</ul>
 						</li>
 					@elseif (Auth::currentType() == 'labeler')
-						<li><a href="/admin">后台首页</a></li>
+						<li><a href="/labeler">前台首页</a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->labelerName }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
@@ -51,8 +51,6 @@
 	</nav>
 
   	@yield('contentApp')
-
-  	@yield('footer')
 
 	<script src="/js/jquery.js"></script>
 	<script src="/js/bootstrap.js"></script>

@@ -14,7 +14,7 @@ Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function()
 	Route::get('labeler/logout', array('auth'=>'labeler', 'uses'=>'LabelerAuthController@getLogout'));
 });
 
-Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>'auth'], function()
+Route::group(['prefix'=>'admin', 'namespace'=>'Admin'], function()
 {
 	Route::get('/', 'ResourceController@index');
 
@@ -47,18 +47,8 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>'auth'], fu
 	Route::post('norm/detail', 'NormController@detailChange');
 });
 
-// Route::group(['prefix'=>'labeler', 'namespace'=>'Admin', 'middleware'=>'auth'], function()
-// {
-// 	Route::get('/', function() {
-// 		dd('11');
-// 	});
-// });
+Route::group(['prefix'=>'labeler', 'namespace'=>'Labeler', 'auth'=>'labeler'], function()
+{
+	Route::get('assign', array('uses'=>'AssignController@show'));		
+});
 
-Route::get('labeler', array(
-	'auth'=>'labeler', 
-    'uses' => function () {
-    	Auth::impersonate(10, 'labeler');
-
-        return Auth::currentType();
-    }
-));

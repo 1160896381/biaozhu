@@ -18,8 +18,8 @@
     <div class="row">
         <div class="col-sm-12">
             
-            @include('admin.partials.errors')     
-            @include('admin.partials.success')       
+            @include('partials.errors')     
+            @include('partials.success')       
             
             <table id="resource-table" class="table table-striped table-bordered">
                 <thead>
@@ -75,7 +75,7 @@
     </div>
 </div>
 
-@include('admin.partials.modals')
+@include('partials.modals')
 
 @endsection
 

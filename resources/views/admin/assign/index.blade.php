@@ -85,7 +85,7 @@
 	</div>
 </div>
 
-@include('admin.partials.modals')
+@include('partials.modals')
 
 @endsection
 

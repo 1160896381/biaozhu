@@ -25,6 +25,12 @@ body {
         padding: 0 30px;
         border-left: 1px solid #e7e7e7;
     }
+
+    #labeler-page-wrapper {
+        position: inherit;
+        padding: 0 15px;
+        min-height: 568px;
+    }
 }
 
 .navbar-top-links {

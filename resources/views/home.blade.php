@@ -78,20 +78,16 @@
 	    </div>
 	</div>
 
-@endsection
+@include('partials.footer')
 
-@section('footer')
-	<div id="footer">
-		©2015 大数据与语言教育中心
-	</div>
 @endsection
 
 @section('script')
-	<script>
-	$(function(){
-		$('#myCarousel').carousel({
-	  		interval: 2000
-		})
+<script>
+$(function(){
+	$('#myCarousel').carousel({
+  		interval: 2000
 	})
-	</script>
+})
+</script>
 @endsection

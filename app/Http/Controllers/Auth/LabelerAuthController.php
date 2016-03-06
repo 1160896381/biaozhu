@@ -1,11 +1,9 @@
 <?php namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
-
 class LabelerAuthController extends AuthController 
 {
-	// 登录后跳转到labeler页面
-	protected $redirectPath = '/labeler';
+	// 登录后跳转到labeler的任务列表页面
+	protected $redirectPath = '/labeler/assign';
 
-	protected $loginPath = '/auth/labeler/login';
+	protected $loginPath = '/auth/labeler/login';	
 }
