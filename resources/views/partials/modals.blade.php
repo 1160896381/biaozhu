@@ -123,16 +123,16 @@
                         </label>
                         <div class="col-sm-8">
                             <label class="radio-inline">
-                                <input type="radio" name="claim" id="fenpei" onclick="select_radio(6)" checked> 只分配
+                                <input type="radio" name="claim" id="fenpei" value="6" onclick="select_radio(6)" checked> 只分配
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="claim" id="fabu" onclick="select_radio(1)"> 发布
+                                <input type="radio" name="claim" id="fabu" value="1" onclick="select_radio(1)"> 发布
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="claim" id="jiaodui" onclick="select_radio(3)"> 校对
+                                <input type="radio" name="claim" id="jiaodui" value="3" onclick="select_radio(3)"> 校对
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="claim" id="wancheng" onclick="select_radio(4)"> 完成
+                                <input type="radio" name="claim" id="wancheng" value="4" onclick="select_radio(4)"> 完成
                             </label>
                         </div>
                     </div>
@@ -166,12 +166,12 @@
                             标注者
                         </label>
                         <div class="col-sm-4">
-                            <select multiple="multiple" class="form-control" id="labeler" name="labeler">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                            <select id="labeler" class="selectpicker" name="labeler[]" multiple data-live-search="true">
+                                @foreach ($labelers as $labeler)
+                                    <option data-id={{ $labeler['id'] }}>
+                                        {{ $labeler['labelerName'] }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -303,31 +303,6 @@
 
 {{-- 删除标注者 --}}
 <div class="modal fade" id="modal-labeler-delete">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                    ×
-                </button>
-                <h4 class="modal-title"></h4>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">
-                    取消
-                </button>
-                <button type="submit" class="btn btn-danger">
-                    
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- 审核标注者 --}}
-<div class="modal fade" id="modal-labeler-verify">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

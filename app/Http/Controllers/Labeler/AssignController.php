@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers\Labeler;
 
+use App\Assign;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -9,7 +11,13 @@ class AssignController extends Controller {
 
 	public function show()
 	{
-		// dd(\Auth::user()->labelerName);
-		return view('labeler.assign.index');
+		// dd(\Auth::user()->id);
+		$assigns = Assign::where('labeler', '=', \Auth::user()->labelerName)
+					->where('claim', '!=', 1)
+					->where('claim', '!=', 8)
+					->get();
+		
+		// dd($assigns);
+		return view('labeler.assign.index', compact('assigns'));
 	}
 }

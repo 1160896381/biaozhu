@@ -94,6 +94,41 @@ function GetClaimtype($claim)
 }
 
 /**
+ * 获得类型
+ */
+function GetClasstype($classId)
+{
+	switch ($classId) {
+		case '1':
+			$ret = '文本';
+			break;
+		case '2':
+			$ret = '图片';
+			break;
+		case '1':
+			$ret = '音频';
+			break;
+		case '2':
+			$ret = '视频';
+			break;
+		default:
+			$ret = '文本';
+			break;
+	}
+
+	return $ret;
+}
+
+/**
+ * 获得任务类型
+ */
+function GetStatetype($state, $state2, $userId)
+{
+	// dd($state, $state2, $userId);
+	
+}
+
+/**
  * 取得随机数
  */
 function MakePassword($pw_length)
@@ -118,7 +153,7 @@ function MakePassword($pw_length)
 }
 
 /**
- * 生成密码
+ * 生成密码，MD5
  */
 function GeneratePassword($password, $salt) 
 {

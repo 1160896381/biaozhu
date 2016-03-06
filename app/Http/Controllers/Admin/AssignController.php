@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Assign;
+use App\Labeler;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -17,51 +18,66 @@ class AssignController extends Controller {
 					->where('classId', '=', $classId)
 					->get();
 
-		return view('admin.assign.index', compact('assigns'));
+		$labelers = Labeler::where('userId', '=', $userId)
+					->get();
+		// dd($labelers);
+		return view('admin.assign.index', compact('assigns', 'labelers'));
 	}
 
 	public function addTask(Request $request)
 	{
-		$task_flag = $request->get('task_flag');
+		$task_flag = $request->get('task_flag');	// 用于区分任务类型
 		$deadTime = $request->get('deadTime');
 		$claim = $request->get('claim');
 		$labeler = $request->get('labeler');
+		$state = $request->get('state');
+		$state2 = $request->get('state2');
+		// dd(count($labeler));
+		// dd($state.'$$$$'.$state2);
 		$id = $request->get('assign_id');
 		$classId = $request->get('class_id');
 
-		// dd($task_flag);
-		if ($task_flag == 'CurrentTask') { // 更改当前任务
+		// 对于该次选择的每一个标注者，分别创建一个任务
+		for ($i=0; $i<count($labeler); $i++) 
+		{
+			// dd($task_flag);
+			if ($task_flag == 'CurrentTask') { // 更改当前任务
 
-			Assign::where('id', '=', $id)->update(
-				array_merge(
-				    ['claim'      => $claim],
-				    ['deadTime'   => $deadTime],
-				    ['labeler'    => $labeler]
-				));
+				Assign::where('id', '=', $id)->update(
+					array_merge(
+					    ['claim'    => $claim],
+					    ['deadTime' => $deadTime],
+					    ['labeler'  => $labeler[$i]],
+					    ['state'    => $state],
+					    ['state2'    => $state2]
+					));
 
-		} else if ($task_flag == 'NewTask') { // 创建新任务
+			} else if ($task_flag == 'NewTask') { // 创建新任务
 
-			$oldAssign = Assign::where('id', '=', $id)->get()[0];
-			// dd($oldAssign);
-		    Assign::create(
-		        array_merge(
-		            ['classId'    => $classId],
-		            ['userId'     => \Auth::user()->id],
-		            ['title'      => $oldAssign['title']],
-		            ['claim'      => $claim],
-		            ['finishTime' => null],
-		            ['deadTime'   => $deadTime],
-		            ['labeler'    => $labeler],
-		            ['initXml'    => $oldAssign['initXml']]
-		        ));
-		
-		} else {
-			$error = "An error occurred adding task.";
-			return redirect()
-			        ->back()
-			        ->withErrors([$error]);
+				$oldAssign = Assign::where('id', '=', $id)->get()[0];
+				// dd($oldAssign);
+			    Assign::create(
+			        array_merge(
+			            ['classId'    => $classId],
+			            ['userId'     => \Auth::user()->id],
+			            ['title'      => $oldAssign['title']],
+			            ['claim'      => $claim],
+			            ['finishTime' => null],
+			            ['deadTime'   => $deadTime],
+			            ['labeler'    => $labeler[$i]],
+			            ['initXml'    => $oldAssign['initXml']],
+			            ['state'      => $state],
+					    ['state2'     => $state2]
+			        ));
+			
+			} else {
+				$error = "An error occurred adding task.";
+				return redirect()
+				        ->back()
+				        ->withErrors([$error]);
+			}
 		}
-		
+
 		return redirect()
 	            ->back()
 	            ->withSuccess("");

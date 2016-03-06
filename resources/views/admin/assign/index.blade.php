@@ -3,6 +3,7 @@
 @section('style')
 <link href="/css/dataTables.bootstrap.css" rel="stylesheet">
 <link href="/css/jquery.ui.datepicker.css" rel="stylesheet">
+<link href="/css/bootstrap-select.css" rel="stylesheet">
 @endsection
 
 @section('contentAdmin')
@@ -44,14 +45,14 @@
 			        	</td>
 				        <td>
 				        	@if (isset($assign['finishTime']))
-								{{ $assign['finishTime'] }}
+								{{ $assign['finishTime']->format('j-M-y g:ia') }}
 							@else
 								--
 				        	@endif
 			        	</td>
 			        	<td>
 				        	@if (isset($assign['deadTime']))
-								{{ $assign['deadTime'] }}
+								{{ $assign['deadTime']->format('j-M-y g:ia') }}
 							@else
 								--
 				        	@endif
@@ -60,7 +61,7 @@
 				        	{{ $assign['labeler'] }}
 			        	</td>
 			        	<td>
-				        	{{ $assign['state'] }}
+				        	{{-- GetStatetype($assign['state'], $assign['state2'], $assign['userId']) --}}
 			        	</td>
 				        <td>
 				            <button type="button" class="btn btn-xs btn-info" onclick="assign_task({{ $assign['id'] }}, {{ $assign['classId'] }}, {{ $assign['userId'] }}, {{ $assign['claim'] }})">
@@ -94,6 +95,7 @@
 <script src="/js/dataTables.bootstrap.min.js"></script>
 <script src="/js/jquery.ui.core.js"></script>
 <script src="/js/jquery.ui.datepicker.js"></script>
+<script src="/js/bootstrap-select.min.js"></script>
 <script>
 
 	// 分配任务
@@ -262,6 +264,8 @@
 
         $("#assign-table").DataTable();
 
+        $('.selectpicker').selectpicker();
+        
         $("#dead-time").datepicker({
             changeMonth: true,
             changeYear: true

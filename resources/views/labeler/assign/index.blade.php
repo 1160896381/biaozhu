@@ -15,18 +15,59 @@
 	            <thead>
 	                <tr>
 	                    <th>ID</th>
-	                    <th>文件名</th>
-	                    <th>当前状态</th>
+	                    <th>标题</th>
+	                    <th>类型</th>
 	                    <th>发布时间</th>
-	                    <th>提交时间</th>
 	                    <th>截止时间</th>
-	                    <th>标注者</th>
+	                    <th>完成时间</th>
 	                    <th>任务</th>
 	                    <th data-sortable="false">操作</th>
 	                </tr>
 	            </thead>
 	            <tbody>
-
+					@foreach ($assigns as $assign)
+				    <tr>
+				        <td>
+				            {{ $assign['id'] }}
+				        </td>
+				        <td>
+				            {{ $assign['title'] }}
+				        </td>
+				        <td>
+				        	{{ GetClasstype($assign['classId']) }}
+				        </td>
+				        <td>
+				        	{{ $assign['updated_at']->format('j-M-y g:ia') }}
+			        	</td>
+	    	        	<td>
+	    		        	@if (isset($assign['deadTime']))
+	    						{{ $assign['deadTime']->format('j-M-y g:ia') }}
+	    					@else
+	    						--
+	    		        	@endif
+	    	        	</td>
+				        <td>
+				        	@if (isset($assign['finishTime']))
+								{{ $assign['finishTime']->format('j-M-y g:ia') }}
+							@else
+								--
+				        	@endif
+			        	</td>
+			        	<td>
+				        	{{ $assign['state'].'///'.$assign['state2'] }}
+			        	</td>
+				        <td>
+				            <button type="button" class="btn btn-xs btn-info" onclick="">
+				                <i class="fa fa-cogs fa-lg"></i>
+				                工作
+				            </button>
+				            <button type="button" class="btn btn-xs btn-danger">
+				                <i class="fa fa-eye fa-lg"></i>
+				                查看
+				            </button>
+				        </td>
+				    </tr>
+				@endforeach
                 </tbody>
             </table>
         </div>

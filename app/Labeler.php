@@ -16,7 +16,7 @@ class Labeler extends Model implements AuthenticatableContract, CanResetPassword
 
 	protected $table = 'labelers';
 	
-	protected $fillable = ['userId', 'labelerName', 'password', 'email', 'type', 'verify'];
+	protected $fillable = ['userId', 'labelerName', 'password', 'email'];
 
 	protected $hidden = ['password', 'remember_token'];
 
