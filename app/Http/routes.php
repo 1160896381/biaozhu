@@ -2,33 +2,19 @@
 
 Route::get('/', 'HomeController@index');
 
-// Route::get('/', array(
-//     'uses' => function () {
-//         return 'Hello World';
-//     },
-//     'middleware' => [ 'auth' ],
-//     'auth' => 'user',
-// ));
-
-// Route::get('/', array(
-//     'auth' => 'labeler',
-//     'uses' => function () {
-//         return 'Hello World';
-//     },
-//     'middleware' => [ 'auth' ]
-// ));
-
-Route::post('auth/login/labeler', 'Auth\AuthController@postLabelerLogin');
-
-// 管理员登录，不开放注册，注册通过超级管理员
+// 登录，不开放注册，注册通过超级管理员
 Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function()
 {
 	Route::get('login', 'AuthController@getLogin');
-	Route::post('login', 'AuthController@postLogin');
-	Route::get('logout', 'AuthController@getLogout');
+	
+	Route::post('admin/login', array('auth'=>'admin', 'uses'=>'UserAuthController@postLogin'));
+	Route::post('labeler/login', array('auth'=>'labeler', 'uses'=>'LabelerAuthController@postLogin'));
+
+	Route::get('admin/logout', array('auth'=>'admin', 'uses'=>'UserAuthController@getLogout'));
+	Route::get('labeler/logout', array('auth'=>'labeler', 'uses'=>'LabelerAuthController@getLogout'));
 });
 
-Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware' => 'auth'], function()
+Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>'auth'], function()
 {
 	Route::get('/', 'ResourceController@index');
 
@@ -61,3 +47,18 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'middleware' => 'auth'], 
 	Route::post('norm/detail', 'NormController@detailChange');
 });
 
+// Route::group(['prefix'=>'labeler', 'namespace'=>'Admin', 'middleware'=>'auth'], function()
+// {
+// 	Route::get('/', function() {
+// 		dd('11');
+// 	});
+// });
+
+Route::get('labeler', array(
+	'auth'=>'labeler', 
+    'uses' => function () {
+    	Auth::impersonate(10, 'labeler');
+
+        return Auth::currentType();
+    }
+));

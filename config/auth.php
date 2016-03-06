@@ -2,7 +2,7 @@
 	
 	return [	
 
-		'default' => 'labeler',
+		'default' => 'admin',
 	    
 	    'multi' => array(
 	        
@@ -14,7 +14,7 @@
 	            ]
 	        ),
 	        
-	        'user' => array(
+	        'admin' => array(
 	            'driver' => 'eloquent',
 	            'model'  => App\User::class,
 	            'password' => [

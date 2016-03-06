@@ -9,7 +9,7 @@
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">标注者登录</div>
 				<div class="panel-body">
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login/labeler') }}">
+					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/labeler/login') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
@@ -55,7 +55,7 @@
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">管理员登录</div>
 				<div class="panel-body">
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
+					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/admin/login') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
