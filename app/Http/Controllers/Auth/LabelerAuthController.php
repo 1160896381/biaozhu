@@ -6,4 +6,17 @@ class LabelerAuthController extends AuthController
 	protected $redirectPath = '/labeler/assign';
 
 	protected $loginPath = '/auth/labeler/login';	
+
+	public function getLogout()
+	{
+		$this->auth->logout();
+		
+		if (isset($_SESSION['labeler_session']))
+		{
+			unset($_SESSION['labeler_session']);
+		}
+		
+		return redirect('/');
+	}
+
 }

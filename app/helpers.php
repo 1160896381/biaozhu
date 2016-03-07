@@ -120,15 +120,6 @@ function GetClasstype($classId)
 }
 
 /**
- * 获得任务类型
- */
-function GetStatetype($state, $state2, $userId)
-{
-	// dd($state, $state2, $userId);
-	
-}
-
-/**
  * 取得随机数
  */
 function MakePassword($pw_length)

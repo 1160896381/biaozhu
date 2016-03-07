@@ -85,9 +85,11 @@
 @section('script')
 <script>
 $(function(){
+	
 	$('#myCarousel').carousel({
   		interval: 2000
-	})
+	});
+
 })
 </script>
 @endsection

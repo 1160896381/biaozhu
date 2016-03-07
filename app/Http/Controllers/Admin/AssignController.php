@@ -2,6 +2,7 @@
 
 use App\Assign;
 use App\Labeler;
+use App\Norm;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -20,8 +21,23 @@ class AssignController extends Controller {
 
 		$labelers = Labeler::where('userId', '=', $userId)
 					->get();
-		// dd($labelers);
-		return view('admin.assign.index', compact('assigns', 'labelers'));
+
+		$norms = Norm::where('userId', '=', $userId)
+					->get();
+		
+		$stateArr = [];
+		for ($i=0; $i<count($norms); $i++)
+		{
+			$firstLevelArr = explode(',', $norms[$i]['firstLevel']);
+			array_push($stateArr, $norms[$i]['zeroLevel']);
+			for ($j=0; $j<count($firstLevelArr); $j++)
+			{
+				array_push($stateArr, $firstLevelArr[$j]);
+			}
+		}
+		// dd($stateArr);
+
+		return view('admin.assign.index', compact('assigns', 'labelers', 'stateArr'));
 	}
 
 	public function addTask(Request $request)

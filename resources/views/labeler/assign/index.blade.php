@@ -54,7 +54,9 @@
 				        	@endif
 			        	</td>
 			        	<td>
-				        	{{ $assign['state'].'///'.$assign['state2'] }}
+				        	@if (isset($assign['state']) && isset($assign['state2']))
+				        		{{ $stateArr[$assign['state']-1].'///'.$stateArr[$assign['state2']-1] }}
+				        	@endif
 			        	</td>
 				        <td>
 				            <button type="button" class="btn btn-xs btn-info" onclick="">
@@ -83,7 +85,11 @@
 <script src="/js/dataTables.bootstrap.min.js"></script>
 <script>
 $(function(){
+
 	$("#labeler-assign-table").DataTable();
+
+	var labeler_ls = '<?php echo \Auth::user()->labelerName; ?>';
+	localStorage.setItem("labeler_ls", labeler_ls);
 })
 </script>
 @endsection

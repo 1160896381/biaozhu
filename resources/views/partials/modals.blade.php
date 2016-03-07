@@ -167,11 +167,13 @@
                         </label>
                         <div class="col-sm-4">
                             <select id="labeler" class="selectpicker" name="labeler[]" multiple data-live-search="true">
-                                @foreach ($labelers as $labeler)
-                                    <option data-id={{ $labeler['id'] }}>
-                                        {{ $labeler['labelerName'] }}
-                                    </option>
-                                @endforeach
+                                @if (isset($labelers))
+                                    @foreach ($labelers as $labeler)
+                                        <option data-id={{ $labeler['id'] }}>
+                                            {{ $labeler['labelerName'] }}
+                                        </option>
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                     </div>

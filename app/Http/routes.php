@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/', 'HomeController@index');
+Route::get('/', array('uses'=>'HomeController@index'));
 
 // 登录，不开放注册，注册通过超级管理员
 Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function()
@@ -14,7 +14,7 @@ Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function()
 	Route::get('labeler/logout', array('auth'=>'labeler', 'uses'=>'LabelerAuthController@getLogout'));
 });
 
-Route::group(['prefix'=>'admin', 'namespace'=>'Admin'], function()
+Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'auth'=>'admin'], function()
 {
 	Route::get('/', 'ResourceController@index');
 

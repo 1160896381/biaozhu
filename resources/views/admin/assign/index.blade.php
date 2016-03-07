@@ -61,7 +61,9 @@
 				        	{{ $assign['labeler'] }}
 			        	</td>
 			        	<td>
-				        	{{-- GetStatetype($assign['state'], $assign['state2'], $assign['userId']) --}}
+				        	@if (isset($assign['state']) && isset($assign['state2']))
+				        		{{ $stateArr[$assign['state']-1].'///'.$stateArr[$assign['state2']-1] }}
+				        	@endif
 			        	</td>
 				        <td>
 				            <button type="button" class="btn btn-xs btn-info" onclick="assign_task({{ $assign['id'] }}, {{ $assign['classId'] }}, {{ $assign['userId'] }}, {{ $assign['claim'] }})">
