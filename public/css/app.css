@@ -6296,5 +6296,9 @@ a#deltab :hover {
   left: 50%;
   top: 20%;
 }
+#labeler-assign-table a {
+  text-decoration: none;
+  color: white;
+}
 
 /*# sourceMappingURL=app.css.map */

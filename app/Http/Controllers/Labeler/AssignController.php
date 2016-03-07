@@ -11,14 +11,13 @@ use Illuminate\Http\Request;
 
 class AssignController extends Controller {
 
-	public function show()
+	public function index()
 	{	
 		$assigns = Assign::where('labeler', '=', \Auth::user()->labelerName)
 					->where('claim', '!=', 1)
 					->where('claim', '!=', 8)
 					->get();
 		
-		// dd(Labeler::find(\Auth::user()->id)->user['id']);
 		$userId = Labeler::find(\Auth::user()->id)
 					->user['id'];
 		
@@ -35,7 +34,19 @@ class AssignController extends Controller {
 				array_push($stateArr, $firstLevelArr[$j]);
 			}
 		}
-		// dd($stateArr);
+		
 		return view('labeler.assign.index', compact('assigns', 'stateArr'));
+	}
+
+	public function getLabel($id) 
+	{
+		
+		return view('labeler.assign.label');
+	}
+
+	public function getCheck($id) 
+	{
+		// dd($id);
+		return view('labeler.assign.check');
 	}
 }

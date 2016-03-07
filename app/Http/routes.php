@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/', array('uses'=>'HomeController@index'));
+Route::get('/', 'HomeController@index');
 
 // 登录，不开放注册，注册通过超级管理员
 Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function()
@@ -14,6 +14,7 @@ Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function()
 	Route::get('labeler/logout', array('auth'=>'labeler', 'uses'=>'LabelerAuthController@getLogout'));
 });
 
+// 后台
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'auth'=>'admin'], function()
 {
 	Route::get('/', 'ResourceController@index');
@@ -47,8 +48,15 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'auth'=>'admin'], functio
 	Route::post('norm/detail', 'NormController@detailChange');
 });
 
+// 前台
 Route::group(['prefix'=>'labeler', 'namespace'=>'Labeler', 'auth'=>'labeler'], function()
 {
-	Route::get('assign', array('uses'=>'AssignController@show'));		
+	Route::get('assign', 'AssignController@index');
+	
+	Route::post('assign/label/{id}', 'AssignController@postLabel');
+	Route::post('assign/check/{id}', 'AssignController@postCheck');
+
+	Route::get('assign/label/{id}', 'AssignController@getLabel');
+	Route::get('assign/check/{id}', 'AssignController@getCheck');
 });
 

@@ -107,6 +107,14 @@
 		$("#current-claim").val(claim);
 	    $("#modal-task-assign").modal("show");
 	    ajax_from_xml(userId);
+
+	    // 每次执行分配任务操作，给current_claim赋值
+	    var cur = $("#current-claim").val();
+	    if (cur==1 || cur==2 || cur==5) {
+	    	$("#task-flag").val('CurrentTask');
+	    } else {
+	    	$("#task-flag").val('NewTask');
+	    }
 	}
 
 	// 选择单选按钮
@@ -272,14 +280,6 @@
             changeMonth: true,
             changeYear: true
         });
-
-        var cur = $("#current-claim").val();
-        if (cur==1 || cur==2 || cur==5) {
-        	$("#task-flag").val('CurrentTask');
-        } else {
-        	$("#task-flag").val('NewTask');
-        }
-
     });
 </script>
 @endsection

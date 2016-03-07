@@ -61,7 +61,7 @@
 				        <td>
 				            <button type="button" class="btn btn-xs btn-info" onclick="">
 				                <i class="fa fa-cogs fa-lg"></i>
-				                工作
+				                <a href="/labeler/assign/label/{{ $assign['id'] }}">工作</a>
 				            </button>
 				            <button type="button" class="btn btn-xs btn-danger">
 				                <i class="fa fa-eye fa-lg"></i>

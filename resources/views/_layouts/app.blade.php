@@ -24,8 +24,8 @@
 				<a class="navbar-brand" href="/">通用语料库协同标注平台</a>
 			</div>
 
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav navbar-right">
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-right" id="nav-global">
 
 				</ul>
 			</div>
@@ -56,23 +56,28 @@
 				  +		'</ul>'
 				  +	'</li>';
 
-		} else if (!localStorage.getItem("labeler_ls")) {
+		} else if (auth_current_type=='labeler'){
 
-			ul_nav = '<li><a href="/auth/login">登录</a></li>';
-
-		} else {
+			var name = localStorage.getItem("labeler_ls") 
+						? localStorage.getItem("labeler_ls") 
+						: '<?php echo isset(Auth::user()->labelerName) ? Auth::user()->labelerName : ''; ?>';
 
 			ul_nav = ''
 				  + '<li><a href="/labeler/assign">前台首页</a></li>'
 				  +	'<li class="dropdown">'
-				  + 	'<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> ' + localStorage.getItem("labeler_ls") + '<span class="caret"></span></a>'
+				  + 	'<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> ' + name + '<span class="caret"></span></a>'
 				  +		'<ul class="dropdown-menu" role="menu">'
 				  +			'<li><a href="/auth/labeler/logout" id="labeler-logout">登出</a></li>'
 				  +		'</ul>'
 				  +	'</li>';
+
+		} else {
+
+			ul_nav = '<li><a href="/auth/login">登录</a></li>';
+
 		}
 
-		$("ul.nav").append(ul_nav);
+		$("#nav-global").append(ul_nav);
 
 		$("#labeler-logout").click(function() {
 			localStorage.removeItem("labeler_ls");

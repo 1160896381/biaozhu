@@ -48,11 +48,10 @@ class AssignController extends Controller {
 		$labeler = $request->get('labeler');
 		$state = $request->get('state');
 		$state2 = $request->get('state2');
-		// dd(count($labeler));
-		// dd($state.'$$$$'.$state2);
 		$id = $request->get('assign_id');
 		$classId = $request->get('class_id');
 
+		// dd($task_flag);
 		// 对于该次选择的每一个标注者，分别创建一个任务
 		for ($i=0; $i<count($labeler); $i++) 
 		{
