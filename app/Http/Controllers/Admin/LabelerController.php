@@ -12,6 +12,11 @@ class LabelerController extends Controller {
 
 	public function index()
 	{
+		// 防止session过期
+		if (!\Auth::user()) 
+		{
+			return redirect('/');
+		}
 		$userId = \Auth::user()->id;
 		$labelers = Labeler::where('userId', '=', $userId)->get();
 		return view('admin.labeler.index', compact('labelers'));

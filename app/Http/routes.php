@@ -57,6 +57,11 @@ Route::group(['prefix'=>'labeler', 'namespace'=>'Labeler', 'auth'=>'labeler'], f
 	Route::post('assign/check/{id}', 'AssignController@postCheck');
 
 	Route::get('assign/label/{id}', 'AssignController@getLabel');
+	
 	Route::get('assign/check/{id}', 'AssignController@getCheck');
+		
+	Route::get('assign/flash/{style}/{yuliaoID}', 'AssignController@getAssistFlash');
+	Route::post('assign/flash/{style}/{yuliaoID}', 'AssignController@postAssistFlash');
+
 });
 

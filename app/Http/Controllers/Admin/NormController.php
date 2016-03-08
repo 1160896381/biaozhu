@@ -11,6 +11,11 @@ class NormController extends Controller {
 
 	public function typeShow()
 	{
+		// 防止session过期
+		if (!\Auth::user()) 
+		{
+			return redirect('/');
+		}
 		$userId = \Auth::user()->id;
 		$types = Norm::where('userId', '=', $userId)
 				->where('hasNorm', '=', 1)

@@ -13,6 +13,11 @@ class AssignController extends Controller {
 
 	public function index($classId)
 	{
+		// 防止session过期
+		if (!\Auth::user()) 
+		{
+			return redirect('/');
+		}
 		$userId = \Auth::user()->id;
 
 		$assigns = Assign::where('userId', '=', $userId)

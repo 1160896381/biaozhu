@@ -26,8 +26,8 @@ class CreateAssignsTable extends Migration {
 			$table->timestamp('deadTime')->nullable();
 			$table->string('labeler')->nullable();
 			$table->string('receiver')->nullable();
-			$table->string('initXml');
-			$table->string('xml');
+			$table->text('initXml');
+			$table->text('xml');
 			$table->string('content');
 			$table->timestamps();
 		});

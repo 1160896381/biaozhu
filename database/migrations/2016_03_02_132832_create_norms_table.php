@@ -18,10 +18,8 @@ class CreateNormsTable extends Migration {
 			$table->integer('classId');
 			$table->integer('flashId');
 			$table->integer('userId');
-			$table->string('zeroType');
-			$table->string('zeroTask');
-			$table->string('zeroPath');
-			$table->string('zeroPathBS');
+			$table->string('flashPath');
+			$table->string('flashPathBS');
 			$table->string('zeroLevel');
 			$table->text('firstLevel');
 			$table->text('secondLevel');

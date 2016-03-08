@@ -22,6 +22,11 @@ class ResourceController extends Controller
 
     public function index()
     {
+        // 防止session过期
+        if (!\Auth::user()) 
+        {
+            return redirect('/');
+        }
         $userId = \Auth::user()->id;
         $resources = Resource::where('userId', '=', $userId)->get();
         
