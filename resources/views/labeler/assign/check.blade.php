@@ -24,7 +24,8 @@ var xiSwfUrlStr = "playerProductInstall.swf";
 
 var flashvars = {
 	'yuliaoID':  '<?=$assign["id"]?>',
-	'userID'  :  '<?=$assign["labelerId"]?>'
+	'userID'  :  '<?=$assign["labelerId"]?>',
+    'adminID' :  '<?=$assign["userId"]?>',
 };
 
 var params = {

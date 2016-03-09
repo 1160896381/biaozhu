@@ -106,12 +106,27 @@ class AssignController extends Controller {
 	{
 		$assign = Assign::where('id', '=', $yuliaoID)->first();
 
-		if ($style == 3) {
-			// 只保存，不提交
-			dd($request->getContent());
-		} else if ($style == 4) {
-			// 提交
-			$xml = $GLOBALS[HTTP_RAW_POST_DATA];
+		$xml = $request->getContent();
+		
+		if ($style == 3) { // 只保存，不提交
+		
+			Assign::where('id', '=', $yuliaoID)->update(
+				array_merge(
+				    ['xml'    => $xml]
+				));
+
+		} else if ($style == 4) { // 提交
+			
+			Assign::where('id', '=', $yuliaoID)->update(
+				array_merge(
+				    ['xml'        => $xml],
+				    ['finishTime' => date("Y-m-d H:i:s")],
+				    ['claim'      => 7]
+				));			
+
+		} else if ($style == 5) { // 上传图片
+
+			dd($request);
 		}
 	}
 }

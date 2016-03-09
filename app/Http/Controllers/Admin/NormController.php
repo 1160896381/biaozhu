@@ -18,7 +18,7 @@ class NormController extends Controller {
 		}
 		$userId = \Auth::user()->id;
 		$types = Norm::where('userId', '=', $userId)
-				->where('hasNorm', '=', 1)
+				// ->where('hasNorm', '=', 1)
 				->get();
 		
 		return view('admin.norm.type', compact('types'));
@@ -28,7 +28,7 @@ class NormController extends Controller {
 	{
 		$userId = \Auth::user()->id;
 		$types = Norm::where('userId', '=', $userId)
-				->where('hasNorm', '=', 1)
+				// ->where('hasNorm', '=', 1)
 				->get();
 		
 		return view('admin.norm.detail', compact('types'));
@@ -37,7 +37,7 @@ class NormController extends Controller {
 	/**
 	 * 修改标注类型
 	 */
-	public function typeChange(Request $request)
+	public function postType(Request $request)
 	{	
 		$userId = \Auth::user()->id;
 		$tabVal = $request->get('tab_val');
@@ -62,7 +62,7 @@ class NormController extends Controller {
 	/**
 	 * 修改具体名称
 	 */
-	public function detailChange(Request $request)
+	public function postDetail(Request $request)
 	{
 		$userId = \Auth::user()->id;
 		$tabVal = $request->get('tab_val');
@@ -71,7 +71,7 @@ class NormController extends Controller {
 
 		// 获得当前规范
 		$typesHasNorm = Norm::where('userId', '=', $userId)
-				->where('hasNorm', '=', 1)
+				// ->where('hasNorm', '=', 1)
 				->get();
 
 		for ($i=0; $i<count($tabArr); $i++) {

@@ -66,7 +66,9 @@
 				        	@endif
 			        	</td>
 				        <td>
-				            <button type="button" class="btn btn-xs btn-info" onclick="assign_task({{ $assign['id'] }}, {{ $assign['classId'] }}, {{ $assign['userId'] }}, {{ $assign['claim'] }})">
+				            <button type="button" 
+				            	class="btn btn-xs btn-info" 
+				            	onclick="assign_task({{ $assign['id'] }}, {{ $assign['classId'] }}, {{ $assign['userId'] }}, {{ $assign['claim'] }})">
 				                <i class="fa fa-code-fork fa-lg"></i>
 				                分配
 				            </button>
@@ -106,7 +108,11 @@
 		$("#class-id").val(classId);
 		$("#current-claim").val(claim);
 	    $("#modal-task-assign").modal("show");
-	    ajax_from_xml(userId);
+
+	    // 防止重复加载，默认为“请选择”
+	    if ($("select[name='state']")[0].length == 1) {
+	    	ajax_from_xml(userId);
+	    }
 
 	    // 每次执行分配任务操作，给current_claim赋值
 	    var cur = $("#current-claim").val();

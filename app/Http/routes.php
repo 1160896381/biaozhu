@@ -44,8 +44,8 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'auth'=>'admin'], functio
 	// 规范
 	Route::get('norm/type', 'NormController@typeShow');
 	Route::get('norm/detail', 'NormController@detailShow');
-	Route::post('norm/type', 'NormController@typeChange');
-	Route::post('norm/detail', 'NormController@detailChange');
+	Route::post('norm/type', 'NormController@postType');
+	Route::post('norm/detail', 'NormController@postDetail');
 });
 
 // 前台
@@ -57,7 +57,6 @@ Route::group(['prefix'=>'labeler', 'namespace'=>'Labeler', 'auth'=>'labeler'], f
 	Route::post('assign/check/{id}', 'AssignController@postCheck');
 
 	Route::get('assign/label/{id}', 'AssignController@getLabel');
-	
 	Route::get('assign/check/{id}', 'AssignController@getCheck');
 		
 	Route::get('assign/flash/{style}/{yuliaoID}', 'AssignController@getAssistFlash');

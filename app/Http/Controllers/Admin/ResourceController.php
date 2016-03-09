@@ -64,13 +64,14 @@ class ResourceController extends Controller
     public function uploadFile(UploadFileRequest $request)
     {
         $file_ = $_FILES['file'];
+        $fileType = GetFiletype($file_['name']);
+
         $fileName = $request->get('file_name');
         $fileName = $fileName ?: $file_['name'];
         $content = File::get($file_['tmp_name']);
         $subPath = date("Y-m-d");
         $mimeType = $file_['type'];
 
-        $fileType = GetFiletype($fileName);
         $insertFile = ReturnDoTranFilename();
         // 实际存在磁盘上的
         $fileReal = $insertFile . $fileType;

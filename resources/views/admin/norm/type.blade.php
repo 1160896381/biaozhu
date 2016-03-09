@@ -14,6 +14,12 @@
 						</div>
 					</a>
 				</li>
+			@elseif ($types[$i]['hasNorm'] == 0)
+				<li class="disabled"><a href="#tab{{ $i }}">
+					<div num-index={{ $i }} first-level="{{ $types[$i]['firstLevel'] }}">
+						{{ $types[$i]['zeroLevel'] }}
+					</div>
+				</a></li>			
 			@else
 				<li><a href="#tab{{ $i }}" data-toggle="tab">
 					<div num-index={{ $i }} first-level="{{ $types[$i]['firstLevel'] }}">
