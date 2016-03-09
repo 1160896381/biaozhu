@@ -25,53 +25,59 @@
 	                </tr>
 	            </thead>
 	            <tbody>
-					@foreach ($assigns as $assign)
+					@for ($i=0; $i<count($assigns); $i++)
 				    <tr>
 				        <td>
-				            {{ $assign['id'] }}
+				            {{ $assigns[$i]['id'] }}
 				        </td>
 				        <td>
-				            {{ $assign['title'] }}
+				            {{ $assigns[$i]['title'] }}
 				        </td>
 				        <td>
-				        	{{ GetClasstype($assign['classId']) }}
+				        	{{ GetClasstype($assigns[$i]['classId']) }}
 				        </td>
 				        <td>
-				        	{{ $assign['updated_at']->format('j-M-y g:ia') }}
+				        	{{ $assigns[$i]['updated_at']->format('j-M-y g:ia') }}
 			        	</td>
 	    	        	<td>
-	    		        	@if (isset($assign['deadTime']))
-	    						{{ $assign['deadTime']->format('j-M-y g:ia') }}
+	    		        	@if (isset($assigns[$i]['deadTime']))
+	    						{{ $assigns[$i]['deadTime']->format('j-M-y g:ia') }}
 	    					@else
 	    						--
 	    		        	@endif
 	    	        	</td>
 				        <td>
-				        	@if (isset($assign['finishTime']))
-								{{ $assign['finishTime']->format('j-M-y g:ia') }}
+				        	@if (isset($assigns[$i]['finishTime']))
+								{{ $assigns[$i]['finishTime']->format('j-M-y g:ia') }}
 							@else
 								--
 				        	@endif
 			        	</td>
 			        	<td>
-				        	@if (isset($assign['state']) && isset($assign['state2']))
-				        		{{ $stateArr[$assign['state']-1].'///'.$stateArr[$assign['state2']-1] }}
+				        	@if (isset($assigns[$i]['state']) && isset($assigns[$i]['state2']))
+				        		{{ $stateArr[$assigns[$i]['state']-1].'///'.$stateArr[$assigns[$i]['state2']-1] }}
 				        	@endif
 			        	</td>
 				        <td>
-			                <a href="/labeler/assign/label/{{ $assign['id'] }}">
+			                <a href="/labeler/assign/label/{{ $assigns[$i]['id'] }}">
 				        	    <button type="button" class="btn btn-xs btn-info" onclick="">
 				                	<i class="fa fa-cogs fa-lg"></i>工作
 				            	</button>
 		                	</a>
-			                <a href="/labeler/assign/check/{{ $assign['id'] }}">
-				        	    <button type="button" class="btn btn-xs btn-danger">
-				                	<i class="fa fa-eye fa-lg"></i>查看
-				        	    </button>
+			                <a href="/labeler/assign/check/{{ $assigns[$i]['id'] }}">
+			                	@if ($BSArr[$assigns[$i]['state']-1] == 1)
+					        	    <button type="button" class="btn btn-xs btn-danger">
+					                	<i class="fa fa-eye fa-lg"></i>查看
+					        	    </button>
+					        	@elseif ($BSArr[$assigns[$i]['state']-1] == 0)
+				        		    <button type="button" class="btn btn-xs btn-danger disabled">
+				        	        	<i class="fa fa-eye fa-lg"></i>查看
+				        		    </button>
+				        	    @endif
 		                	</a>
 				        </td>
 				    </tr>
-				@endforeach
+				@endfor
                 </tbody>
             </table>
         </div>

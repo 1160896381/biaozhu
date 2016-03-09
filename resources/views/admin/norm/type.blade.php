@@ -80,7 +80,10 @@
 		    $.ajax({
 		        type: 'POST',
 		        url: 'type',
-		        data: encodeURI(param)
+		        data: encodeURI(param),
+		        success: function() {
+		        	window.location.href = 'detail';
+		        }
 		    });
 		});
 

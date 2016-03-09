@@ -53,10 +53,6 @@ class NormController extends Controller {
 			$typesHasNorm[$i]->firstLevel = $tabArr[$i];
 			$typesHasNorm[$i]->save();
 		}
-
-		return redirect()
-		        ->back()
-		        ->withSuccess("请继续填写名称，否则规范不会更改！");;
 	}
 
 	/**

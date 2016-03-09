@@ -25,24 +25,30 @@ class AssignController extends Controller {
 					->where('claim', '!=', 8)
 					->get();
 		
+		// 模型Labeler中的userId对应模型User中的id，通过调用user()方法得到当前标注者对应的管理员id
 		$userId = Labeler::find(\Auth::user()->id)
 					->user['id'];
 		
+		// 通过查询模型Norm中的userId得到使用到的规范
 		$norms = Norm::where('userId', '=', $userId)
 					->get();
 		
 		$stateArr = [];
+		$BSArr = [];
 		for ($i=0; $i<count($norms); $i++)
 		{
 			$firstLevelArr = explode(',', $norms[$i]['firstLevel']);
 			array_push($stateArr, $norms[$i]['zeroLevel']);
+			array_push($BSArr, $norms[$i]['hasBS']);
+			
 			for ($j=0; $j<count($firstLevelArr); $j++)
 			{
 				array_push($stateArr, $firstLevelArr[$j]);
+				array_push($BSArr, $norms[$i]['hasBS']);
 			}
 		}
-		
-		return view('labeler.assign.index', compact('assigns', 'stateArr'));
+		// dd($BSArr, $stateArr);
+		return view('labeler.assign.index', compact('assigns', 'stateArr', 'BSArr'));
 	}
 
 	public function getLabel($assignId) 
@@ -96,9 +102,18 @@ class AssignController extends Controller {
 		if ($style == 1) {
 			// 返回改动后的xml
 			echo $assign['xml'];
+
 		} else if ($style == 2) {
 			// 返回初始xml
 			echo $assign['initXml'];
+
+		}  else if ($style == 7) {
+			
+			Assign::where('id', '=', $yuliaoID)->update(
+				array_merge(
+				    ['finishTime' => date("Y-m-d H:i:s")],
+				    ['claim'      => 7]
+				));
 		}
 	}
 
@@ -106,27 +121,39 @@ class AssignController extends Controller {
 	{
 		$assign = Assign::where('id', '=', $yuliaoID)->first();
 
-		$xml = $request->getContent();
+		$postData = $request->getContent();
 		
 		if ($style == 3) { // 只保存，不提交
 		
 			Assign::where('id', '=', $yuliaoID)->update(
 				array_merge(
-				    ['xml'    => $xml]
+				    ['xml'    => $postData]
 				));
 
 		} else if ($style == 4) { // 提交
 			
 			Assign::where('id', '=', $yuliaoID)->update(
 				array_merge(
-				    ['xml'        => $xml],
+				    ['xml'        => $postData],
 				    ['finishTime' => date("Y-m-d H:i:s")],
 				    ['claim'      => 7]
 				));			
 
 		} else if ($style == 5) { // 上传图片
 
-			dd($request);
+			// dd($request);
+			$fileName = preg_replace("/\+/", "\/", $yuliaoID);
+			$file = fopen($fileName, "w");
+			fwrite($file, $postData);
+			fclose($file);
+
+		} else if ($style == 6) {
+
+			Assign::where('id', '=', $yuliaoID)->update(
+				array_merge(
+				    ['initXml'    => $postData]
+				));
+
 		}
 	}
 }
