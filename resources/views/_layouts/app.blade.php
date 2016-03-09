@@ -34,6 +34,8 @@
 
   	@yield('contentApp')
 	
+	@include('partials.modals')
+	
 	<script src="/js/jquery.js"></script>
 	<script src="/js/bootstrap.js"></script>
 	<script src="/js/metisMenu.js"></script>
@@ -56,7 +58,7 @@
 				  +		'</ul>'
 				  +	'</li>';
 
-		} else if (auth_current_type=='labeler'){
+		} else if (localStorage.getItem("labeler_ls") || auth_current_type=='labeler'){
 
 			var name = localStorage.getItem("labeler_ls") 
 						? localStorage.getItem("labeler_ls") 
@@ -73,7 +75,8 @@
 
 		} else {
 
-			ul_nav = '<li><a href="/auth/login">登录</a></li>';
+			ul_nav = '<li><a href="#" data-toggle="modal" data-target="#modal-member-login"> 登录</button></li>';
+			console.log(auth_user);
 
 		}
 

@@ -216,10 +216,6 @@ body {
     overflow-y: scroll;
 }
 
-.login-panel {
-    margin-top: 25%;
-}
-
 .flot-chart {
     display: block;
     height: 400px;
@@ -261,6 +257,10 @@ table.dataTable thead .sorting:after {
     font-family: fontawesome;
     color: rgba(50,50,50,.5);
 }
+
+// .login-panel {
+//     margin-top: 25%;
+// }
 
 .btn-circle {
     width: 30px;

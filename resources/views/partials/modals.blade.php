@@ -327,3 +327,143 @@
         </div>
     </div>
 </div>
+
+{{-- 登录 --}}
+<div class="modal fade" id="modal-member-login">
+    <div class="modal-dialog" style="margin-top: 100px; width: 500px">
+        <div class="modal-content">
+            <div class="modal-body">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#tab0" data-toggle="tab">标注者</a>
+                    </li>
+                    <li>
+                        <a href="#tab1" data-toggle="tab">管理员</a>
+                    </li>
+                    <li>
+                        <a href="#tab2" data-toggle="tab">超级管理员</a>
+                    </li>
+                </ul>
+                <div class="tab-content" style="min-height: 200px">
+                    <div class="tab-pane active tab-norm" id="tab0">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/labeler/login') }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">邮箱</label>
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">密码</label>
+                                <div class="col-md-6">
+                                    <input type="password" class="form-control" name="password">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="remember"> 记住我
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <button type="submit" class="btn btn-primary" style="margin-right: 10px">登录</button>
+                                    
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+
+                                    <a class="btn btn-link" href="{{ url('/password/email') }}">忘记密码?</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane tab-norm" id="tab1">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/admin/login') }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">邮箱</label>
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">密码</label>
+                                <div class="col-md-6">
+                                    <input type="password" class="form-control" name="password">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="remember"> 记住我
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <button type="submit" class="btn btn-primary" style="margin-right: 10px">登录</button>
+                                    
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+
+                                    <a class="btn btn-link" href="{{ url('/password/email') }}">忘记密码?</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane tab-norm" id="tab2">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/labeler/login') }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">邮箱</label>
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">密码</label>
+                                <div class="col-md-6">
+                                    <input type="password" class="form-control" name="password">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="remember"> 记住我
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <button type="submit" class="btn btn-primary" style="margin-right: 10px">登录</button>
+                                    
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+
+                                    <a class="btn btn-link" href="{{ url('/password/email') }}">忘记密码?</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

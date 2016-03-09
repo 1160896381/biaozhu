@@ -9,9 +9,11 @@ Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function()
 	
 	Route::post('admin/login', array('auth'=>'admin', 'uses'=>'UserAuthController@postLogin'));
 	Route::post('labeler/login', array('auth'=>'labeler', 'uses'=>'LabelerAuthController@postLogin'));
+	Route::post('super/login', array('auth'=>'super', 'uses'=>'SuperAuthController@postLogin'));
 
 	Route::get('admin/logout', array('auth'=>'admin', 'uses'=>'UserAuthController@getLogout'));
 	Route::get('labeler/logout', array('auth'=>'labeler', 'uses'=>'LabelerAuthController@getLogout'));
+	Route::get('super/logout', array('auth'=>'super', 'uses'=>'SuperAuthController@getLogout'));
 });
 
 // 后台

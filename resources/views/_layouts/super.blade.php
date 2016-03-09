@@ -71,7 +71,7 @@
 		</div>
 	</nav>
 
-	@yield('contentAdmin')
+	@yield('contentSuper')
 
 </div>
 @endsection

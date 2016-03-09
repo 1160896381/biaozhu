@@ -20,7 +20,15 @@
 	            'password' => [
 	                'email' => 'users.emails.password',
 	            ]
-	        )
+	        ),
+
+	        'super' => array(
+	        	'driver' => 'eloquent',
+	        	'model'  =>	App\Super::class,
+	        	'password' => [
+	                'email' => 'supers.emails.password',
+	            ]	
+        	)
 	    ),
 
 		'password' => [
