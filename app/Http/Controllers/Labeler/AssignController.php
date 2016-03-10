@@ -28,7 +28,7 @@ class AssignController extends Controller {
 		
 		// 模型Labeler中的userId对应模型User中的id，通过调用user()方法得到当前标注者对应的管理员id
 		$userId = Labeler::find(\Auth::user()->id)
-					->user['id'];
+					->hasOneUser['id'];
 		
 		// 通过查询模型Norm中的userId得到使用到的规范
 		$norms = Norm::where('userId', '=', $userId)

@@ -16,10 +16,11 @@ class NormController extends Controller {
 		{
 			return redirect('/');
 		}
+
+		// dd(Norm::find(2)->hasOneFlash['hasNorm']);
+
 		$userId = \Auth::user()->id;
-		$types = Norm::where('userId', '=', $userId)
-				// ->where('hasNorm', '=', 1)
-				->get();
+		$types = Norm::where('userId', '=', $userId)->get();
 		
 		return view('admin.norm.type', compact('types'));
 	}
@@ -27,9 +28,7 @@ class NormController extends Controller {
 	public function detailShow()
 	{
 		$userId = \Auth::user()->id;
-		$types = Norm::where('userId', '=', $userId)
-				// ->where('hasNorm', '=', 1)
-				->get();
+		$types = Norm::where('userId', '=', $userId)->get();
 		
 		return view('admin.norm.detail', compact('types'));
 	}
@@ -66,9 +65,7 @@ class NormController extends Controller {
 		$tabArr = explode('。', $tabVal);
 
 		// 获得当前规范
-		$typesHasNorm = Norm::where('userId', '=', $userId)
-				// ->where('hasNorm', '=', 1)
-				->get();
+		$typesHasNorm = Norm::where('userId', '=', $userId)->get();
 
 		for ($i=0; $i<count($tabArr); $i++) {
 			$typesHasNorm[$i]->secondLevel = $tabArr[$i];

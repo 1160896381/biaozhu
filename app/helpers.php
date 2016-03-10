@@ -120,6 +120,26 @@ function GetClasstype($classId)
 }
 
 /**
+ * 获得Has类型
+ */
+function GetHastype($has)
+{
+	switch ($has) {
+		case '1':
+			$ret = '需要';
+			break;
+		case '0':
+			$ret = '不需要';
+			break;
+		default:
+			$ret = '不需要';
+			break;
+	}
+
+	return $ret;
+}
+
+/**
  * 取得随机数
  */
 function MakePassword($pw_length)

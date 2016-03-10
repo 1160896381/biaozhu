@@ -3,6 +3,7 @@
 use App\Flash;
 
 use App\Http\Requests;
+use App\Http\Requests\FlashRegisterRequest;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class FlashController extends Controller {
 		return view('super.flash', compact('flashes'));	
 	}
 
-	public function postFlash(Request $request)
+	public function postFlash(FlashRegisterRequest $request)
 	{
 		$classId = $request->get('classId');
 		$hasNorm = $request->get('hasNorm');

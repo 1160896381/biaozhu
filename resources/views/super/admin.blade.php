@@ -46,7 +46,7 @@
                                 {{ $admin['email'] }}
                             </td>
                             <td>
-                                {{ App\User::find($admin['projId'])->proj['name'] }}
+                                {{ App\User::find($admin['projId'])->hasOneProj['name'] }}
                             </td>
                             <td>
                                 {{ $admin['updated_at']->format('j-M-y g:ia') }}

@@ -16,8 +16,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	protected $hidden = ['password', 'remember_token'];
 
-	public function proj()
+	public function hasOneProj()
 	{
-		return $this->hasOne('App\Proj', 'id');
+		return $this->hasOne('App\Proj', 'id', 'id');
 	}
 }

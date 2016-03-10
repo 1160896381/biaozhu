@@ -43,10 +43,10 @@
                                 {{ GetClasstype($flash['classId']) }}
                             </td>
                             <td>
-                                {{ $flash['hasNorm'] }}
+                                {{ GetHastype($flash['hasNorm']) }}
                             </td>
                             <td>
-                                {{ $flash['hasBS'] }}
+                                {{ GetHastype($flash['hasBS']) }}
                             </td>
                             <td>
                                 {{ $flash['flashPath'] }}

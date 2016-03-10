@@ -20,7 +20,7 @@ class Labeler extends Model implements AuthenticatableContract, CanResetPassword
 
 	protected $hidden = ['password', 'remember_token'];
 
-	public function user()
+	public function hasOneUser()
 	{
 		return $this->hasOne('App\User', 'id', 'userId');
 	}
