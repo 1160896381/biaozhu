@@ -3,7 +3,7 @@
 class SuperAuthController extends AuthController 
 {
 	// 登录后跳转到super的任务列表页面
-	protected $redirectPath = '/labeler/assign';
+	protected $redirectPath = '/super/admin';
 
-	protected $loginPath = '/auth/labeler/login';
+	protected $loginPath = '/auth/super/login';
 }

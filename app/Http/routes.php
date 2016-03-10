@@ -16,7 +16,7 @@ Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function()
 	Route::get('super/logout', array('auth'=>'super', 'uses'=>'SuperAuthController@getLogout'));
 });
 
-// 后台
+// 管理员
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'auth'=>'admin'], function()
 {
 	Route::get('/', 'ResourceController@index');
@@ -50,7 +50,7 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'auth'=>'admin'], functio
 	Route::post('norm/detail', 'NormController@postDetail');
 });
 
-// 前台
+// 标注者
 Route::group(['prefix'=>'labeler', 'namespace'=>'Labeler', 'auth'=>'labeler'], function()
 {
 	Route::get('assign', 'AssignController@index');
@@ -63,6 +63,10 @@ Route::group(['prefix'=>'labeler', 'namespace'=>'Labeler', 'auth'=>'labeler'], f
 		
 	Route::get('assign/flash/{style}/{yuliaoID}', 'AssignController@getAssistFlash');
 	Route::post('assign/flash/{style}/{yuliaoID}', 'AssignController@postAssistFlash');
-
 });
 
+// 超级管理员
+Route::group(['prefix'=>'super', 'namespace'=>'Super', 'auth'=>'super'], function()
+{
+
+});

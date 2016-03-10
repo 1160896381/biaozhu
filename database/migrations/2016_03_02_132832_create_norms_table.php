@@ -15,16 +15,11 @@ class CreateNormsTable extends Migration {
 		Schema::create('norms', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('classId');
 			$table->integer('flashId');
 			$table->integer('userId');
-			$table->string('flashPath');
-			$table->string('flashPathBS');
 			$table->string('zeroLevel');
 			$table->text('firstLevel');
 			$table->text('secondLevel');
-			$table->boolean('hasNorm');
-			$table->boolean('hasBS');
 			$table->timestamps();
 		});
 	}

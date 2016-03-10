@@ -76,7 +76,6 @@
 		} else {
 
 			ul_nav = '<li><a href="#" data-toggle="modal" data-target="#modal-member-login"> 登录</button></li>';
-			console.log(auth_user);
 
 		}
 
