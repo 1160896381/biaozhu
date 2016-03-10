@@ -68,5 +68,18 @@ Route::group(['prefix'=>'labeler', 'namespace'=>'Labeler', 'auth'=>'labeler'], f
 // 超级管理员
 Route::group(['prefix'=>'super', 'namespace'=>'Super', 'auth'=>'super'], function()
 {
+	Route::get('/', 'ProjController@index');
 
+	Route::get('proj', 'ProjController@index');
+	Route::post('proj/create', 'ProjController@postProj');
+
+	Route::get('admin', 'AdminController@index');
+	Route::post('admin/create', 'AdminController@postAdmin');
+
+	Route::get('flash', 'FlashController@index');
+	Route::get('labeler', 'LabelerController@index');
+	Route::get('resource', 'ResourceController@index');
+	Route::get('resource/batch', 'ResourceController@batchIndex');
+	Route::get('norm/type', 'NormController@typeShow');
+	Route::get('norm/detail', 'NormController@detailShow');
 });

@@ -178,11 +178,11 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="content" class="col-sm-3 control-label">
+                        <label for="description" class="col-sm-3 control-label">
                             说明
                         </label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" rows="2" id="content" name="content"></textarea>
+                            <textarea class="form-control" rows="2" id="description" name="description"></textarea>
                         </div>
                     </div>
                 </div>
@@ -213,28 +213,28 @@
                 </div>  
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-md-4 control-label">Name</label>
+                        <label class="col-md-4 control-label">姓名</label>
                         <div class="col-md-6">
                             <input type="text" class="form-control" name="labelerName" value="{{ old('labelerName') }}">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label">E-Mail Address</label>
+                        <label class="col-md-4 control-label">邮箱</label>
                         <div class="col-md-6">
                             <input type="email" class="form-control" name="email" value="{{ old('email') }}">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label">Password</label>
+                        <label class="col-md-4 control-label">密码</label>
                         <div class="col-md-6">
                             <input type="password" class="form-control" name="password">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label">Confirm Password</label>
+                        <label class="col-md-4 control-label">密码确认</label>
                         <div class="col-md-6">
                             <input type="password" class="form-control" name="password_confirmation">
                         </div>
@@ -243,7 +243,7 @@
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
                             <button type="submit" class="btn btn-primary">
-                                Register
+                                注册
                             </button>
                         </div>
                     </div>
@@ -385,7 +385,7 @@
                         </form>
                     </div>
                     <div class="tab-pane tab-norm" id="tab1">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/super/login') }}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/admin/login') }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                             <div class="form-group">
@@ -424,7 +424,7 @@
                         </form>
                     </div>
                     <div class="tab-pane tab-norm" id="tab2">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/labeler/login') }}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/super/login') }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                             <div class="form-group">
@@ -464,6 +464,111 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+{{-- 新建项目 --}}
+<div class="modal fade" id="modal-super-proj">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="/super/proj/create" class="form-horizontal">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        ×
+                    </button>
+                    <h4 class="modal-title">新建项目</h4>
+                </div>  
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">姓名</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-md-3 control-label">
+                            说明
+                        </label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" rows="2" id="description" name="description"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8 col-md-offset-3">
+                            <button type="submit" class="btn btn-primary">
+                                新建
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{-- 注册管理员 --}}
+<div class="modal fade" id="modal-super-admin">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="/super/admin/create" class="form-horizontal">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        ×
+                    </button>
+                    <h4 class="modal-title">注册管理员</h4>
+                </div>  
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">姓名</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="labelerName" value="{{ old('labelerName') }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">邮箱</label>
+                        <div class="col-md-6">
+                            <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">密码</label>
+                        <div class="col-md-6">
+                            <input type="password" class="form-control" name="password">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">密码确认</label>
+                        <div class="col-md-6">
+                            <input type="password" class="form-control" name="password_confirmation">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">选择所属项目</label>
+                        <div class="col-md-6">
+                            <select id="projName" class="form-control">
+                                <option>1</option>
+                                <option>1</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-4">
+                            <button type="submit" class="btn btn-primary">
+                                注册
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

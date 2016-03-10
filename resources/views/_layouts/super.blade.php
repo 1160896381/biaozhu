@@ -17,38 +17,36 @@
 		              	</div>
 		          	</li>
 		          	<li>
+	              		<a href="/super/proj"><i class="fa fa-database fa-fw"></i> 项目管理</a>
+		          	</li>
+		          	<li>
+	              		<a href="/super/admin"><i class="fa fa-graduation-cap fa-fw"></i> 管理员管理</a>
+		          	</li>
+		          	<li>
+	              		<a href="/super/flash"><i class="fa fa-flash fa-fw"></i> 面板管理</a>
+		          	</li>
+		          	<li>
 	            	  	<a href="#"><i class="fa fa-sitemap fa-fw"></i> 资源管理<span class="fa arrow"></span></a>
 		              	<ul class="nav nav-second-level">
 		                  	<li>
-		                  		<a href="/admin/resource"><i class="fa fa-eye fa-fw"></i>查看</a>
+		                  		<a href="/super/resource"><i class="fa fa-eye fa-fw"></i>查看</a>
 		                  	</li>
 		                  	<li>
-                      			<a href="/admin/resource/batch"><i class="fa fa-cloud-upload fa-fw"></i>批量上传</a>
+                      			<a href="/super/resource/batch"><i class="fa fa-cloud-upload fa-fw"></i>批量上传</a>
 		                  	</li>
 		              	</ul>	
 		          	</li>
 		          	<li>
-		              	<a href="#"><i class="fa fa-table fa-fw"></i> 任务管理<span class="fa arrow"></span></a>
-		              	<ul class="nav nav-second-level">
-		                  	<li>
-                      			<a href="/admin/assign/1"><i class="fa fa-file-text fa-fw"></i>文本数据表</a>
-		                  	</li>
-		                  	<li>
-	                      		<a href="/admin/assign/2"><i class="fa fa-file-image-o fa-fw"></i>图片数据表</a>
-		                  	</li>
-		              	</ul>
-		          	</li>
-		          	<li>
-	              		<a href="/admin/labeler/"><i class="fa fa-users fa-fw"></i> 人员管理</a>
+	              		<a href="/super/labeler/"><i class="fa fa-users fa-fw"></i> 人员管理</a>
 		          	</li>
 		          	<li>
 	              		<a href="#"><i class="fa fa-edit fa-fw"></i> 规范制定<span class="fa arrow"></span></a>
 	              		<ul class="nav nav-second-level">
 		                  	<li>
-	                      		<a href="/admin/norm/type"><i class="fa fa-th-large fa-fw"></i>标注类型</a>
+	                      		<a href="/super/norm/type"><i class="fa fa-th-large fa-fw"></i>标注类型</a>
 		                  	</li>
   		                  	<li>
-  	                      		<a href="/admin/norm/detail"><i class="fa fa-th-list fa-fw"></i>具体名称</a>
+  	                      		<a href="/super/norm/detail"><i class="fa fa-th-list fa-fw"></i>具体名称</a>
   		                  	</li>
 		              	</ul>
 		          	</li>

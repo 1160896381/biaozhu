@@ -28,7 +28,7 @@ class CreateAssignsTable extends Migration {
 			$table->string('receiver')->nullable();
 			$table->text('initXml');
 			$table->text('xml');
-			$table->string('content');
+			$table->string('description');
 			$table->timestamps();
 		});
 	}

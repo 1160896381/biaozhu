@@ -17,6 +17,7 @@ class CreateProjsTable extends Migration {
 			$table->increments('id');
 			$table->string('name');
 			$table->integer('superId');
+			$table->text('description')
 			$table->timestamps();
 		});
 	}
