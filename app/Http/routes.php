@@ -1,6 +1,7 @@
 <?php
 
 Route::get('/', 'HomeController@index');
+Route::post('/delete/cookie', 'HomeController@deleteCookie');
 
 // 登录，不开放注册，注册通过超级管理员
 Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function()
@@ -77,6 +78,8 @@ Route::group(['prefix'=>'super', 'namespace'=>'Super', 'auth'=>'super'], functio
 	Route::post('admin/create', 'AdminController@postAdmin');
 
 	Route::get('flash', 'FlashController@index');
+	Route::post('flash/create', 'FlashController@postFlash');
+
 	Route::get('labeler', 'LabelerController@index');
 	Route::get('resource', 'ResourceController@index');
 	Route::get('resource/batch', 'ResourceController@batchIndex');

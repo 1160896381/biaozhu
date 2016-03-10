@@ -10,26 +10,69 @@
 <div id="page-wrapper">
     <div class="row" style="margin-bottom: 10px">
         <div class="col-md-6">
-            <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#modal-super-proj">
-                <i class="fa fa-flash"></i> 新建面板
+            <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#modal-super-flash">
+                <i class="fa fa-flash"></i> 注册面板
             </button>
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm-12">
-            <table id="super-proj-table" class="table table-striped table-bordered">
+            @include('partials.errors')     
+            @include('partials.success')  
+            <table id="super-flash-table" class="table table-striped table-bordered">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>用户名</th>
-                        <th>注册时间</th>
-                        <th>邮箱</th>
+                        <th>类型</th>
+                        <th>需要规范</th>
+                        <th>需要浏览面板</th>
+                        <th>工作路径</th>
+                        <th>浏览路径</th>
+                        <th>更新时间</th>
                         <th data-sortable="false">操作</th>
                     </tr>
                 </thead>
                 <tbody>
-
+                    @foreach ($flashes as $flash)
+                        <tr>
+                            <td>
+                                {{ $flash['id'] }}
+                            </td>
+                            <td>
+                                {{ GetClasstype($flash['classId']) }}
+                            </td>
+                            <td>
+                                {{ $flash['hasNorm'] }}
+                            </td>
+                            <td>
+                                {{ $flash['hasBS'] }}
+                            </td>
+                            <td>
+                                {{ $flash['flashPath'] }}
+                            </td>
+                            <td>
+                                {{ $flash['flashPathBS'] }}
+                            </td>
+                            <td>
+                                {{ $flash['updated_at']->format('j-M-y g:ia') }}
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-xs btn-info" onclick="see_labeler()">
+                                    <i class="fa fa-eye fa-lg"></i>
+                                    查看
+                                </button>
+                                <button type="button" class="btn btn-xs btn-warning" onclick="modify_labeler()">
+                                    <i class="fa fa-eraser fa-lg"></i>
+                                    修改
+                                </button>
+                                <button type="button" class="btn btn-xs btn-danger" onclick="delete_labeler()">
+                                    <i class="fa fa-times-circle fa-lg"></i>
+                                    删除
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -46,10 +89,7 @@
 <script>
 $(function(){
 
-	$("#super-proj-table").DataTable();
-
-	var super_ls = '<?php echo \Auth::user()->name; ?>';
-	localStorage.setItem("super_ls", super_ls);
+	$("#super-flash-table").DataTable();
 })
 </script>
 @endsection

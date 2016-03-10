@@ -14,11 +14,14 @@ class ProjController extends Controller {
 		// 防止session过期
 		if (!\Auth::user()) 
 		{
+			\Cookie::queue('super', null , -1);
 			return redirect('/');
 		}
 
 		$superId = \Auth::user()->id;
 		$projs = Proj::where('superId', '=', $superId)->get();
+		
+		\Cookie::queue('super', \Auth::user()->name, 120);
 		
 		return view('super.proj', compact('projs'));	
 	}

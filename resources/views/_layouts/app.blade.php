@@ -40,13 +40,15 @@
 	<script src="/js/bootstrap.js"></script>
 	<script src="/js/metisMenu.js"></script>
 	<script src="/js/sb-admin-2.js"></script>
-	
 	<script>
 	$(function(){
 
 		var ul_nav = '';
-		var auth_user = '<?php echo Auth::user();?>';
-		var auth_current_type = '<?php echo Auth::currentType();?>';
+		var auth_user = '<?=Auth::user()?>';
+		var auth_current_type = '<?=Auth::currentType()?>';
+		
+		var super_cookie = '<?php echo Cookie::get("super")?>';
+		var labeler_cookie = '<?php echo Cookie::get("labeler")?>';
 		
 		if (auth_user && auth_current_type=='admin') {
 
@@ -59,10 +61,10 @@
 				  +		'</ul>'
 				  +	'</li>';
 
-		} else if (localStorage.getItem("labeler_ls") || auth_current_type=='labeler'){
+		} else if (auth_current_type=='labeler' || labeler_cookie){
 
-			var name = localStorage.getItem("labeler_ls") 
-						? localStorage.getItem("labeler_ls") 
+			var name = labeler_cookie
+						? labeler_cookie
 						: '<?php echo isset(Auth::user()->labelerName) ? Auth::user()->labelerName : ''; ?>';
 
 			ul_nav = ''
@@ -74,10 +76,10 @@
 				  +		'</ul>'
 				  +	'</li>';
 
-		} else if (localStorage.getItem("super_ls") || auth_current_type=='super'){
+		} else if (auth_current_type=='super' || super_cookie){
 
-			var name = localStorage.getItem("super_ls") 
-						? localStorage.getItem("super_ls") 
+			var name = super_cookie
+						? super_cookie
 						: '<?php echo isset(Auth::user()->name) ? Auth::user()->name : ''; ?>';
 
 			ul_nav = ''
@@ -97,13 +99,13 @@
 
 		$("#nav-global").append(ul_nav);
 
-		$("#labeler-logout").click(function() {
-			localStorage.removeItem("labeler_ls");
+		$("#super-logout, #labeler-logout").click(function() {
+			$.ajax({
+		        type: 'POST',
+		        url: '/delete/cookie'
+		    });
 		});
 
-		$("#super-logout").click(function() {
-			localStorage.removeItem("super_ls");
-		});
 	});
 	</script>
 

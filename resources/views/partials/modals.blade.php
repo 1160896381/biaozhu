@@ -525,7 +525,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">姓名</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" name="labelerName" value="{{ old('labelerName') }}">
+                            <input type="text" class="form-control" name="name" value="{{ old('name') }}">
                         </div>
                     </div>
 
@@ -553,10 +553,97 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label">选择所属项目</label>
                         <div class="col-md-6">
-                            <select id="projName" class="form-control">
-                                <option>1</option>
-                                <option>1</option>
+                            <select id="projId" class="form-control" name="projId">
+                                @if (isset($projs))
+                                    @foreach ($projs as $proj)
+                                        <option value="{{ $proj['id'] }}">
+                                            {{ $proj['name'] }}
+                                        </option>
+                                    @endforeach
+                                @endif
                             </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-4">
+                            <button type="submit" class="btn btn-primary">
+                                注册
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{-- 注册面板 --}}
+<div class="modal fade" id="modal-super-flash">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="/super/flash/create" class="form-horizontal">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        ×
+                    </button>
+                    <h4 class="modal-title">注册面板</h4>
+                </div>  
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">类型</label>
+                        <div class="col-md-6">
+                            <label class="radio-inline">
+                              <input type="radio" value="1" name="classId" checked> 文本
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" value="2" name="classId"> 图片
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" value="3" name="classId"> 音频
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" value="4" name="classId"> 视频
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">需要规范</label>
+                        <div class="col-md-6">
+                            <label class="radio-inline">
+                              <input type="radio" value="1" name="hasNorm" checked> 是
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" value="0" name="hasNorm"> 否
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">需要浏览面板</label>
+                        <div class="col-md-6">
+                            <label class="radio-inline">
+                              <input type="radio" value="1" name="hasBS" checked> 是
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" value="0" name="hasBS"> 否
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">工作路径</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="flashPath">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">浏览路径</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="flashPathBS">
                         </div>
                     </div>
 

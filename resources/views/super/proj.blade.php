@@ -18,6 +18,10 @@
 
     <div class="row">
         <div class="col-sm-12">
+
+            @include('partials.errors')     
+            @include('partials.success')  
+            
             <table id="super-proj-table" class="table table-striped table-bordered">
                 <thead>
                     <tr>
@@ -77,8 +81,6 @@ $(function(){
 
 	$("#super-proj-table").DataTable();
 
-	var super_ls = '<?php echo \Auth::user()->name; ?>';
-	localStorage.setItem("super_ls", super_ls);
 })
 </script>
 @endsection

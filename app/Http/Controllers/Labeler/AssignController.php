@@ -17,6 +17,7 @@ class AssignController extends Controller {
 		// 防止session过期
 		if (!\Auth::user()) 
 		{
+			\Cookie::queue('labeler', null , -1);
 			return redirect('/');
 		}
 
@@ -48,11 +49,18 @@ class AssignController extends Controller {
 			}
 		}
 		// dd($BSArr, $stateArr);
+		\Cookie::queue('labeler', \Auth::user()->labelerName, 120);
 		return view('labeler.assign.index', compact('assigns', 'stateArr', 'BSArr'));
 	}
 
 	public function getLabel($assignId) 
 	{
+		// 防止session过期
+		if (!\Auth::user()) 
+		{
+			\Cookie::queue('labeler', null , -1);
+			return redirect('/');
+		}
 		$assign = Assign::where('id', '=', $assignId)->first();
 		$assign['labelerId'] = Labeler::where('labelerName', '=', $assign['labeler'])->first()['id'];
 
@@ -76,6 +84,12 @@ class AssignController extends Controller {
 
 	public function getCheck($assignId) 
 	{
+		// 防止session过期
+		if (!\Auth::user()) 
+		{
+			\Cookie::queue('labeler', null , -1);
+			return redirect('/');
+		}
 		$assign = Assign::where('id', '=', $assignId)->first();
 		$assign['labelerId'] = Labeler::where('labelerName', '=', $assign['labeler'])->first()['id'];
 

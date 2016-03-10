@@ -18,6 +18,10 @@
 
     <div class="row">
         <div class="col-sm-12">
+
+            @include('partials.errors')     
+            @include('partials.success')  
+        
             <table id="super-admin-table" class="table table-striped table-bordered">
                 <thead>
                     <tr>
@@ -42,7 +46,7 @@
                                 {{ $admin['email'] }}
                             </td>
                             <td>
-                                {{ $admin['projId'] }}
+                                {{ App\User::find($admin['projId'])->proj['name'] }}
                             </td>
                             <td>
                                 {{ $admin['updated_at']->format('j-M-y g:ia') }}
