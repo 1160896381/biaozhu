@@ -26,10 +26,8 @@ class AssignController extends Controller {
 					->where('claim', '!=', 8)
 					->get();
 		
-		// 模型Labeler中的userId对应模型User中的id，通过调用user()方法得到当前标注者对应的管理员id
-		$userId = Labeler::find(\Auth::user()->id)
-					->hasOneUser['id'];
-		
+		$userId = Labeler::find(\Auth::user()->id)->belongsToUser['id'];
+
 		// 通过查询模型Norm中的userId得到使用到的规范
 		$norms = Norm::where('userId', '=', $userId)
 					->get();
@@ -40,12 +38,12 @@ class AssignController extends Controller {
 		{
 			$firstLevelArr = explode(',', $norms[$i]['firstLevel']);
 			array_push($stateArr, $norms[$i]['zeroLevel']);
-			array_push($BSArr, $norms[$i]['hasBS']);
+			array_push($BSArr, Norm::find($norms[$i]['id'])->belongsToFlash['hasBS']);
 			
 			for ($j=0; $j<count($firstLevelArr); $j++)
 			{
 				array_push($stateArr, $firstLevelArr[$j]);
-				array_push($BSArr, $norms[$i]['hasBS']);
+				array_push($BSArr, Norm::find($norms[$i]['id'])->belongsToFlash['hasBS']);
 			}
 		}
 		// dd($BSArr, $stateArr);
@@ -69,10 +67,10 @@ class AssignController extends Controller {
 		for ($i=0; $i<count($norms); $i++)
 		{
 			$firstLevel = explode(',', $norms[$i]['firstLevel']);
-			array_push($flashPathArr, $norms[$i]['flashPath']);
+			array_push($flashPathArr, Norm::find($norms[$i]['id'])->belongsToFlash['flashPath']);
 			for ($j=0; $j<count($firstLevel); $j++)
 			{
-				array_push($flashPathArr, $norms[$i]['flashPath']);
+				array_push($flashPathArr, Norm::find($norms[$i]['id'])->belongsToFlash['flashPath']);
 			}
 		}
 		
@@ -98,10 +96,10 @@ class AssignController extends Controller {
 		for ($i=0; $i<count($norms); $i++)
 		{
 			$firstLevel = explode(',', $norms[$i]['firstLevel']);
-			array_push($flashPathArr, $norms[$i]['flashPathBS']);
+			array_push($flashPathArr, Norm::find($norms[$i]['id'])->belongsToFlash['flashPathBS']);
 			for ($j=0; $j<count($firstLevel); $j++)
 			{
-				array_push($flashPathArr, $norms[$i]['flashPathBS']);
+				array_push($flashPathArr, Norm::find($norms[$i]['id'])->belongsToFlash['flashPathBS']);
 			}
 		}
 		$assign['flashPath'] = $flashPathArr[$assign['state2']-1];

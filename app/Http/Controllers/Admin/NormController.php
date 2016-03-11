@@ -17,10 +17,12 @@ class NormController extends Controller {
 			return redirect('/');
 		}
 
-		// dd(Norm::find(2)->hasOneFlash['hasNorm']);
-
 		$userId = \Auth::user()->id;
 		$types = Norm::where('userId', '=', $userId)->get();
+		
+		// dd(Norm::find($types[3]['id'])->belongsToFlash['classId']);
+
+		// dd($typesHasNorm);
 		
 		return view('admin.norm.type', compact('types'));
 	}
@@ -44,13 +46,16 @@ class NormController extends Controller {
 		$tabArr = explode(' ', $tabVal);
 
 		// 找到需要更改的规范进行更新
-		$typesHasNorm = Norm::where('userId', '=', $userId)
-				->where('hasNorm', '=', 1)
+		$types = Norm::where('userId', '=', $userId)
+				// ->whereHas('belongsToFlash', function($q)
+				// {
+				// 	$q->where('hasNorm', '=', 1);
+				// })
 				->get();
 
 		for ($i=0; $i<count($tabArr); $i++) {
-			$typesHasNorm[$i]->firstLevel = $tabArr[$i];
-			$typesHasNorm[$i]->save();
+			$types[$i]->firstLevel = $tabArr[$i];
+			$types[$i]->save();
 		}
 	}
 
@@ -64,29 +69,30 @@ class NormController extends Controller {
 		// 零级规范间以“。”分割
 		$tabArr = explode('。', $tabVal);
 
-		// 获得当前规范
-		$typesHasNorm = Norm::where('userId', '=', $userId)->get();
+		$types = Norm::where('userId', '=', $userId)
+				->get();
+
+		// dd($tabVal);
 
 		for ($i=0; $i<count($tabArr); $i++) {
-			$typesHasNorm[$i]->secondLevel = $tabArr[$i];
-			$typesHasNorm[$i]->save();
+			$types[$i]->secondLevel = $tabArr[$i];
+			$types[$i]->save();
 		}
 
-		// 获得最新的所有规范
-		$typesNotOnlyNorm = Norm::where('userId', '=', $userId)
+		$types = Norm::where('userId', '=', $userId)
 				->get();
 
 		$fileName = "flash/assets/xml/label_types_" . $userId . ".xml";
 	    $handle = fopen($fileName, "w");
 	    $str = '<?xml version="1.0" encoding="utf-8"?><Types>';
 	    $countState=1;
-	    for ($i=0; $i<count($typesNotOnlyNorm); $i++) {
+	    for ($i=0; $i<count($types); $i++) {
 	        // 声明为数组
 	        $array = array();
 	        $Tags1 = array();
 	        $Tags2 = array();
-	        $Tags1 = explode(",", $typesNotOnlyNorm[$i]['firstLevel']);
-	        $Tags2 = explode(",", $typesNotOnlyNorm[$i]['secondLevel']);
+	        $Tags1 = explode(",", $types[$i]['firstLevel']);
+	        $Tags2 = explode(",", $types[$i]['secondLevel']);
 
 	        // dd($Tags2);
 	        // 分组数组中第一个元素应为-1
@@ -99,7 +105,8 @@ class NormController extends Controller {
 	                array_push($array, $j);
 	            }
 	        }
-	        $str .= '<Layer1 layerID="'.$countState.'" label="'.$typesNotOnlyNorm[$i]['zeroLevel'].'" classid="'.$typesNotOnlyNorm[$i]['classId'].'" gf="'.$typesNotOnlyNorm[$i]['hasNorm'].'">';
+	        
+	        $str .= '<Layer1 layerID="'.$countState.'" label="'.$types[$i]['zeroLevel'].'" classid="'.Norm::find($types[$i]['id'])->belongsToFlash['classId'].'" gf="'.Norm::find($types[$i]['id'])->belongsToFlash['hasNorm'].'">';
 	        for($j=0; $j<count($Tags1); $j++)
 	        {
 	            $str .= '<Layer2 layerID="'.($countState + $j + 1).'" label="'.$Tags1[$j].'">';

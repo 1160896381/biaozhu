@@ -22,9 +22,9 @@ class AdminController extends Controller {
 
 		$superId = \Auth::user()->id;
 		$admins = User::where('superId', '=', $superId)->get();
-		$projs = Proj::where('superId', '=', $superId)->get();
-
-		return view('super.admin', compact('admins', 'projs'));
+		
+		// dd($admins);
+		return view('super.admin', compact('admins'));
 	}
 
 	public function postAdmin(AdminRegisterRequest $request)

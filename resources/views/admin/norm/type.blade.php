@@ -4,7 +4,7 @@
 
 <div id="page-wrapper">
 	
-	<ul class="nav nav-tabs">
+	<ul class="nav nav-tabs" id="type-nav">
 		@for ($i = 0; $i < count($types); $i++)
 			@if ($i == 0) 
 				<li class="active">
@@ -14,7 +14,7 @@
 						</div>
 					</a>
 				</li>
-			@elseif ($types[$i]['hasNorm'] == 0)
+			@elseif (App\Norm::find($types[$i]['id'])->belongsToFlash['hasNorm'] == 0)
 				<li class="disabled"><a href="#tab{{ $i }}">
 					<div num-index={{ $i }} first-level="{{ $types[$i]['firstLevel'] }}">
 						{{ $types[$i]['zeroLevel'] }}
@@ -60,7 +60,7 @@
 <script>
 	$(function() {
 
-		var size = $(".nav-tabs li").length;
+		var size = $("#type-nav li").length;
 
 		for (var i=0; i<size; i++) {
 			$("#tag" + i).tabControl(

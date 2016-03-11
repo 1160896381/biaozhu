@@ -4,7 +4,7 @@
 
 <div id="page-wrapper">
 
-	<ul class="nav nav-tabs">
+	<ul class="nav nav-tabs" id="detail-nav">
 		@for ($i = 0; $i < count($types); $i++)
 			@if ($i == 0) 
 				<li class="active">
@@ -14,7 +14,7 @@
 						</div>
 					</a>
 				</li>
-			@elseif ($types[$i]['hasNorm'] == 0)
+			@elseif (App\Norm::find($types[$i]['id'])->belongsToFlash['hasNorm'] == 0)
 				<li class="disabled"><a href="#tab{{ $i }}">
 					<div num-index={{ $i }} first-level="{{ $types[$i]['firstLevel'] }}" second-level="{{ $types[$i]['secondLevel'] }}">
 						{{ $types[$i]['zeroLevel'] }}
@@ -75,7 +75,7 @@
 <script>
 	$(function() {
 
-		var li_size = $(".nav-tabs li").length
+		var li_size = $("#detail-nav li").length
 
 		for (var i=0; i<li_size; i++) {
 			var tr_size = $("#tab" + i + " tr").size();
@@ -93,6 +93,7 @@
 		// 注意合法字符里不能含有“.”以及“。”
 		$("#getTab").click(function() {
 			var tab_val = [];
+			console.log(li_size);		    
 			for (var i=0; i<li_size; i++) {
 				var tr_size = $("#tab" + i + " tr").size();
 				for (var j=0; j<tr_size; j++) {
@@ -107,7 +108,7 @@
 	    				.join(",")
 	    				.replace(/([\.|。]$)/, "")
     					.replace(/\+/gi, '＋');
-		    
+			
 		    $.ajax({
 		        type: 'POST',
 		        url: 'detail',

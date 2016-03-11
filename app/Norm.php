@@ -6,8 +6,8 @@ class Norm extends Model {
 
 	protected $fillable = ['flashId', 'userId', 'zeroLevel', 'firstLevel', 'secondLevel'];
 
-	public function hasOneFlash()
+	public function belongsToFlash()
 	{
-		return $this->hasOne('App\Flash', 'id', 'flashId');
+		return $this->belongsTo('App\Flash', 'flashId');
 	}
 }
