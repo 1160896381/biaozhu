@@ -41,17 +41,6 @@
 		          	<li>
 	              		<a href="/admin/labeler/"><i class="fa fa-users fa-fw"></i> 人员管理</a>
 		          	</li>
-		          	<li>
-	              		<a href="#"><i class="fa fa-edit fa-fw"></i> 规范制定<span class="fa arrow"></span></a>
-	              		<ul class="nav nav-second-level">
-		                  	<li>
-	                      		<a href="/admin/norm/type"><i class="fa fa-th-large fa-fw"></i>标注类型</a>
-		                  	</li>
-  		                  	<li>
-  	                      		<a href="/admin/norm/detail"><i class="fa fa-th-list fa-fw"></i>具体名称</a>
-  		                  	</li>
-		              	</ul>
-		          	</li>
 		          	<!--li>
 		              	<a href="#"><i class="fa fa-pie-chart-o fa-fw"></i> 可视化统计<span class="fa arrow"></span></a>
 		              	<ul class="nav nav-second-level">

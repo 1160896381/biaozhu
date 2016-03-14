@@ -11,7 +11,7 @@
     <div class="row" style="margin-bottom: 10px">
         <div class="col-md-6">
             <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#modal-super-proj">
-                <i class="fa fa-database"></i> 新建项目
+                <i class="fa fa-database"></i> 新建子课题
             </button>
         </div>
     </div>
@@ -26,7 +26,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>项目名称</th>
+                        <th>名称</th>
                         <th>创建时间</th>
                         <th>项目描述</th>
                         <th data-sortable="false">操作</th>

@@ -19,12 +19,19 @@ class AdminController extends Controller {
 			\Cookie::queue('super', null , -1);
 			return redirect('/');
 		}
-
+		
 		$superId = \Auth::user()->id;
-		$admins = User::where('superId', '=', $superId)->get();
+
+		$admins = User::whereHas('belongsToProj', function($q)
+				{
+					$superId = \Auth::user()->id;
+					$q->where('superId', '=', $superId);
+				})
+				->get();
+		$projs = Proj::where('superId', '=', $superId)->get();
 		
 		// dd($admins);
-		return view('super.admin', compact('admins'));
+		return view('super.admin', compact('admins', 'projs'));
 	}
 
 	public function postAdmin(AdminRegisterRequest $request)
@@ -38,7 +45,6 @@ class AdminController extends Controller {
 		
 		$admin = User::create(
 			array_merge(
-                ['superId'   => \Auth::user()->id],
                 ['projId'    => $projId],
                 ['name'      => $name],
                 ['password'  => $password],

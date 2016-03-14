@@ -10,4 +10,9 @@ class Norm extends Model {
 	{
 		return $this->belongsTo('App\Flash', 'flashId');
 	}
+
+	public function belongsToSuper()
+	{
+		return $this->belongsTo('App\Super', 'superId');
+	}
 }

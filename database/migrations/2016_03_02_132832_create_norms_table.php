@@ -16,7 +16,7 @@ class CreateNormsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('flashId');
-			$table->integer('userId');
+			$table->integer('superId');
 			$table->string('zeroLevel');
 			$table->text('firstLevel');
 			$table->text('secondLevel');

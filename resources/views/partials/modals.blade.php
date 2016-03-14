@@ -468,7 +468,7 @@
     </div>
 </div>
 
-{{-- 新建项目 --}}
+{{-- 新建子课题 --}}
 <div class="modal fade" id="modal-super-proj">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -478,7 +478,7 @@
                     <button type="button" class="close" data-dismiss="modal">
                         ×
                     </button>
-                    <h4 class="modal-title">新建项目</h4>
+                    <h4 class="modal-title">新建子课题</h4>
                 </div>  
                 <div class="modal-body">
                     <div class="form-group">
@@ -552,6 +552,21 @@
                     
                     <div class="form-group">
                         <label class="col-md-4 control-label">选择所属项目</label>
+                        <div class="col-md-6">
+                            <select id="projId" class="form-control" name="projId">
+                                @if (isset($projs))
+                                    @foreach ($projs as $proj)
+                                        <option value="{{ $proj['id'] }}">
+                                            {{ $proj['name'] }}
+                                        </option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">选择面板</label>
                         <div class="col-md-6">
                             <select id="projId" class="form-control" name="projId">
                                 @if (isset($projs))
@@ -659,3 +674,4 @@
         </div>
     </div>
 </div>
+

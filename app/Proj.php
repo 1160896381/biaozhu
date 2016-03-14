@@ -6,4 +6,8 @@ class Proj extends Model {
 
 	protected $fillable = ['name', 'superId', 'description'];
 
+	public function belongsToSuper()
+	{
+		return $this->belongsTo('App\Super', 'superId');
+	}
 }

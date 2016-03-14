@@ -43,12 +43,6 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'auth'=>'admin'], functio
 	Route::post('labeler/modify', 'AssignController@modifyLabeler');
 	Route::post('labeler/verify', 'AssignController@verifyLabeler');
 	Route::delete('labeler/delete', 'AssignController@deleteLabeler');
-
-	// 规范
-	Route::get('norm/type', 'NormController@typeShow');
-	Route::get('norm/detail', 'NormController@detailShow');
-	Route::post('norm/type', 'NormController@postType');
-	Route::post('norm/detail', 'NormController@postDetail');
 });
 
 // 标注者
@@ -80,9 +74,12 @@ Route::group(['prefix'=>'super', 'namespace'=>'Super', 'auth'=>'super'], functio
 	Route::get('flash', 'FlashController@index');
 	Route::post('flash/create', 'FlashController@postFlash');
 
-	Route::get('labeler', 'LabelerController@index');
-	Route::get('resource', 'ResourceController@index');
-	Route::get('resource/batch', 'ResourceController@batchIndex');
+	// 规范
 	Route::get('norm/type', 'NormController@typeShow');
 	Route::get('norm/detail', 'NormController@detailShow');
+	Route::post('norm/type', 'NormController@postType');
+	Route::post('norm/detail', 'NormController@postDetail');
+
+	Route::get('resource', 'ResourceController@index');
+	Route::get('resource/batch', 'ResourceController@batchIndex');
 });

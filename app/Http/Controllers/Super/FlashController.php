@@ -19,8 +19,7 @@ class FlashController extends Controller {
 			return redirect('/');
 		}
 
-		$superId = \Auth::user()->id;
-		$flashes = Flash::where('superId', '=', $superId)->get();
+		$flashes = Flash::get();
 
 		return view('super.flash', compact('flashes'));	
 	}
@@ -35,7 +34,6 @@ class FlashController extends Controller {
 
 		$flash = Flash::create(
 			array_merge(
-                ['superId'     => \Auth::user()->id],
                 ['classId'     => $classId],
                 ['hasNorm'     => $hasNorm],
                 ['hasBS'       => $hasBS],

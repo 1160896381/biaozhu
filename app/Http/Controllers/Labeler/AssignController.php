@@ -4,6 +4,7 @@ use App\Assign;
 use App\Norm;
 use App\Labeler;
 use App\User;
+use App\Proj;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -29,9 +30,10 @@ class AssignController extends Controller {
 		$userId = Labeler::find(\Auth::user()->id)->belongsToUser['id'];
 
 		// 通过查询模型Norm中的userId得到使用到的规范
-		$norms = Norm::where('userId', '=', $userId)
+		$superId = Proj::find($userId)->belongsToSuper['id'];
+		$norms = Norm::where('superId', '=', $superId)
 					->get();
-		
+
 		$stateArr = [];
 		$BSArr = [];
 		for ($i=0; $i<count($norms); $i++)
