@@ -27,6 +27,7 @@ class AssignController extends Controller {
 		$labelers = Labeler::where('userId', '=', $userId)
 					->get();
 
+		// 这里需要有所改动
 		$norms = Norm::where('userId', '=', $userId)
 					->get();
 		

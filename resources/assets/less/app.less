@@ -79,3 +79,23 @@ a#deltab {
 	text-decoration: none;
 	color: white;
 }
+
+.webuploader-element-invisible {
+	position: absolute !important;
+	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px,1px,1px,1px);
+}
+
+.webuploader-container {
+	position: relative;
+}
+
+.webuploader-pick {
+	&:extend(.btn, .btn-primary, .btn-md);
+	margin-top: 20px;
+}
+
+.webuploader-pick-disable {
+	opacity: 0.6;
+	pointer-events:none;
+}

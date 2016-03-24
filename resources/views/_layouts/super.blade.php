@@ -26,6 +26,17 @@
 	              		<a href="/super/flash"><i class="fa fa-flash fa-fw"></i> 面板管理</a>
 		          	</li>
 		          	<li>
+	              		<a href="#"><i class="fa fa-edit fa-fw"></i> 规范制定<span class="fa arrow"></span></a>
+	              		<ul class="nav nav-second-level">
+		                  	<li>
+	                      		<a href="/super/norm/type"><i class="fa fa-th-large fa-fw"></i>标注类型</a>
+		                  	</li>
+  		                  	<li>
+  	                      		<a href="/super/norm/detail"><i class="fa fa-th-list fa-fw"></i>具体名称</a>
+  		                  	</li>
+		              	</ul>
+		          	</li>
+		          	<li>
 	            	  	<a href="#"><i class="fa fa-sitemap fa-fw"></i> 资源管理<span class="fa arrow"></span></a>
 		              	<ul class="nav nav-second-level">
 		                  	<li>
@@ -40,22 +51,11 @@
 		              	<a href="#"><i class="fa fa-table fa-fw"></i> 任务管理<span class="fa arrow"></span></a>
 		              	<ul class="nav nav-second-level">
 		                  	<li>
-                      			<a href="/admin/assign/1"><i class="fa fa-file-text fa-fw"></i>文本数据表</a>
+                      			<a href="/super/assign/1"><i class="fa fa-file-text fa-fw"></i>文本数据表</a>
 		                  	</li>
 		                  	<li>
-	                      		<a href="/admin/assign/2"><i class="fa fa-file-image-o fa-fw"></i>图片数据表</a>
+	                      		<a href="/super/assign/2"><i class="fa fa-file-image-o fa-fw"></i>图片数据表</a>
 		                  	</li>
-		              	</ul>
-		          	</li>
-		          	<li>
-	              		<a href="#"><i class="fa fa-edit fa-fw"></i> 规范制定<span class="fa arrow"></span></a>
-	              		<ul class="nav nav-second-level">
-		                  	<li>
-	                      		<a href="/super/norm/type"><i class="fa fa-th-large fa-fw"></i>标注类型</a>
-		                  	</li>
-  		                  	<li>
-  	                      		<a href="/super/norm/detail"><i class="fa fa-th-list fa-fw"></i>具体名称</a>
-  		                  	</li>
 		              	</ul>
 		          	</li>
 		          	<!--li>

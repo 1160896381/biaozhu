@@ -20,6 +20,7 @@ Route::group(['prefix'=>'auth', 'namespace'=>'Auth'], function()
 // 管理员
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'auth'=>'admin'], function()
 {
+	// init
 	Route::get('/', 'ResourceController@index');
 
 	// 资源
@@ -63,14 +64,18 @@ Route::group(['prefix'=>'labeler', 'namespace'=>'Labeler', 'auth'=>'labeler'], f
 // 超级管理员
 Route::group(['prefix'=>'super', 'namespace'=>'Super', 'auth'=>'super'], function()
 {
+	// init
 	Route::get('/', 'ProjController@index');
 
+	// 项目
 	Route::get('proj', 'ProjController@index');
 	Route::post('proj/create', 'ProjController@postProj');
 
+	// 管理员
 	Route::get('admin', 'AdminController@index');
 	Route::post('admin/create', 'AdminController@postAdmin');
 
+	// 面板
 	Route::get('flash', 'FlashController@index');
 	Route::post('flash/create', 'FlashController@postFlash');
 
@@ -80,6 +85,12 @@ Route::group(['prefix'=>'super', 'namespace'=>'Super', 'auth'=>'super'], functio
 	Route::post('norm/type', 'NormController@postType');
 	Route::post('norm/detail', 'NormController@postDetail');
 
+	// 资源
 	Route::get('resource', 'ResourceController@index');
 	Route::get('resource/batch', 'ResourceController@batchIndex');
+
+	// 任务
+	Route::get('assign/{class}', 'AssignController@index');
+	Route::post('assign/task', 'AssignController@addTask');
+	Route::delete('assign/task', 'AssignController@deleteTask');
 });

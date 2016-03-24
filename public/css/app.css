@@ -2711,7 +2711,8 @@ select[multiple].form-group-lg .form-control {
     padding-top: 6px;
   }
 }
-.btn {
+.btn,
+.webuploader-pick {
   display: inline-block;
   margin-bottom: 0;
   font-weight: 300;
@@ -2808,7 +2809,8 @@ fieldset[disabled] .btn-default.active {
   color: #fff;
   background-color: #333;
 }
-.btn-primary {
+.btn-primary,
+.webuploader-pick {
   color: #fff;
   background-color: #337ab7;
   border-color: #2e6da4;
@@ -6289,6 +6291,22 @@ a#deltab :hover {
 #labeler-assign-table a {
   text-decoration: none;
   color: white;
+}
+.webuploader-element-invisible {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px);
+  /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+}
+.webuploader-container {
+  position: relative;
+}
+.webuploader-pick {
+  margin-top: 20px;
+}
+.webuploader-pick-disable {
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 /*# sourceMappingURL=app.css.map */

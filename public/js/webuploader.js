@@ -946,8 +946,10 @@
     
                 parent = $( opts.container || document.body );
                 container = $( document.createElement('div') );
-    
-                container.attr( 'id', 'rt_' + this.uid );
+                
+                // 把属性值从原来的id改为myid
+                container.attr( 'myid', 'rt_' + this.uid );
+                
                 container.css({
                     position: 'absolute',
                     top: '0px',
@@ -1690,7 +1692,7 @@
     
         function FilePicker( opts ) {
             opts = this.options = $.extend({}, FilePicker.options, opts );
-    
+            
             opts.container = $( opts.id );
     
             if ( !opts.container.length ) {
@@ -2702,7 +2704,7 @@
             removeFile: function( file ) {
                 var me = this,
                     existing = this._map[ file.id ];
-    
+                
                 if ( existing ) {
                     delete this._map[ file.id ];
                     file.destroy();
@@ -3500,7 +3502,6 @@
                 // 如果指定了开始某个文件，则只开始指定文件。
                 if ( file ) {
                     file = file.id ? file : me.request( 'get-file', file );
-    
                     if (file.getStatus() === Status.INTERRUPT) {
                         $.each( me.pool, function( _, v ) {
     
@@ -4062,7 +4063,7 @@
                         tr.destroy();
                     }
                 });
-    
+                
                 // 配置默认的上传字段。
                 data = $.extend( data, {
                     id: file.id,

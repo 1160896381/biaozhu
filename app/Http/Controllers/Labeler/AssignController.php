@@ -29,7 +29,7 @@ class AssignController extends Controller {
 		
 		$userId = Labeler::find(\Auth::user()->id)->belongsToUser['id'];
 
-		// 通过查询模型Norm中的userId得到使用到的规范
+		// 通过查询User中的userId得到superId，再查询Norm中的superId得到使用到的规范
 		$superId = Proj::find($userId)->belongsToSuper['id'];
 		$norms = Norm::where('superId', '=', $superId)
 					->get();
@@ -65,7 +65,7 @@ class AssignController extends Controller {
 		$assign['labelerId'] = Labeler::where('labelerName', '=', $assign['labeler'])->first()['id'];
 
 		$flashPathArr = [];
-		$norms = Norm::where('userId', '=', $assign['userId'])->get();
+		$norms = Norm::where('superId', '=', $assign['userId'])->get();
 		for ($i=0; $i<count($norms); $i++)
 		{
 			$firstLevel = explode(',', $norms[$i]['firstLevel']);
@@ -76,6 +76,7 @@ class AssignController extends Controller {
 			}
 		}
 		
+		dd($flashPathArr);
 		$assign['flashPath'] = $flashPathArr[$assign['state2']-1];
 		
 		// dd($assign);
