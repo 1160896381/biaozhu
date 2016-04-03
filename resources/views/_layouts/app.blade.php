@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>通用语料库协同标注平台</title>
+	<title>中介语语料库协同标注平台</title>
 	<link href="/css/metisMenu.css" rel="stylesheet">
 	<link href="/css/app.css" rel="stylesheet">
 	<link href="/css/sb-admin-2.css" rel="stylesheet">
@@ -21,7 +21,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/">通用语料库协同标注平台</a>
+				<a class="navbar-brand" href="/">中介语语料库协同标注平台</a>
 			</div>
 
 			<div class="collapse navbar-collapse">

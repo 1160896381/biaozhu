@@ -64,11 +64,12 @@
 				                	<i class="fa fa-cogs fa-lg"></i>工作
 				            	</button>
 		                	</a>
-			                <a href="/labeler/assign/check/{{ $assigns[$i]['id'] }}">
 			                	@if ($BSArr[$assigns[$i]['state']-1] == 1)
+			                	<a href="/labeler/assign/check/{{ $assigns[$i]['id'] }}">
 					        	    <button type="button" class="btn btn-xs btn-danger">
 					                	<i class="fa fa-eye fa-lg"></i>查看
 					        	    </button>
+					        	</a>
 					        	@elseif ($BSArr[$assigns[$i]['state']-1] == 0)
 				        		    <button type="button" class="btn btn-xs btn-danger disabled">
 				        	        	<i class="fa fa-eye fa-lg"></i>查看
@@ -95,6 +96,10 @@
 $(function(){
 
 	$("#labeler-assign-table").DataTable();
+	
+	$('.disabled').click(function(event) {
+	  	event.preventDefault();  
+	});
 
 	var labeler_ls = '<?php echo \Auth::user()->labelerName; ?>';
 	localStorage.setItem("labeler_ls", labeler_ls);

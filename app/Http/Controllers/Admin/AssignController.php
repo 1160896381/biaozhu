@@ -3,6 +3,8 @@
 use App\Assign;
 use App\Labeler;
 use App\Norm;
+use App\User;
+use App\Proj;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -11,7 +13,7 @@ use Illuminate\Http\Request;
 
 class AssignController extends Controller {
 
-	public function index($classId)
+	public function index($classType)
 	{
 		// 防止session过期
 		if (!\Auth::user()) 
@@ -21,14 +23,16 @@ class AssignController extends Controller {
 		$userId = \Auth::user()->id;
 
 		$assigns = Assign::where('userId', '=', $userId)
-					->where('classId', '=', $classId)
+					->where('classId', '=', GetClassid($classType))
 					->get();
 
 		$labelers = Labeler::where('userId', '=', $userId)
 					->get();
 
-		// 这里需要有所改动
-		$norms = Norm::where('userId', '=', $userId)
+		$projId = User::find($userId)->belongsToProj['id'];
+		$superId = Proj::find($projId)->belongsToSuper['id'];
+
+		$norms = Norm::where('superId', '=', $superId)
 					->get();
 		
 		$stateArr = [];

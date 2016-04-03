@@ -62,10 +62,13 @@ class AssignController extends Controller {
 			return redirect('/');
 		}
 		$assign = Assign::where('id', '=', $assignId)->first();
+
 		$assign['labelerId'] = Labeler::where('labelerName', '=', $assign['labeler'])->first()['id'];
 
 		$flashPathArr = [];
-		$norms = Norm::where('superId', '=', $assign['userId'])->get();
+		$projId = User::find($assign['userId'])->belongsToProj['id'];
+		$superId = Proj::find($projId)->belongsToSuper['id'];
+		$norms = Norm::where('superId', '=', $superId)->get();
 		for ($i=0; $i<count($norms); $i++)
 		{
 			$firstLevel = explode(',', $norms[$i]['firstLevel']);
@@ -76,7 +79,7 @@ class AssignController extends Controller {
 			}
 		}
 		
-		dd($flashPathArr);
+		// dd($flashPathArr);
 		$assign['flashPath'] = $flashPathArr[$assign['state2']-1];
 		
 		// dd($assign);
@@ -95,7 +98,9 @@ class AssignController extends Controller {
 		$assign['labelerId'] = Labeler::where('labelerName', '=', $assign['labeler'])->first()['id'];
 
 		$flashPathArr = [];
-		$norms = Norm::where('userId', '=', $assign['userId'])->get();
+		$projId = User::find($assign['userId'])->belongsToProj['id'];
+		$superId = Proj::find($projId)->belongsToSuper['id'];
+		$norms = Norm::where('superId', '=', $superId)->get();
 		for ($i=0; $i<count($norms); $i++)
 		{
 			$firstLevel = explode(',', $norms[$i]['firstLevel']);

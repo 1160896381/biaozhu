@@ -105,14 +105,40 @@ function GetClasstype($classId)
 		case '2':
 			$ret = '图片';
 			break;
-		case '1':
+		case '3':
 			$ret = '音频';
 			break;
-		case '2':
+		case '4':
 			$ret = '视频';
 			break;
 		default:
 			$ret = '文本';
+			break;
+	}
+
+	return $ret;
+}
+
+/**
+ * 获得ID
+ */
+function GetClassid($classType)
+{
+	switch ($classType) {
+		case 'text':
+			$ret = '1';
+			break;
+		case 'picture':
+			$ret = '2';
+			break;
+		case 'audio':
+			$ret = '3';
+			break;
+		case 'video':
+			$ret = '4';
+			break;
+		default:
+			$ret = '1';
 			break;
 	}
 

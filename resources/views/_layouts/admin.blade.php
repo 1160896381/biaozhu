@@ -31,10 +31,10 @@
 		              	<a href="#"><i class="fa fa-table fa-fw"></i> 任务管理<span class="fa arrow"></span></a>
 		              	<ul class="nav nav-second-level">
 		                  	<li>
-                      			<a href="/admin/assign/1"><i class="fa fa-file-text fa-fw"></i>文本数据表</a>
+                      			<a href="/admin/assign/text"><i class="fa fa-file-text fa-fw"></i>文本数据表</a>
 		                  	</li>
 		                  	<li>
-	                      		<a href="/admin/assign/2"><i class="fa fa-file-image-o fa-fw"></i>图片数据表</a>
+	                      		<a href="/admin/assign/picture"><i class="fa fa-file-image-o fa-fw"></i>图片数据表</a>
 		                  	</li>
 		              	</ul>
 		          	</li>

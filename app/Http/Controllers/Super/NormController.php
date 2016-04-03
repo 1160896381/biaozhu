@@ -30,6 +30,13 @@ class NormController extends Controller {
 
 	public function detailShow()
 	{
+		// 防止session过期
+		if (!\Auth::user()) 
+		{
+			\Cookie::queue('super', null , -1);
+			return redirect('/');
+		}
+
 		$superId = \Auth::user()->id;
 		$types = Norm::where('superId', '=', $superId)->get();
 		
@@ -37,7 +44,7 @@ class NormController extends Controller {
 	}
 
 	/**
-	 * 修改标注类型
+	 * 修改标注类型，同时修改具体名称的顺序
 	 */
 	public function postType(Request $request)
 	{	
@@ -48,10 +55,6 @@ class NormController extends Controller {
 
 		// 找到需要更改的规范进行更新
 		$types = Norm::where('superId', '=', $superId)
-				// ->whereHas('belongsToFlash', function($q)
-				// {
-				// 	$q->where('hasNorm', '=', 1);
-				// })
 				->get();
 
 		for ($i=0; $i<count($tabArr); $i++) {

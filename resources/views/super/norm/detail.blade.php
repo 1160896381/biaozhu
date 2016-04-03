@@ -112,7 +112,10 @@
 		    $.ajax({
 		        type: 'POST',
 		        url: 'detail',
-		        data: encodeURI(param)
+		        data: encodeURI(param),
+		        success: function() {
+		        	alert('标注规范修改成功！');
+		        }
 		    });
 		});
 
