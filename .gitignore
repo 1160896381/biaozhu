@@ -3,3 +3,4 @@
 .env
 /public/uploads
 /public/flash
+.DS_Store
