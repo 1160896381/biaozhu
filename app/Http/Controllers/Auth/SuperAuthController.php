@@ -6,4 +6,11 @@ class SuperAuthController extends AuthController
 	protected $redirectPath = '/super';
 	// 登录失败
 	protected $loginPath = '/';
+
+	public function getLogout()
+	{
+		\Cookie::queue('super', null , -1);
+	    \Auth::logout();
+	    return redirect('/');
+	}
 }

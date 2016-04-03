@@ -140,7 +140,7 @@ class ResourceController extends Controller
         return view('admin.resource.batch');
     }
 
-    public function batchUploadFile(Request $request)
+    public function batchUploadFile(UploadFileRequest $request)
     {
         header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
         header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
@@ -188,17 +188,22 @@ class ResourceController extends Controller
 
             $classId = 1;
             $uploadDir = 'uploads/text/' . $subPath;    
-            
-            $text = mb_convert_encoding($content, 'UTF-8', 'GBK,UTF-8');
+            // $text = mb_convert_encoding($content, 'UTF-8', 'GBK');
 
             $upText = $uploadDir . '/' . $fileReal;
+            $upText_ = 'text/' . $subPath . '/' . $fileReal;
+            $webPath = $this->manager->fileWebpath($upText_);
+
             $initXml = '<UnitCorpus type="text" title="' . $fileName . '" content="' . $upText . '"></UnitCorpus>';
         } elseif (is_image($mimeType)) {
             
             $classId = 2;
             $uploadDir = 'uploads/pic/' . $subPath;
-
+            
             $upPic = $uploadDir . '/' . $fileReal;
+            $upPic_ = 'pic/' . $subPath . '/' . $fileReal;
+            $webPath = $this->manager->fileWebpath($upPic_);
+
             $initXml = '<UnitCorpus type="picture" title="' . $fileName . '" content="' . $upPic . '"><Pages><Page><OriginalPictureName>' . $upPic . '</OriginalPictureName><PreProcessedPictureName></PreProcessedPictureName></Page></Pages></UnitCorpus>';
         }
 
@@ -363,7 +368,8 @@ class ResourceController extends Controller
                 ['fileName' => $fileName],
                 ['fileReal' => $fileReal],
                 ['fileSize' => $fileSize],
-                ['subPath'  => $subPath]
+                ['subPath'  => $subPath],
+                ['webPath'  => $webPath]
             ));
 
         Assign::create(
@@ -376,7 +382,7 @@ class ResourceController extends Controller
                 ['deadTime'   => null],
                 ['initXml'    => $initXml]
             ));
-        
+
         // Return Success JSON-RPC response
         die('{"jsonrpc" : "2.0", "result" : null, "id" : "id"}');
     }

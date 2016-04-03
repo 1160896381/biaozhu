@@ -6,4 +6,11 @@ class LabelerAuthController extends AuthController
 	protected $redirectPath = '/labeler/assign';
 	// 登录失败
 	protected $loginPath = '/';
+
+	public function getLogout()
+	{
+		\Cookie::queue('labeler', null , -1);
+	    \Auth::logout();
+	    return redirect('/');
+	}
 }

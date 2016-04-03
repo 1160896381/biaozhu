@@ -28,7 +28,7 @@
                         <th>文件类型</th>
                         <th>上传日期</th>
                         <th>文件大小</th>
-                        <th data-sortable="false">操作</th>
+                        <th data-sortable="false" width="100px">操作</th>
                     </tr>
                 </thead>
                 <tbody>

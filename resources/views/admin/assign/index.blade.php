@@ -23,7 +23,7 @@
 	                    <th>截止时间</th>
 	                    <th>标注者</th>
 	                    <th>任务</th>
-	                    <th data-sortable="false">操作</th>
+	                    <th data-sortable="false" width="150px">操作</th>
 	                </tr>
 	            </thead>
 	            <tbody>
