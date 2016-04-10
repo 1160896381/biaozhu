@@ -564,21 +564,6 @@
                             </select>
                         </div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label class="col-md-4 control-label">选择面板</label>
-                        <div class="col-md-6">
-                            <select id="projId" class="form-control" name="projId">
-                                @if (isset($projs))
-                                    @foreach ($projs as $proj)
-                                        <option value="{{ $proj['id'] }}">
-                                            {{ $proj['name'] }}
-                                        </option>
-                                    @endforeach
-                                @endif
-                            </select>
-                        </div>
-                    </div>
 
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
@@ -606,6 +591,14 @@
                     <h4 class="modal-title">注册面板</h4>
                 </div>  
                 <div class="modal-body">
+                    
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">面板名称</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="flashName">
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label class="col-md-4 control-label">类型</label>
                         <div class="col-md-6">

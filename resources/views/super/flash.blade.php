@@ -24,6 +24,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>名称</th>
                         <th>类型</th>
                         <th>需要规范</th>
                         <th>需要浏览面板</th>
@@ -38,6 +39,9 @@
                         <tr>
                             <td>
                                 {{ $flash['id'] }}
+                            </td>
+                            <td>
+                                {{ $flash['flashName'] }}
                             </td>
                             <td>
                                 {{ GetClasstype($flash['classId']) }}

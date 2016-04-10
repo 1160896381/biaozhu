@@ -79,10 +79,10 @@
 		    
 		    $.ajax({
 		        type: 'POST',
-		        url: 'type',
+		        url: 'second',
 		        data: encodeURI(param),
 		        success: function() {
-		        	window.location.href = 'detail';
+		        	window.location.href = 'third';
 		        }
 		    });
 		});

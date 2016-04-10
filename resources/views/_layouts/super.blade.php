@@ -29,10 +29,13 @@
 	              		<a href="#"><i class="fa fa-edit fa-fw"></i> 规范制定<span class="fa arrow"></span></a>
 	              		<ul class="nav nav-second-level">
 		                  	<li>
-	                      		<a href="/super/norm/type"><i class="fa fa-th-large fa-fw"></i>标注类型</a>
+	                      		<a href="/super/norm/first"><i class="fa fa-th-large fa-fw"></i>一级规范</a>
+		                  	</li>
+		                  	<li>
+	                      		<a href="/super/norm/second"><i class="fa fa-th-list fa-fw"></i>二级规范</a>
 		                  	</li>
   		                  	<li>
-  	                      		<a href="/super/norm/detail"><i class="fa fa-th-list fa-fw"></i>具体名称</a>
+  	                      		<a href="/super/norm/third"><i class="fa fa-th fa-fw"></i>具体名称</a>
   		                  	</li>
 		              	</ul>
 		          	</li>

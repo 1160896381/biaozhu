@@ -15,6 +15,7 @@ class CreateFlashesTable extends Migration {
 		Schema::create('flashes', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('flashName');
 			$table->integer('classId');
 			$table->boolean('hasNorm');
 			$table->boolean('hasBS');

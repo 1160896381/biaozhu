@@ -80,10 +80,12 @@ Route::group(['prefix'=>'super', 'namespace'=>'Super', 'auth'=>'super'], functio
 	Route::post('flash/create', 'FlashController@postFlash');
 
 	// 规范
-	Route::get('norm/type', 'NormController@typeShow');
-	Route::get('norm/detail', 'NormController@detailShow');
-	Route::post('norm/type', 'NormController@postType');
-	Route::post('norm/detail', 'NormController@postDetail');
+	Route::get('norm/first', 'NormController@firstNormShow');
+	Route::get('norm/second', 'NormController@secondNormShow');
+	Route::get('norm/third', 'NormController@thirdNormShow');
+	Route::post('norm/first', 'NormController@postFirstNorm');
+	Route::post('norm/second', 'NormController@postSecondNorm');
+	Route::post('norm/third', 'NormController@postThirdNorm');
 
 	// 资源
 	Route::get('resource', 'ResourceController@index');

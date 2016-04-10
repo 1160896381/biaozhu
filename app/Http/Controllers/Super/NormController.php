@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Super;
 
 use App\Norm;
+use App\Flash;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -9,7 +10,7 @@ use Illuminate\Http\Request;
 
 class NormController extends Controller {
 
-	public function typeShow()
+	public function firstNormShow()
 	{
 		// 防止session过期
 		if (!\Auth::user()) 
@@ -19,16 +20,14 @@ class NormController extends Controller {
 		}
 
 		$superId = \Auth::user()->id;
-		$types = Norm::where('superId', '=', $superId)->get();
+		// 得到所有FLASH面板
+		$flashes = Flash::get();
+		// dd($flashes);
 		
-		// dd(Norm::find($types[3]['id'])->belongsToFlash['classId']);
-
-		// dd($typesHasNorm);
-		
-		return view('super.norm.type', compact('types'));
+		return view('super.norm.first', compact('flashes'));
 	}
 
-	public function detailShow()
+	public function secondNormShow()
 	{
 		// 防止session过期
 		if (!\Auth::user()) 
@@ -40,13 +39,48 @@ class NormController extends Controller {
 		$superId = \Auth::user()->id;
 		$types = Norm::where('superId', '=', $superId)->get();
 		
-		return view('super.norm.detail', compact('types'));
+		return view('super.norm.second', compact('types'));
+	}
+
+	public function thirdNormShow()
+	{
+		// 防止session过期
+		if (!\Auth::user()) 
+		{
+			\Cookie::queue('super', null , -1);
+			return redirect('/');
+		}
+
+		$superId = \Auth::user()->id;
+		$types = Norm::where('superId', '=', $superId)->get();
+		
+		return view('super.norm.third', compact('types'));
 	}
 
 	/**
-	 * 修改标注类型，同时修改具体名称的顺序
+	 * 修改一级规范
 	 */
-	public function postType(Request $request)
+	public function postFirstNorm(Request $request)
+	{	
+		$superId = \Auth::user()->id;
+		$tabVal = $request->get('tab_val');
+		// 零级规范间以空格分割
+		$tabArr = explode(' ', $tabVal);
+
+		// 找到需要更改的规范进行更新
+		$types = Norm::where('superId', '=', $superId)
+				->get();
+
+		for ($i=0; $i<count($tabArr); $i++) {
+			$types[$i]->firstLevel = $tabArr[$i];
+			$types[$i]->save();
+		}
+	}
+
+	/**
+	 * 修改二级规范，同时修改具体名称的顺序
+	 */
+	public function postSecondNorm(Request $request)
 	{	
 		$superId = \Auth::user()->id;
 		$tabVal = $request->get('tab_val');
@@ -66,7 +100,7 @@ class NormController extends Controller {
 	/**
 	 * 修改具体名称
 	 */
-	public function postDetail(Request $request)
+	public function postThirdNorm(Request $request)
 	{
 		$superId = \Auth::user()->id;
 		$tabVal = $request->get('tab_val');

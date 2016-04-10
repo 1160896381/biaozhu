@@ -35,9 +35,13 @@
 			@if ($i == 0)
 				<div class="tab-pane active tab-norm" id="tab0">
 			  		<table class="table table-bordered table-condensed">
+			  			<tr>
+			  				<td style="width: 100px;">二级规范</td>
+			  				<td>具体名称</td>
+			  			</tr>
 			  			@for ($j=0; $j < count(explode(',', $types[0]['firstLevel'])); $j++)
 			  			<tr>
-			  				<td style="min-width: 50px;">{{ explode(',', $types[0]['firstLevel'])[$j] }}</td>
+			  				<td>{{ explode(',', $types[0]['firstLevel'])[$j] }}</td>
 			  				<td id="tag{{ '0A'.$j }}"></td>
 			  			</tr>
 			  			@endfor
@@ -46,9 +50,13 @@
 			@else
 				<div class="tab-pane tab-norm" id="tab{{ $i }}">
 			  		<table class="table table-bordered table-condensed">
+				  		<tr>
+				  			<td style="width: 100px;">二级规范</td>
+				  			<td>具体名称</td>
+				  		</tr>
 			  			@for ($j=0; $j < count(explode(',', $types[$i]['firstLevel'])); $j++)
 			  			<tr>
-			  				<td style="min-width: 50px;">{{ explode(',', $types[$i]['firstLevel'])[$j] }}</td>
+			  				<td>{{ explode(',', $types[$i]['firstLevel'])[$j] }}</td>
 			  				<td id="tag{{ $i.'A'.$j }}"></td>
 			  			</tr>
 			  			@endfor
@@ -111,7 +119,7 @@
 			
 		    $.ajax({
 		        type: 'POST',
-		        url: 'detail',
+		        url: 'third',
 		        data: encodeURI(param),
 		        success: function() {
 		        	alert('标注规范修改成功！');

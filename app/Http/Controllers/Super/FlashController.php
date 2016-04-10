@@ -26,6 +26,7 @@ class FlashController extends Controller {
 
 	public function postFlash(FlashRegisterRequest $request)
 	{
+		$flashName = $request->get('flashName');
 		$classId = $request->get('classId');
 		$hasNorm = $request->get('hasNorm');
 		$hasBS = $request->get('hasBS');
@@ -34,6 +35,7 @@ class FlashController extends Controller {
 
 		$flash = Flash::create(
 			array_merge(
+                ['flashName'   => $flashName],
                 ['classId'     => $classId],
                 ['hasNorm'     => $hasNorm],
                 ['hasBS'       => $hasBS],
