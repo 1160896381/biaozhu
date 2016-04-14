@@ -22,8 +22,34 @@ class NormController extends Controller {
 		$superId = \Auth::user()->id;
 		// 得到所有FLASH面板
 		$flashes = Flash::get();
-		// dd(Flash::find($flashes[0]['id'])->belongsToNorm['zeroLevel']);		
-		return view('super.norm.first', compact('flashes'));
+		
+		// 构造一级规范
+		$zeroLevel = array();
+		for ($i=0; $i<count($flashes); $i++)
+		{
+			$normsArr = Norm::where('flashId', '=', $flashes[$i]['id'])->get();
+			$normsArr2 = array();
+			for ($j=0; $j<count($normsArr); $j++)
+			{
+				array_push($normsArr2, $normsArr[$j]['zeroLevel']);
+			}
+			if (count($normsArr) > 1)
+			{	
+				$normsArr2 = implode(',', $normsArr2);
+			}
+			array_push($zeroLevel, $normsArr2);
+		}
+		
+		// 防止一级规范为空
+		for ($i=0; $i<count($zeroLevel); $i++)
+		{
+			if (count($zeroLevel[$i]) == 0)
+			{
+				$zeroLevel[$i] = '';
+			}
+		}
+		
+		return view('super.norm.first', compact('flashes', 'zeroLevel'));
 	}
 
 	public function secondNormShow()
@@ -65,14 +91,69 @@ class NormController extends Controller {
 		$tabVal = $request->get('tab_val');
 		// 零级规范间以空格分割
 		$tabArr = explode(' ', $tabVal);
-
-		// 找到需要更改的规范进行更新
-		$types = Norm::where('superId', '=', $superId)
+		
+		// 存储所有现有的标注规范
+		$norms = Norm::where('superId', '=', $superId)
 				->get();
-
-		for ($i=0; $i<count($tabArr); $i++) {
-			$types[$i]->zeroLevel = $tabArr[$i];
-			$types[$i]->save();
+		
+		// 删除超级管理员所有的标注规范
+		Norm::where('superId', '=', $superId)
+				->delete();
+		// dd($norms[0]['zeroLevel']);
+		dd($norms);
+		for ($i=0; $i<count($tabArr); $i++) 
+		{
+			// 形如文本标注XXXXX1
+			$tempArr = explode('XXXXX', $tabArr[$i]);
+			// 形如预处理，预处理2
+			$tempArrArr = explode(',', $tempArr[0]);
+			
+			if (count($norms) == 0) 
+			{
+				for ($k=0; $k<count($tempArrArr); $k++)
+				{
+					Norm::create(
+		    			array_merge(
+		        			['flashId'     => $tempArr[1]],
+		        			['superId'     => $superId],
+		        			['zeroLevel'   => $tempArrArr[$k]],
+		        			['firstLevel'  => ''], 
+		        			['secondLevel' => ''] 
+		    			));	
+				}
+			}
+			else 
+			{
+				for ($j=0; $j<count($norms); $j++) 
+				{
+					for ($k=0; $k<count($tempArrArr); $k++)
+					{
+						if ($tempArr[1]==$norms[$j]['flashId'] 
+							&& $tempArrArr[$k]==$norms[$j]['zeroLevel'])
+						{
+							Norm::create(
+			        			array_merge(
+			            			['flashId'     => $tempArr[1]],
+			            			['superId'     => $superId],
+			            			['zeroLevel'   => $norms[$j]['zeroLevel']],
+			            			['firstLevel'  => $norms[$j]['firstLevel']], 
+			            			['secondLevel' => $norms[$j]['secondLevel']]
+			        			));
+						}
+						else 
+						{
+							Norm::create(
+			        			array_merge(
+			            			['flashId'     => $tempArr[1]],
+			            			['superId'     => $superId],
+			            			['zeroLevel'   => $tempArrArr[$k]],
+			            			['firstLevel'  => ''], 
+		        					['secondLevel' => '']	
+			        			));	
+						}
+					}
+				}
+			}
 		}
 	}
 

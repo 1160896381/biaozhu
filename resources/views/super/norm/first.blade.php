@@ -9,14 +9,20 @@
 			@if ($i == 0) 
 				<li class="active">
 					<a href="#tab0" data-toggle="tab">
-						<div num-index=0 zero-level="{{ App\Flash::find($flashes[0]['id'])->belongsToNorm['zeroLevel'] }}">
+						<div 
+							num-index=0 
+							flash-id="{{ $flashes[0]['id'] }}"
+							zero-level="{{ $zeroLevel[0] }}">
 							{{ $flashes[0]['flashName'] }}
 						</div>
 					</a>
 				</li>		
 			@else
 				<li><a href="#tab{{ $i }}" data-toggle="tab">
-					<div num-index={{ $i }} zero-level="{{ App\Flash::find($flashes[$i]['id'])->belongsToNorm['zeroLevel'] }}">
+					<div 
+						num-index={{ $i }}
+						flash-id="{{ $flashes[$i]['id'] }}"
+						zero-level="{{ $zeroLevel[$i] }}">
 						{{ $flashes[$i]['flashName'] }}
 					</div>
 				</a></li>			
@@ -66,17 +72,21 @@
 		$("#getTab").click(function() {
 			var tab_val = '';
 			for (var i=0; i<size; i++) {
-				tab_val += $("#tag" + i).getTabVals() + ' ';
+				tab_val += $("#tag" + i).getTabVals() 
+						+ 'XXXXX' 
+						+ $("div[num-index=" + i + "]").attr("flash-id") 
+						+ ' ';
 			}
-		    // console.log(typeof(tab_val))
+		    
 		    var param = "tab_val=" + tab_val.replace(/(\s*$)/, "");
+		    // console.log(param)
 		    
 		    $.ajax({
 		        type: 'POST',
 		        url: 'first',
 		        data: encodeURI(param),
 		        success: function() {
-		        	window.location.href = 'second';
+		        	// window.location.href = 'second';
 		        }
 		    });
 		});

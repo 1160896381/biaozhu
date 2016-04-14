@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Norm extends Model {
 
-	protected $fillable = ['flashId', 'userId', 'zeroLevel', 'firstLevel', 'secondLevel'];
+	protected $fillable = ['flashId', 'superId', 'zeroLevel', 'firstLevel', 'secondLevel'];
 
 	public function belongsToFlash()
 	{
