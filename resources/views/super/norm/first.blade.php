@@ -9,14 +9,14 @@
 			@if ($i == 0) 
 				<li class="active">
 					<a href="#tab0" data-toggle="tab">
-						<div num-index=0 first-level="{{ $flashes[0]['flashName'] }}">
+						<div num-index=0 zero-level="{{ App\Flash::find($flashes[0]['id'])->belongsToNorm['zeroLevel'] }}">
 							{{ $flashes[0]['flashName'] }}
 						</div>
 					</a>
 				</li>		
 			@else
 				<li><a href="#tab{{ $i }}" data-toggle="tab">
-					<div num-index={{ $i }} first-level="{{ $flashes[$i]['flashName'] }}">
+					<div num-index={{ $i }} zero-level="{{ App\Flash::find($flashes[$i]['id'])->belongsToNorm['zeroLevel'] }}">
 						{{ $flashes[$i]['flashName'] }}
 					</div>
 				</a></li>			
@@ -59,7 +59,7 @@
 		for (var i=0; i<size; i++) {
 			$("#tag" + i).tabControl(
 				{ maxTabCount:100, tabW:80 }, 
-				$("div[num-index=" + i + "]").attr("first-level")
+				$("div[num-index=" + i + "]").attr("zero-level")
 			);			
 		}
 
@@ -73,10 +73,10 @@
 		    
 		    $.ajax({
 		        type: 'POST',
-		        url: 'second_norm',
+		        url: 'first',
 		        data: encodeURI(param),
 		        success: function() {
-		        	window.location.href = 'detail';
+		        	window.location.href = 'second';
 		        }
 		    });
 		});

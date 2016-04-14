@@ -22,8 +22,7 @@ class NormController extends Controller {
 		$superId = \Auth::user()->id;
 		// 得到所有FLASH面板
 		$flashes = Flash::get();
-		// dd($flashes);
-		
+		// dd(Flash::find($flashes[0]['id'])->belongsToNorm['zeroLevel']);		
 		return view('super.norm.first', compact('flashes'));
 	}
 
@@ -58,7 +57,7 @@ class NormController extends Controller {
 	}
 
 	/**
-	 * 修改一级规范
+	 * 修改一级规范，一级规范的逻辑很重要，二级以下需要依靠一级！！
 	 */
 	public function postFirstNorm(Request $request)
 	{	
@@ -72,7 +71,7 @@ class NormController extends Controller {
 				->get();
 
 		for ($i=0; $i<count($tabArr); $i++) {
-			$types[$i]->firstLevel = $tabArr[$i];
+			$types[$i]->zeroLevel = $tabArr[$i];
 			$types[$i]->save();
 		}
 	}
