@@ -5,25 +5,37 @@
 <div id="page-wrapper">
 	
 	<ul class="nav nav-tabs" id="type-nav">
-		@for ($i = 0; $i < count($types); $i++)
+		@for ($i = 0; $i < count($norms); $i++)
 			@if ($i == 0) 
 				<li class="active">
 					<a href="#tab0" data-toggle="tab">
-						<div num-index=0 first-level="{{ $types[0]['firstLevel'] }}">
-							{{ $types[0]['zeroLevel'] }}
+						<div 
+							num-index=0 
+							flash-id="{{ $norms[0]['flashId'] }}"
+							zero-level="{{ $norms[0]['zeroLevel'] }}"
+							first-level="{{ $norms[0]['firstLevel'] }}">
+							{{ $norms[0]['zeroLevel'] }}
 						</div>
 					</a>
 				</li>
-			@elseif (App\Norm::find($types[$i]['id'])->belongsToFlash['hasNorm'] == 0)
+			@elseif (App\Norm::find($norms[$i]['id'])->belongsToFlash['hasNorm'] == 0)
 				<li class="disabled"><a href="#tab{{ $i }}">
-					<div num-index={{ $i }} first-level="{{ $types[$i]['firstLevel'] }}">
-						{{ $types[$i]['zeroLevel'] }}
+					<div 
+						num-index={{ $i }} 
+						flash-id="{{ $norms[$i]['flashId'] }}"
+						zero-level="{{ $norms[$i]['zeroLevel'] }}"
+						first-level="{{ $norms[$i]['firstLevel'] }}">
+						{{ $norms[$i]['zeroLevel'] }}
 					</div>
 				</a></li>			
 			@else
 				<li><a href="#tab{{ $i }}" data-toggle="tab">
-					<div num-index={{ $i }} first-level="{{ $types[$i]['firstLevel'] }}">
-						{{ $types[$i]['zeroLevel'] }}
+					<div 
+						num-index={{ $i }} 
+						flash-id="{{ $norms[$i]['flashId'] }}"
+						zero-level="{{ $norms[$i]['zeroLevel'] }}"
+						first-level="{{ $norms[$i]['firstLevel'] }}">
+						{{ $norms[$i]['zeroLevel'] }}
 					</div>
 				</a></li>			
 			@endif
@@ -31,7 +43,7 @@
 	</ul>
 
 	<div class="tab-content" style="min-height: 200px">
-		@for ($i = 0; $i < count($types); $i++)
+		@for ($i = 0; $i < count($norms); $i++)
 			@if ($i == 0)
 				<div class="tab-pane active tab-norm" id="tab0">
 			  		<p id="tag0"></p>
@@ -72,9 +84,14 @@
 		$("#getTab").click(function() {
 			var tab_val = '';
 			for (var i=0; i<size; i++) {
-				tab_val += $("#tag" + i).getTabVals() + ' ';
+				tab_val += $("#tag" + i).getTabVals()
+						+ 'XXXXX' 
+						+ $("div[num-index=" + i + "]").attr("flash-id") 
+						+ 'XXXXX' 
+						+ $("div[num-index=" + i + "]").attr("zero-level") 
+						+ ' ';
 			}
-		    // console.log(typeof(tab_val))
+		    // console.log(tab_val)
 		    var param = "tab_val=" + tab_val.replace(/(\s*$)/, "");
 		    
 		    $.ajax({

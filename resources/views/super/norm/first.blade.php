@@ -86,7 +86,7 @@
 		        url: 'first',
 		        data: encodeURI(param),
 		        success: function() {
-		        	// window.location.href = 'second';
+		        	window.location.href = 'second';
 		        }
 		    });
 		});

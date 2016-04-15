@@ -29,17 +29,16 @@ class NormController extends Controller {
 		{
 			$normsArr = Norm::where('flashId', '=', $flashes[$i]['id'])->get();
 			$normsArr2 = array();
+			// 获得与flashId相同的规范
 			for ($j=0; $j<count($normsArr); $j++)
 			{
 				array_push($normsArr2, $normsArr[$j]['zeroLevel']);
 			}
-			if (count($normsArr) > 1)
-			{	
-				$normsArr2 = implode(',', $normsArr2);
-			}
+				
+			$normsArr2 = implode(',', $normsArr2);
+			
 			array_push($zeroLevel, $normsArr2);
 		}
-		
 		// 防止一级规范为空
 		for ($i=0; $i<count($zeroLevel); $i++)
 		{
@@ -48,7 +47,7 @@ class NormController extends Controller {
 				$zeroLevel[$i] = '';
 			}
 		}
-		
+		// dd($zeroLevel);
 		return view('super.norm.first', compact('flashes', 'zeroLevel'));
 	}
 
@@ -62,9 +61,10 @@ class NormController extends Controller {
 		}
 
 		$superId = \Auth::user()->id;
-		$types = Norm::where('superId', '=', $superId)->get();
+
+		$norms = Norm::where('superId', '=', $superId)->get();
 		
-		return view('super.norm.second', compact('types'));
+		return view('super.norm.second', compact('norms'));
 	}
 
 	public function thirdNormShow()
@@ -98,9 +98,10 @@ class NormController extends Controller {
 		
 		// 删除超级管理员所有的标注规范
 		Norm::where('superId', '=', $superId)
-				->delete();
-		// dd($norms[0]['zeroLevel']);
-		dd($norms);
+				->delete();		
+		// dd($norms);
+
+		// 对于每个面板对应的一级标注规范
 		for ($i=0; $i<count($tabArr); $i++) 
 		{
 			// 形如文本标注XXXXX1
@@ -108,6 +109,7 @@ class NormController extends Controller {
 			// 形如预处理，预处理2
 			$tempArrArr = explode(',', $tempArr[0]);
 			
+			// 如果规范为空，规范表里直接插入一条数据
 			if (count($norms) == 0) 
 			{
 				for ($k=0; $k<count($tempArrArr); $k++)
@@ -122,15 +124,20 @@ class NormController extends Controller {
 		    			));	
 				}
 			}
+			// 如果不为空，
+			// 先在已有的规范里找到符合条件的规范，原样插入，
+			// 然后单独插入
 			else 
 			{
-				for ($j=0; $j<count($norms); $j++) 
+				for ($k=0; $k<count($tempArrArr); $k++)
 				{
-					for ($k=0; $k<count($tempArrArr); $k++)
+					$equal = 0;
+					for ($j=0; $j<count($norms); $j++) 
 					{
 						if ($tempArr[1]==$norms[$j]['flashId'] 
 							&& $tempArrArr[$k]==$norms[$j]['zeroLevel'])
 						{
+							$equal = 1;
 							Norm::create(
 			        			array_merge(
 			            			['flashId'     => $tempArr[1]],
@@ -140,17 +147,18 @@ class NormController extends Controller {
 			            			['secondLevel' => $norms[$j]['secondLevel']]
 			        			));
 						}
-						else 
-						{
-							Norm::create(
-			        			array_merge(
-			            			['flashId'     => $tempArr[1]],
-			            			['superId'     => $superId],
-			            			['zeroLevel'   => $tempArrArr[$k]],
-			            			['firstLevel'  => ''], 
-		        					['secondLevel' => '']	
-			        			));	
-						}
+					}
+					// 如果在之前的规范中没有符合条件的，单独插入
+					if ($equal == 0)
+					{
+						Norm::create(
+	        			array_merge(
+	            			['flashId'     => $tempArr[1]],
+	            			['superId'     => $superId],
+	            			['zeroLevel'   => $tempArrArr[$k]],
+	            			['firstLevel'  => ''], 
+        					['secondLevel' => '']	
+	        			));	
 					}
 				}
 			}
@@ -166,14 +174,69 @@ class NormController extends Controller {
 		$tabVal = $request->get('tab_val');
 		// 零级规范间以空格分割
 		$tabArr = explode(' ', $tabVal);
-
 		// 找到需要更改的规范进行更新
-		$types = Norm::where('superId', '=', $superId)
+		$norms = Norm::where('superId', '=', $superId)
 				->get();
 
-		for ($i=0; $i<count($tabArr); $i++) {
-			$types[$i]->firstLevel = $tabArr[$i];
-			$types[$i]->save();
+		// 删除超级管理员所有的标注规范
+		Norm::where('superId', '=', $superId)
+				->delete();		
+		// dd($tabArr);
+
+		// 对于每个面板对应的一级标注规范
+		for ($i=0; $i<count($tabArr); $i++) 
+		{
+			// 形如文本标注XXXXX1
+			$tempArr = explode('XXXXX', $tabArr[$i]);
+			
+			// 如果规范为空，规范表里直接插入一条数据
+			if (count($norms) == 0) 
+			{
+				Norm::create(
+	    			array_merge(
+	        			['flashId'     => $tempArr[1]],
+	        			['superId'     => $superId],
+	        			['zeroLevel'   => $tempArr[2]],
+	        			['firstLevel'  => $tempArr[0]], 
+	        			['secondLevel' => ''] 
+	    			));	
+			}
+			// 如果不为空，
+			// 先在已有的规范里找到符合条件的规范，原样插入，
+			// 然后单独插入
+			else 
+			{
+				$equal = 0;
+				for ($j=0; $j<count($norms); $j++) 
+				{
+					if ($tempArr[1]==$norms[$j]['flashId'] 
+						&& $tempArr[2]==$norms[$j]['zeroLevel']
+						&& $tempArr[0]==$norms[$j]['firstLevel'])
+					{
+						$equal = 1;
+						Norm::create(
+		        			array_merge(
+		            			['flashId'     => $tempArr[1]],
+		            			['superId'     => $superId],
+		            			['zeroLevel'   => $norms[$j]['zeroLevel']],
+		            			['firstLevel'  => $norms[$j]['firstLevel']], 
+		            			['secondLevel' => $norms[$j]['secondLevel']]
+		        			));
+					}
+				}
+				// 如果在之前的规范中没有符合条件的，单独插入
+				if ($equal == 0)
+				{
+					Norm::create(
+        			array_merge(
+            			['flashId'     => $tempArr[1]],
+            			['superId'     => $superId],
+            			['zeroLevel'   => $tempArr[2]],
+            			['firstLevel'  => $tempArr[0]], 
+    					['secondLevel' => '']	
+        			));	
+				}
+			}
 		}
 	}
 
