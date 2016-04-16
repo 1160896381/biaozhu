@@ -5,16 +5,15 @@
 <div id="page-wrapper">
 
 	<ul class="nav nav-tabs" id="detail-nav">
-		@for ($i = 0; $i < count($norms); $i++)
+		@for ($i = 0; $i < count($firstKeys); $i++)
 			@if ($i == 0) 
-				@if (App\Norm::find($norms[0]['id'])->belongsToFlash['hasNorm'] == 0)
+				@if (App\Norm::find($firstIds[0])->belongsToFlash['hasNorm'] == 0)
 					<li class="active disabled">
 						<a href="#" data-toggle="tab">
 							<div 
 								num-index=0 
-								first-level="{{ $norms[0]['firstLevel'] }}" 
-								second-level="{{ $norms[0]['secondLevel'] }}">
-								{{ $norms[0]['zeroLevel'] }}
+								second-level="{{ $second[$secondKeys[0]] }}">
+								{{ $firstKeys[0] }}
 							</div>
 						</a>
 					</li>
@@ -23,21 +22,19 @@
 						<a href="#tab0" data-toggle="tab">
 							<div 
 								num-index=0 
-								first-level="{{ $norms[0]['firstLevel'] }}" 
-								second-level="{{ $norms[0]['secondLevel'] }}">
-								{{ $norms[0]['zeroLevel'] }}
+								second-level="{{ $second[$secondKeys[0]] }}">
+								{{ $firstKeys[0] }}
 							</div>
 						</a>
 					</li>
 				@endif
-			@elseif (App\Norm::find($norms[$i]['id'])->belongsToFlash['hasNorm'] == 0)
+			@elseif (App\Norm::find($firstIds[$i])->belongsToFlash['hasNorm'] == 0)
 				<li class="disabled">
 					<a href="#">
 						<div 
-							num-index={{ $i }} 
-							first-level="{{ $norms[$i]['firstLevel'] }}" 
-							second-level="{{ $norms[$i]['secondLevel'] }}">
-						{{ $norms[$i]['zeroLevel'] }}
+							num-index={{ $i }}
+							second-level="{{ $second[$secondKeys[$i]] }}">
+						{{ $firstKeys[$i] }}
 						</div>
 					</a>
 				</li>
@@ -46,9 +43,8 @@
 					<a href="#tab{{ $i }}" data-toggle="tab">
 						<div 
 							num-index={{ $i }} 
-							first-level="{{ $norms[$i]['firstLevel'] }}" 
-							second-level="{{ $norms[$i]['secondLevel'] }}">
-						{{ $norms[$i]['zeroLevel'] }}
+							second-level="{{ $second[$secondKeys[$i]] }}">
+						{{ $firstKeys[$i] }}
 						</div>
 					</a>
 				</li>			
@@ -57,7 +53,7 @@
 	</ul>
 
 	<div class="tab-content" style="min-height: 200px">
-		@for ($i = 0; $i < count($norms); $i++)
+		@for ($i = 0; $i < count($firstKeys); $i++)
 			@if ($i == 0)
 				<div class="tab-pane active tab-norm" id="tab0">
 			  		<table class="table table-bordered table-condensed">
@@ -65,9 +61,9 @@
 			  				<td style="width: 100px;">二级规范</td>
 			  				<td>具体名称</td>
 			  			</tr>
-			  			@for ($j=0; $j < count(explode(',', $norms[0]['firstLevel'])); $j++)
+			  			@for ($j=0; $j<count(explode(',', $first[$firstKeys[$i]])); $j++)
 			  			<tr>
-			  				<td>{{ explode(',', $norms[0]['firstLevel'])[$j] }}</td>
+			  				<td>{{ explode(',', $first[$firstKeys[$i]])[$j] }}</td>
 			  				<td id="tag{{ '0A'.$j }}"></td>
 			  			</tr>
 			  			@endfor
@@ -80,9 +76,9 @@
 				  			<td style="width: 100px;">二级规范</td>
 				  			<td>具体名称</td>
 				  		</tr>
-			  			@for ($j=0; $j < count(explode(',', $norms[$i]['firstLevel'])); $j++)
+			  			@for ($j=0; $j<count(explode(',', $first[$firstKeys[$i]])); $j++)
 			  			<tr>
-			  				<td>{{ explode(',', $norms[$i]['firstLevel'])[$j] }}</td>
+			  				<td>{{ explode(',', $first[$firstKeys[$i]])[$j] }}</td>
 			  				<td id="tag{{ $i.'A'.$j }}"></td>
 			  			</tr>
 			  			@endfor
@@ -127,7 +123,7 @@
 		// 注意合法字符里不能含有“.”以及“。”
 		$("#getTab").click(function() {
 			var tab_val = [];
-			console.log(li_size);		    
+			
 			for (var i=0; i<li_size; i++) {
 				var tr_size = $("#tab" + i + " tr").size();
 				for (var j=0; j<tr_size; j++) {
@@ -136,9 +132,9 @@
 				}
 				tab_val.push("。");
 			}
-		    // console.log(typeof(tab_val))
+		    // console.log(tab_val)
 		    var param = "tab_val=" 
-	    			+ tab_val
+	    				+ tab_val
 	    				.join(",")
 	    				.replace(/([\.|。]$)/, "")
     					.replace(/\+/gi, '＋');
@@ -148,7 +144,7 @@
 		        url: 'third',
 		        data: encodeURI(param),
 		        success: function() {
-		        	alert('标注规范修改成功！');
+		        	// alert('标注规范修改成功！');
 		        }
 		    });
 		});

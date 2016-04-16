@@ -1,6 +1,7 @@
 <?php
 
 Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
 Route::post('/delete/cookie', 'HomeController@deleteCookie');
 
 // 登录，不开放注册，注册通过超级管理员

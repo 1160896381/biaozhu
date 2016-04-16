@@ -34,20 +34,14 @@ class NormController extends Controller {
 			{
 				array_push($normsArr2, $normsArr[$j]['zeroLevel']);
 			}
-				
+			
+			// 转化为字符串	
 			$normsArr2 = implode(',', $normsArr2);
 			
 			array_push($zeroLevel, $normsArr2);
 		}
-		// 防止一级规范为空
-		for ($i=0; $i<count($zeroLevel); $i++)
-		{
-			if (count($zeroLevel[$i]) == 0)
-			{
-				$zeroLevel[$i] = '';
-			}
-		}
 		// dd($zeroLevel);
+		
 		return view('super.norm.first', compact('flashes', 'zeroLevel'));
 	}
 
@@ -63,9 +57,29 @@ class NormController extends Controller {
 		$superId = \Auth::user()->id;
 
 		$norms = Norm::where('superId', '=', $superId)->get();
-		// dd($norms);
-		
-		return view('super.norm.second', compact('norms'));
+		$first = array();
+		// 获得与一级规范对应的flashId
+		$flashIds = array();
+		$firstIds = array();
+		for ($i=0; $i<count($norms); $i++)
+		{
+			if (!array_key_exists($norms[$i]['zeroLevel'], $first))
+			{
+				// 构成关联数组，哈希
+				$first[$norms[$i]['zeroLevel']] = $norms[$i]['firstLevel'];
+				array_push($flashIds, $norms[$i]['flashId']);
+				array_push($firstIds, $norms[$i]['id']);
+			}
+			else 
+			{
+				$first[$norms[$i]['zeroLevel']] = $first[$norms[$i]['zeroLevel']] 
+												. ',' 
+												. $norms[$i]['firstLevel'];	
+			}
+		}
+		$firstKeys = array_keys($first);
+		// dd($firstKeys);
+		return view('super.norm.second', compact('flashIds', 'firstIds', 'firstKeys', 'first'));
 	}
 
 	public function thirdNormShow()
@@ -79,8 +93,35 @@ class NormController extends Controller {
 
 		$superId = \Auth::user()->id;
 		$norms = Norm::where('superId', '=', $superId)->get();
-		
-		return view('super.norm.third', compact('norms'));
+		$first = array();
+		$second = array();
+		$firstIds = array();
+		for ($i=0; $i<count($norms); $i++)
+		{
+			// 拼接二级字符串
+			if (array_key_exists($norms[$i]['zeroLevel'], $first))
+			{
+				$first[$norms[$i]['zeroLevel']] = $first[$norms[$i]['zeroLevel']] 
+												. ',' 
+												. $norms[$i]['firstLevel'];								
+
+				$second[$norms[$i]['zeroLevel']] = $second[$norms[$i]['zeroLevel']] 
+													. '.' 
+													. $norms[$i]['secondLevel'];
+			}
+			else 
+			{
+				// 构成关联数组，哈希
+				$first[$norms[$i]['zeroLevel']] = $norms[$i]['firstLevel'];
+				$second[$norms[$i]['zeroLevel']] = $norms[$i]['secondLevel'];
+				array_push($firstIds, $norms[$i]['id']);
+			}
+		}
+		$firstKeys = array_keys($first);
+		$secondKeys = array_keys($second);
+		// dd($first, $second);
+
+		return view('super.norm.third', compact('firstIds', 'firstKeys', 'first', 'secondKeys', 'second'));
 	}
 
 	/**
@@ -187,55 +228,59 @@ class NormController extends Controller {
 		// 对于每个面板对应的一级标注规范
 		for ($i=0; $i<count($tabArr); $i++) 
 		{
-			// 形如文本标注XXXXX1
+			// 形如句,字XXXXX1XXXXX文本标注
 			$tempArr = explode('XXXXX', $tabArr[$i]);
+			$tempArrArr = explode(',', $tempArr[0]);
 			
-			// 如果规范为空，规范表里直接插入一条数据
-			if (count($norms) == 0) 
+			for ($k=0; $k<count($tempArrArr); $k++)
 			{
-				Norm::create(
-	    			array_merge(
-	        			['flashId'     => $tempArr[1]],
-	        			['superId'     => $superId],
-	        			['zeroLevel'   => $tempArr[2]],
-	        			['firstLevel'  => $tempArr[0]], 
-	        			['secondLevel' => ''] 
-	    			));	
-			}
-			// 如果不为空，
-			// 先在已有的规范里找到符合条件的规范，原样插入，
-			// 然后单独插入
-			else 
-			{
-				$equal = 0;
-				for ($j=0; $j<count($norms); $j++) 
-				{
-					if ($tempArr[1]==$norms[$j]['flashId'] 
-						&& $tempArr[2]==$norms[$j]['zeroLevel']
-						&& $tempArr[0]==$norms[$j]['firstLevel'])
-					{
-						$equal = 1;
-						Norm::create(
-		        			array_merge(
-		            			['flashId'     => $tempArr[1]],
-		            			['superId'     => $superId],
-		            			['zeroLevel'   => $norms[$j]['zeroLevel']],
-		            			['firstLevel'  => $norms[$j]['firstLevel']], 
-		            			['secondLevel' => $norms[$j]['secondLevel']]
-		        			));
-					}
-				}
-				// 如果在之前的规范中没有符合条件的，单独插入
-				if ($equal == 0)
+				// 如果规范为空，规范表里直接插入一条数据
+				if (count($norms) == 0) 
 				{
 					Norm::create(
-        			array_merge(
-            			['flashId'     => $tempArr[1]],
-            			['superId'     => $superId],
-            			['zeroLevel'   => $tempArr[2]],
-            			['firstLevel'  => $tempArr[0]], 
-    					['secondLevel' => '']	
-        			));	
+		    			array_merge(
+		        			['flashId'     => $tempArr[1]],
+		        			['superId'     => $superId],
+		        			['zeroLevel'   => $tempArr[2]],
+		        			['firstLevel'  => $tempArrArr[$k]], 
+		        			['secondLevel' => ''] 
+		    			));	
+				}
+				// 如果不为空，
+				// 先在已有的规范里找到符合条件的规范，原样插入，
+				// 然后单独插入
+				else 
+				{
+					$equal = 0;
+					for ($j=0; $j<count($norms); $j++) 
+					{
+						if ($tempArr[1]==$norms[$j]['flashId'] 
+							&& $tempArr[2]==$norms[$j]['zeroLevel']
+							&& $tempArr[0]==$norms[$j]['firstLevel'])
+						{
+							$equal = 1;
+							Norm::create(
+			        			array_merge(
+			            			['flashId'     => $tempArr[1]],
+			            			['superId'     => $superId],
+			            			['zeroLevel'   => $norms[$j]['zeroLevel']],
+			            			['firstLevel'  => $norms[$j]['firstLevel']], 
+			            			['secondLevel' => $norms[$j]['secondLevel']]
+			        			));
+						}
+					}
+					// 如果在之前的规范中没有符合条件的，单独插入
+					if ($equal == 0)
+					{
+						Norm::create(
+	        			array_merge(
+	            			['flashId'     => $tempArr[1]],
+	            			['superId'     => $superId],
+	            			['zeroLevel'   => $tempArr[2]],
+	            			['firstLevel'  => $tempArrArr[$k]], 
+	    					['secondLevel' => '']	
+	        			));	
+					}
 				}
 			}
 		}
@@ -250,56 +295,64 @@ class NormController extends Controller {
 		$tabVal = $request->get('tab_val');
 		// 零级规范间以“。”分割
 		$tabArr = explode('。', $tabVal);
+		$tabArr2 = array();
+		// // dd($tabArr);
+		for ($i=0; $i<count($tabArr); $i++)
+		{
+			$tabArr3 = explode('.', $tabArr[$i]);
+			if ($tabArr3[0] != '')
+			{
+				for ($j=0; $j<count($tabArr3); $j++)
+				{
+					if ($tabArr3[$j])
+					{
+						array_push($tabArr2, $tabArr3[$j]);
+					}
+				}
+			}
+			else
+			{
+				array_push($tabArr2, '');
+			}
+		}
+		// dd($tabArr2);
 
-		$types = Norm::where('superId', '=', $superId)
+		$norms = Norm::where('superId', '=', $superId)
 				->get();
-
-		// dd($tabVal);
-
-		for ($i=0; $i<count($tabArr); $i++) {
-			$types[$i]->secondLevel = $tabArr[$i];
-			$types[$i]->save();
+		for ($i=0; $i<count($tabArr2); $i++) {
+			$norms[$i]->secondLevel = $tabArr2[$i];
+			$norms[$i]->save();
 		}
 
-		$types = Norm::where('superId', '=', $superId)
+		$norms = Norm::where('superId', '=', $superId)
 				->get();
 
 		$fileName = "flash/assets/xml/label_types_" . $superId . ".xml";
 	    $handle = fopen($fileName, "w");
 	    $str = '<?xml version="1.0" encoding="utf-8"?><Types>';
 	    $countState=1;
-	    for ($i=0; $i<count($types); $i++) {
-	        // 声明为数组
-	        $array = array();
-	        $Tags1 = array();
-	        $Tags2 = array();
-	        $Tags1 = explode(",", $types[$i]['firstLevel']);
-	        $Tags2 = explode(",", $types[$i]['secondLevel']);
+	    for ($i=0; $i<count($norms); $i++) {
 
-	        // dd($Tags2);
-	        // 分组数组中第一个元素应为-1
-	        array_push($array, -1);
-	        // 得到二级标签中‘.’的下标，作为后来分组的依据
-	        for($j=0; $j<count($Tags2); $j++)
-	        {
-	            if($Tags2[$j] == '.')
-	            {
-	                array_push($array, $j);
-	            }
-	        }
-	        
-	        $str .= '<Layer1 layerID="'.$countState.'" label="'.$types[$i]['zeroLevel'].'" classid="'.Norm::find($types[$i]['id'])->belongsToFlash['classId'].'" gf="'.Norm::find($types[$i]['id'])->belongsToFlash['hasNorm'].'">';
+	        $Tags1 = $norms[$i]['firstLevel'];
+	        $Tags2 = explode(',', $norms[$i]['secondLevel']);
+
+	        $str .= '<Layer1 layerID="'
+	        		.$countState
+	        		.'" label="'
+	        		.$norms[$i]['zeroLevel']
+	        		.'" classid="'
+	        		.Norm::find($norms[$i]['id'])->belongsToFlash['classId']
+	        		.'" gf="'
+	        		.Norm::find($norms[$i]['id'])->belongsToFlash['hasNorm']
+	        		.'">';
 	        for($j=0; $j<count($Tags1); $j++)
 	        {
 	            $str .= '<Layer2 layerID="'.($countState + $j + 1).'" label="'.$Tags1[$j].'">';
 	            // dd($Tags2);
-	            // 在分组数组中找到第i个元素，直到第i+1个元素之间的$Tags2元素即为当前一级名称下的二级名称
-	            for($k=$array[$j] + 1; $k<$array[$j + 1]; $k++)
+	            for ($k=0; $k<count($Tags2); $k++)
 	            {
-	                // 获得三层以下的结构
-	                $tag3 = $Tags2[$k];
-	                $str .= BuildLayer($tag3);
-	            }      
+	            	$str .= BuildLayer($Tags2[$k]);
+	            }
 	            $str .= '</Layer2>';
 	        }
 	        $str .= '</Layer1>';

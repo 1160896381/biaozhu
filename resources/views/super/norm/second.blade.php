@@ -5,17 +5,17 @@
 <div id="page-wrapper">
 	
 	<ul class="nav nav-tabs" id="type-nav">
-		@for ($i = 0; $i < count($norms); $i++)
+		@for ($i = 0; $i < count($firstKeys); $i++)
 			@if ($i == 0) 
-				@if (App\Norm::find($norms[0]['id'])->belongsToFlash['hasNorm'] == 0)
+				@if (App\Norm::find($firstIds[0])->belongsToFlash['hasNorm'] == 0)
 					<li class="active disabled">
 						<a href="#" data-toggle="tab">
 							<div 
 								num-index=0 
-								flash-id="{{ $norms[0]['flashId'] }}"
-								zero-level="{{ $norms[0]['zeroLevel'] }}"
-								first-level="{{ $norms[0]['firstLevel'] }}">
-								{{ $norms[0]['zeroLevel'] }}
+								flash-id="{{ $flashIds[0] }}"
+								zero-level="{{ $firstKeys[0] }}"
+								first-level="{{ $first[$firstKeys[0]] }}">
+								{{ $firstKeys[0] }}
 							</div>
 						</a>
 					</li>
@@ -24,23 +24,23 @@
 						<a href="#tab0" data-toggle="tab">
 							<div 
 								num-index=0 
-								flash-id="{{ $norms[0]['flashId'] }}"
-								zero-level="{{ $norms[0]['zeroLevel'] }}"
-								first-level="{{ $norms[0]['firstLevel'] }}">
-								{{ $norms[0]['zeroLevel'] }}
+								flash-id="{{ $flashIds[0] }}"
+								zero-level="{{ $firstKeys[0] }}"
+								first-level="{{ $first[$firstKeys[0]] }}">
+								{{ $firstKeys[0] }}
 							</div>
 						</a>
 					</li>
 				@endif
-			@elseif (App\Norm::find($norms[$i]['id'])->belongsToFlash['hasNorm'] == 0)
+			@elseif (App\Norm::find($firstIds[$i])->belongsToFlash['hasNorm'] == 0)
 				<li class="disabled">
 					<a href="#">
 						<div 
 							num-index={{ $i }} 
-							flash-id="{{ $norms[$i]['flashId'] }}"
-							zero-level="{{ $norms[$i]['zeroLevel'] }}"
-							first-level="{{ $norms[$i]['firstLevel'] }}">
-							{{ $norms[$i]['zeroLevel'] }}
+							flash-id="{{ $flashIds[$i] }}"
+							zero-level="{{ $firstKeys[$i] }}"
+							first-level="{{ $first[$firstKeys[$i]] }}">
+							{{ $firstKeys[$i] }}
 						</div>
 					</a>
 				</li>			
@@ -49,10 +49,10 @@
 					<a href="#tab{{ $i }}" data-toggle="tab">
 						<div 
 							num-index={{ $i }} 
-							flash-id="{{ $norms[$i]['flashId'] }}"
-							zero-level="{{ $norms[$i]['zeroLevel'] }}"
-							first-level="{{ $norms[$i]['firstLevel'] }}">
-							{{ $norms[$i]['zeroLevel'] }}
+							flash-id="{{ $flashIds[$i] }}"
+							zero-level="{{ $firstKeys[$i] }}"
+							first-level="{{ $first[$firstKeys[$i]] }}">
+							{{ $firstKeys[$i] }}
 						</div>
 					</a>
 				</li>			
@@ -61,7 +61,7 @@
 	</ul>
 
 	<div class="tab-content" style="min-height: 200px">
-		@for ($i = 0; $i < count($norms); $i++)
+		@for ($i = 0; $i < count($firstKeys); $i++)
 			@if ($i == 0)
 				<div class="tab-pane active tab-norm" id="tab0">
 			  		<p id="tag0"></p>
