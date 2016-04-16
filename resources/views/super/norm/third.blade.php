@@ -5,33 +5,59 @@
 <div id="page-wrapper">
 
 	<ul class="nav nav-tabs" id="detail-nav">
-		@for ($i = 0; $i < count($types); $i++)
+		@for ($i = 0; $i < count($norms); $i++)
 			@if ($i == 0) 
-				<li class="active">
-					<a href="#tab0" data-toggle="tab">
-						<div num-index=0 first-level="{{ $types[0]['firstLevel'] }}" second-level="{{ $types[0]['secondLevel'] }}">
-							{{ $types[0]['zeroLevel'] }}
+				@if (App\Norm::find($norms[0]['id'])->belongsToFlash['hasNorm'] == 0)
+					<li class="active disabled">
+						<a href="#" data-toggle="tab">
+							<div 
+								num-index=0 
+								first-level="{{ $norms[0]['firstLevel'] }}" 
+								second-level="{{ $norms[0]['secondLevel'] }}">
+								{{ $norms[0]['zeroLevel'] }}
+							</div>
+						</a>
+					</li>
+				@else
+					<li class="active">
+						<a href="#tab0" data-toggle="tab">
+							<div 
+								num-index=0 
+								first-level="{{ $norms[0]['firstLevel'] }}" 
+								second-level="{{ $norms[0]['secondLevel'] }}">
+								{{ $norms[0]['zeroLevel'] }}
+							</div>
+						</a>
+					</li>
+				@endif
+			@elseif (App\Norm::find($norms[$i]['id'])->belongsToFlash['hasNorm'] == 0)
+				<li class="disabled">
+					<a href="#">
+						<div 
+							num-index={{ $i }} 
+							first-level="{{ $norms[$i]['firstLevel'] }}" 
+							second-level="{{ $norms[$i]['secondLevel'] }}">
+						{{ $norms[$i]['zeroLevel'] }}
 						</div>
 					</a>
 				</li>
-			@elseif (App\Norm::find($types[$i]['id'])->belongsToFlash['hasNorm'] == 0)
-				<li class="disabled"><a href="#tab{{ $i }}">
-					<div num-index={{ $i }} first-level="{{ $types[$i]['firstLevel'] }}" second-level="{{ $types[$i]['secondLevel'] }}">
-						{{ $types[$i]['zeroLevel'] }}
-					</div>
-				</a></li>
 			@else
-				<li><a href="#tab{{ $i }}" data-toggle="tab">
-					<div num-index={{ $i }} first-level="{{ $types[$i]['firstLevel'] }}" second-level="{{ $types[$i]['secondLevel'] }}">
-						{{ $types[$i]['zeroLevel'] }}
-					</div>
-				</a></li>			
+				<li>
+					<a href="#tab{{ $i }}" data-toggle="tab">
+						<div 
+							num-index={{ $i }} 
+							first-level="{{ $norms[$i]['firstLevel'] }}" 
+							second-level="{{ $norms[$i]['secondLevel'] }}">
+						{{ $norms[$i]['zeroLevel'] }}
+						</div>
+					</a>
+				</li>			
 			@endif
 		@endfor
 	</ul>
 
 	<div class="tab-content" style="min-height: 200px">
-		@for ($i = 0; $i < count($types); $i++)
+		@for ($i = 0; $i < count($norms); $i++)
 			@if ($i == 0)
 				<div class="tab-pane active tab-norm" id="tab0">
 			  		<table class="table table-bordered table-condensed">
@@ -39,9 +65,9 @@
 			  				<td style="width: 100px;">二级规范</td>
 			  				<td>具体名称</td>
 			  			</tr>
-			  			@for ($j=0; $j < count(explode(',', $types[0]['firstLevel'])); $j++)
+			  			@for ($j=0; $j < count(explode(',', $norms[0]['firstLevel'])); $j++)
 			  			<tr>
-			  				<td>{{ explode(',', $types[0]['firstLevel'])[$j] }}</td>
+			  				<td>{{ explode(',', $norms[0]['firstLevel'])[$j] }}</td>
 			  				<td id="tag{{ '0A'.$j }}"></td>
 			  			</tr>
 			  			@endfor
@@ -54,9 +80,9 @@
 				  			<td style="width: 100px;">二级规范</td>
 				  			<td>具体名称</td>
 				  		</tr>
-			  			@for ($j=0; $j < count(explode(',', $types[$i]['firstLevel'])); $j++)
+			  			@for ($j=0; $j < count(explode(',', $norms[$i]['firstLevel'])); $j++)
 			  			<tr>
-			  				<td>{{ explode(',', $types[$i]['firstLevel'])[$j] }}</td>
+			  				<td>{{ explode(',', $norms[$i]['firstLevel'])[$j] }}</td>
 			  				<td id="tag{{ $i.'A'.$j }}"></td>
 			  			</tr>
 			  			@endfor

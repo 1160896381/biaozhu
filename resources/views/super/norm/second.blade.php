@@ -7,37 +7,55 @@
 	<ul class="nav nav-tabs" id="type-nav">
 		@for ($i = 0; $i < count($norms); $i++)
 			@if ($i == 0) 
-				<li class="active">
-					<a href="#tab0" data-toggle="tab">
+				@if (App\Norm::find($norms[0]['id'])->belongsToFlash['hasNorm'] == 0)
+					<li class="active disabled">
+						<a href="#" data-toggle="tab">
+							<div 
+								num-index=0 
+								flash-id="{{ $norms[0]['flashId'] }}"
+								zero-level="{{ $norms[0]['zeroLevel'] }}"
+								first-level="{{ $norms[0]['firstLevel'] }}">
+								{{ $norms[0]['zeroLevel'] }}
+							</div>
+						</a>
+					</li>
+				@else
+					<li class="active">
+						<a href="#tab0" data-toggle="tab">
+							<div 
+								num-index=0 
+								flash-id="{{ $norms[0]['flashId'] }}"
+								zero-level="{{ $norms[0]['zeroLevel'] }}"
+								first-level="{{ $norms[0]['firstLevel'] }}">
+								{{ $norms[0]['zeroLevel'] }}
+							</div>
+						</a>
+					</li>
+				@endif
+			@elseif (App\Norm::find($norms[$i]['id'])->belongsToFlash['hasNorm'] == 0)
+				<li class="disabled">
+					<a href="#">
 						<div 
-							num-index=0 
-							flash-id="{{ $norms[0]['flashId'] }}"
-							zero-level="{{ $norms[0]['zeroLevel'] }}"
-							first-level="{{ $norms[0]['firstLevel'] }}">
-							{{ $norms[0]['zeroLevel'] }}
+							num-index={{ $i }} 
+							flash-id="{{ $norms[$i]['flashId'] }}"
+							zero-level="{{ $norms[$i]['zeroLevel'] }}"
+							first-level="{{ $norms[$i]['firstLevel'] }}">
+							{{ $norms[$i]['zeroLevel'] }}
 						</div>
 					</a>
-				</li>
-			@elseif (App\Norm::find($norms[$i]['id'])->belongsToFlash['hasNorm'] == 0)
-				<li class="disabled"><a href="#tab{{ $i }}">
-					<div 
-						num-index={{ $i }} 
-						flash-id="{{ $norms[$i]['flashId'] }}"
-						zero-level="{{ $norms[$i]['zeroLevel'] }}"
-						first-level="{{ $norms[$i]['firstLevel'] }}">
-						{{ $norms[$i]['zeroLevel'] }}
-					</div>
-				</a></li>			
+				</li>			
 			@else
-				<li><a href="#tab{{ $i }}" data-toggle="tab">
-					<div 
-						num-index={{ $i }} 
-						flash-id="{{ $norms[$i]['flashId'] }}"
-						zero-level="{{ $norms[$i]['zeroLevel'] }}"
-						first-level="{{ $norms[$i]['firstLevel'] }}">
-						{{ $norms[$i]['zeroLevel'] }}
-					</div>
-				</a></li>			
+				<li>
+					<a href="#tab{{ $i }}" data-toggle="tab">
+						<div 
+							num-index={{ $i }} 
+							flash-id="{{ $norms[$i]['flashId'] }}"
+							zero-level="{{ $norms[$i]['zeroLevel'] }}"
+							first-level="{{ $norms[$i]['firstLevel'] }}">
+							{{ $norms[$i]['zeroLevel'] }}
+						</div>
+					</a>
+				</li>			
 			@endif
 		@endfor
 	</ul>

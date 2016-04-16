@@ -63,6 +63,7 @@ class NormController extends Controller {
 		$superId = \Auth::user()->id;
 
 		$norms = Norm::where('superId', '=', $superId)->get();
+		// dd($norms);
 		
 		return view('super.norm.second', compact('norms'));
 	}
@@ -77,13 +78,13 @@ class NormController extends Controller {
 		}
 
 		$superId = \Auth::user()->id;
-		$types = Norm::where('superId', '=', $superId)->get();
+		$norms = Norm::where('superId', '=', $superId)->get();
 		
-		return view('super.norm.third', compact('types'));
+		return view('super.norm.third', compact('norms'));
 	}
 
 	/**
-	 * 修改一级规范，一级规范的逻辑很重要，二级以下需要依靠一级！！
+	 * 修改一级规范，二级以下需要依靠一级
 	 */
 	public function postFirstNorm(Request $request)
 	{	
@@ -166,7 +167,7 @@ class NormController extends Controller {
 	}
 
 	/**
-	 * 修改二级规范，同时修改具体名称的顺序
+	 * 修改二级规范，三级以下需要依靠二级
 	 */
 	public function postSecondNorm(Request $request)
 	{	
