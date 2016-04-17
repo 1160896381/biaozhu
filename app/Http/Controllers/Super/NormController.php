@@ -32,15 +32,18 @@ class NormController extends Controller {
 			// 获得与flashId相同的规范
 			for ($j=0; $j<count($normsArr); $j++)
 			{
-				array_push($normsArr2, $normsArr[$j]['zeroLevel']);
+				if (!in_array($normsArr[$j]['zeroLevel'], $normsArr2))
+				{
+					array_push($normsArr2, $normsArr[$j]['zeroLevel']);
+				}
 			}
+			// dd($normsArr2);
 			
 			// 转化为字符串	
 			$normsArr2 = implode(',', $normsArr2);
 			
 			array_push($zeroLevel, $normsArr2);
 		}
-		// dd($zeroLevel);
 		
 		return view('super.norm.first', compact('flashes', 'zeroLevel'));
 	}
@@ -296,15 +299,15 @@ class NormController extends Controller {
 		// 零级规范间以“。”分割
 		$tabArr = explode('。', $tabVal);
 		$tabArr2 = array();
-		// // dd($tabArr);
+		// dd($tabArr);
 		for ($i=0; $i<count($tabArr); $i++)
 		{
 			$tabArr3 = explode('.', $tabArr[$i]);
-			if ($tabArr3[0] != '')
+			if ($tabArr3[0] != ',,')
 			{
 				for ($j=0; $j<count($tabArr3); $j++)
 				{
-					if ($tabArr3[$j])
+					if ($tabArr3[$j]!=',' && $tabArr3[$j]!=',,')
 					{
 						array_push($tabArr2, $tabArr3[$j]);
 					}
@@ -331,30 +334,67 @@ class NormController extends Controller {
 	    $handle = fopen($fileName, "w");
 	    $str = '<?xml version="1.0" encoding="utf-8"?><Types>';
 	    $countState=1;
-	    for ($i=0; $i<count($norms); $i++) {
 
-	        $Tags1 = $norms[$i]['firstLevel'];
-	        $Tags2 = explode(',', $norms[$i]['secondLevel']);
+	    $flashIds = array();
+	    $first = array();
+	    $second = array();
+	    for ($i=0; $i<count($norms); $i++)
+	    {
+	    	// 拼接二级字符串
+	    	if (array_key_exists($norms[$i]['zeroLevel'], $first))
+	    	{
+	    		$first[$norms[$i]['zeroLevel']] = $first[$norms[$i]['zeroLevel']] 
+	    										. ',' 
+	    										. $norms[$i]['firstLevel'];								
 
-	        $str .= '<Layer1 layerID="'
-	        		.$countState
-	        		.'" label="'
-	        		.$norms[$i]['zeroLevel']
-	        		.'" classid="'
-	        		.Norm::find($norms[$i]['id'])->belongsToFlash['classId']
-	        		.'" gf="'
-	        		.Norm::find($norms[$i]['id'])->belongsToFlash['hasNorm']
-	        		.'">';
+	    		$second[$norms[$i]['zeroLevel']] = $second[$norms[$i]['zeroLevel']] 
+	    											. '.' 
+	    											. $norms[$i]['secondLevel'];
+	    	}
+	    	else 
+	    	{
+	    		$first[$norms[$i]['zeroLevel']] = $norms[$i]['firstLevel'];
+	    		$second[$norms[$i]['zeroLevel']] = $norms[$i]['secondLevel'];
+	    		array_push($flashIds, $norms[$i]['flashId']);
+	    	}
+	    }
+
+	    $firstKeys = array_keys($first);
+	    $secondKeys = array_keys($second);
+	    // dd($firstKeys);
+
+	    for ($i=0; $i<count($firstKeys); $i++) {
+	    	$array = array();
+	        $Tags1 = explode(",", $first[$firstKeys[$i]]);
+	        $Tags2 = explode(',', $second[$secondKeys[$i]]);
+
+	        // 分组数组中第一个元素应为-1
+	        array_push($array, -1);
+	        // 得到二级标签中‘.’的下标，作为后来分组的依据
+	        for($j=0; $j<count($Tags2); $j++)
+	        {
+	            if($Tags2[$j]=='.' || $Tags2[$j]=='')
+	            {
+	                array_push($array, $j);
+	            }
+	        }
+	        $flash = Flash::where('id', '=', $flashIds[$i])->first();
+	        // dd($flash);
+	        $str .= '<Layer1 layerID="'.$countState.'" label="'.$firstKeys[$i].'" classid="'.$flash['classId'].'" gf="'.$flash['hasNorm'].'">';
+
 	        for($j=0; $j<count($Tags1); $j++)
 	        {
 	            $str .= '<Layer2 layerID="'.($countState + $j + 1).'" label="'.$Tags1[$j].'">';
-	            // dd($Tags2);
-	            for ($k=0; $k<count($Tags2); $k++)
+	            // 在分组数组中找到第i个元素，直到第i+1个元素之间的$Tags2元素即为当前一级名称下的二级名称
+	            for($k=$array[$j] + 1; $k<$array[$j + 1]; $k++)
 	            {
-	            	$str .= BuildLayer($Tags2[$k]);
-	            }
+	                // 获得三层以下的结构
+	                $tag3 = $Tags2[$k];
+	                $str .= BuildLayer($tag3);
+	            }      
 	            $str .= '</Layer2>';
 	        }
+
 	        $str .= '</Layer1>';
 	        $countState = $countState + count($Tags1) + 1;
 	    }
