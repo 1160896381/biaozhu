@@ -309,10 +309,11 @@ class NormController extends Controller {
 			}
 		}
 		// dd($tabArr2);
-
+		// 更新数据库中具体规范的值
 		$norms = Norm::where('superId', '=', $superId)
 				->get();
-		for ($i=0; $i<count($tabArr2); $i++) {
+		for ($i=0; $i<count($tabArr2); $i++) 
+		{
 			$norms[$i]->secondLevel = $tabArr2[$i]=='NULL'?'':$tabArr2[$i];
 			$norms[$i]->save();
 		}
@@ -351,32 +352,36 @@ class NormController extends Controller {
 
 	    $firstKeys = array_keys($first);
 	    $secondKeys = array_keys($second);
-	    // dd($firstKeys);
+	    // dd($first, $second);
 
-	    for ($i=0; $i<count($firstKeys); $i++) {
-	    	$array = array();
+	    for ($i=0; $i<count($firstKeys); $i++) 
+	    {
 	        $Tags1 = explode(",", $first[$firstKeys[$i]]);
-	        $Tags2 = explode(',', $second[$secondKeys[$i]]);
+	        $Tags2 = explode('.', $second[$secondKeys[$i]]);
 
-	        // 分组数组中第一个元素应为-1
-	        array_push($array, -1);
-	        // 得到二级标签中‘.’的下标，作为后来分组的依据
-	        for($j=0; $j<count($Tags2); $j++)
-	        {
-	            if($Tags2[$j]=='.' || $Tags2[$j]=='')
-	            {
-	                array_push($array, $j);
-	            }
-	        }
+	        // dd($Tags1, $Tags2);
+
 	        $flash = Flash::where('id', '=', $flashIds[$i])->first();
 	        // dd($flash);
-	        $str .= '<Layer1 layerID="'.$countState.'" label="'.$firstKeys[$i].'" classid="'.$flash['classId'].'" gf="'.$flash['hasNorm'].'">';
+	        $str .= '<Layer1 layerID="'
+	        	 . $countState
+	        	 . '" label="'
+	        	 . $firstKeys[$i]
+	        	 . '" classid="'
+	        	 . $flash['classId']
+	        	 . '" gf="'
+	        	 . $flash['hasNorm']
+	        	 . '">';
 
-	        for($j=0; $j<count($Tags1); $j++)
+	        for ($j=0; $j<count($Tags1); $j++)
 	        {
-	            $str .= '<Layer2 layerID="'.($countState + $j + 1).'" label="'.$Tags1[$j].'">';
-	            // 在分组数组中找到第i个元素，直到第i+1个元素之间的$Tags2元素即为当前一级名称下的二级名称
-	            for($k=$array[$j] + 1; $k<$array[$j + 1]; $k++)
+	            $str .= '<Layer2 layerID="'
+	            	 . ($countState + $j + 1)
+	            	 . '" label="'
+	            	 . $Tags1[$j]
+	            	 . '">';
+	            	 
+	            for ($k=0; $k<count($Tags2); $k++)
 	            {
 	                // 获得三层以下的结构
 	                $tag3 = $Tags2[$k];
