@@ -298,24 +298,14 @@ class NormController extends Controller {
 		$tabVal = $request->get('tab_val');
 		// 零级规范间以“。”分割
 		$tabArr = explode('。', $tabVal);
+		
 		$tabArr2 = array();
-		// dd($tabArr);
 		for ($i=0; $i<count($tabArr); $i++)
 		{
-			$tabArr3 = explode('.', $tabArr[$i]);
-			if ($tabArr3[0] != ',,')
+			$tabArr3 = explode('.', trim($tabArr[$i], ','));
+			for ($j=0; $j<count($tabArr3); $j++)
 			{
-				for ($j=0; $j<count($tabArr3); $j++)
-				{
-					if ($tabArr3[$j]!=',' && $tabArr3[$j]!=',,')
-					{
-						array_push($tabArr2, $tabArr3[$j]);
-					}
-				}
-			}
-			else
-			{
-				array_push($tabArr2, '');
+				array_push($tabArr2, trim($tabArr3[$j], ','));
 			}
 		}
 		// dd($tabArr2);
@@ -323,7 +313,7 @@ class NormController extends Controller {
 		$norms = Norm::where('superId', '=', $superId)
 				->get();
 		for ($i=0; $i<count($tabArr2); $i++) {
-			$norms[$i]->secondLevel = $tabArr2[$i];
+			$norms[$i]->secondLevel = $tabArr2[$i]=='NULL'?'':$tabArr2[$i];
 			$norms[$i]->save();
 		}
 

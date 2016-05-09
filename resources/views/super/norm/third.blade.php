@@ -127,18 +127,36 @@
 			for (var i=0; i<li_size; i++) {
 				var tr_size = $("#tab" + i + " tr").size();
 				for (var j=0; j<tr_size; j++) {
-					tab_val.push($("#tag" + i + "A" + j).getTabVals());
+					tab_val.push(
+						$("#tag" + i + "A" + j)
+							.getTabVals()
+							.join(',')
+							.replace(/\+/gi, '＋')
+						?
+						$("#tag" + i + "A" + j)
+							.getTabVals()
+							.join(',')
+							.replace(/\+/gi, '＋')
+						:
+						'NULL'
+					)
+					// 小类分割线
 					tab_val.push(".");
 				}
+				
+				tab_val.pop();	// 去掉.
+				tab_val.pop();	// 去掉空
+				tab_val.pop();	// 去掉.
+
+				// 大类分割线
 				tab_val.push("。");
 			}
-		    // console.log(tab_val)
-		    var param = "tab_val=" 
-	    				+ tab_val
-	    				.join(",")
-	    				.replace(/([\.|。]$)/, "")
-    					.replace(/\+/gi, '＋');
+		    tab_val.pop();	// 去掉。
+
+		    var param = "tab_val=" + tab_val;
 			
+			console.log(param)
+
 		    $.ajax({
 		        type: 'POST',
 		        url: 'third',
