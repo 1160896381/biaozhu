@@ -257,6 +257,7 @@ class NormController extends Controller {
 					$equal = 0;
 					for ($j=0; $j<count($norms); $j++) 
 					{
+						// flashId相同、zeroLevel相同、firstLevel相同，才是真正相同
 						if ($tempArr[1]==$norms[$j]['flashId'] 
 							&& $tempArr[2]==$norms[$j]['zeroLevel']
 							&& $tempArr[0]==$norms[$j]['firstLevel'])
@@ -270,7 +271,7 @@ class NormController extends Controller {
 			            			['firstLevel'  => $norms[$j]['firstLevel']], 
 			            			['secondLevel' => $norms[$j]['secondLevel']]
 			        			));
-						}
+						} 
 					}
 					// 如果在之前的规范中没有符合条件的，单独插入
 					if ($equal == 0)
@@ -310,16 +311,14 @@ class NormController extends Controller {
 		}
 		// dd($tabArr2);
 		// 更新数据库中具体规范的值
-		$norms = Norm::where('superId', '=', $superId)
-				->get();
+		$norms = Norm::where('superId', '=', $superId)->get();
 		for ($i=0; $i<count($tabArr2); $i++) 
 		{
 			$norms[$i]->secondLevel = $tabArr2[$i]=='NULL'?'':$tabArr2[$i];
 			$norms[$i]->save();
 		}
 
-		$norms = Norm::where('superId', '=', $superId)
-				->get();
+		$norms = Norm::where('superId', '=', $superId)->get();
 
 		$fileName = "flash/assets/xml/label_types_" . $superId . ".xml";
 	    $handle = fopen($fileName, "w");
@@ -380,7 +379,7 @@ class NormController extends Controller {
 	            	 . '" label="'
 	            	 . $Tags1[$j]
 	            	 . '">';
-	            	 
+
 	            for ($k=0; $k<count($Tags2); $k++)
 	            {
 	                // 获得三层以下的结构

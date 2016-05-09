@@ -155,14 +155,14 @@
 
 		    var param = "tab_val=" + tab_val;
 			
-			console.log(param)
+			// console.log(param)
 
 		    $.ajax({
 		        type: 'POST',
 		        url: 'third',
 		        data: encodeURI(param),
 		        success: function() {
-		        	// alert('标注规范修改成功！');
+		        	alert('标注规范修改成功！');
 		        }
 		    });
 		});
