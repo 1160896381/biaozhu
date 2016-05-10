@@ -55,7 +55,7 @@
 			        	</td>
 			        	<td>
 				        	@if (isset($assigns[$i]['state']) && isset($assigns[$i]['state2']))
-				        		{{ $stateArr[$assigns[$i]['state']-1].'///'.$stateArr[$assigns[$i]['state2']-1] }}
+				        		{{ $assigns[$i]['state'].'///'.$assigns[$i]['state2'] }}
 				        	@endif
 			        	</td>
 				        <td>
@@ -64,17 +64,11 @@
 				                	<i class="fa fa-cogs fa-lg"></i>工作
 				            	</button>
 		                	</a>
-			                	@if ($BSArr[$assigns[$i]['state']-1] == 1)
 			                	<a href="/labeler/assign/check/{{ $assigns[$i]['id'] }}">
 					        	    <button type="button" class="btn btn-xs btn-danger">
 					                	<i class="fa fa-eye fa-lg"></i>查看
 					        	    </button>
 					        	</a>
-					        	@elseif ($BSArr[$assigns[$i]['state']-1] == 0)
-				        		    <button type="button" class="btn btn-xs btn-danger disabled">
-				        	        	<i class="fa fa-eye fa-lg"></i>查看
-				        		    </button>
-				        	    @endif
 		                	</a>
 				        </td>
 				    </tr>

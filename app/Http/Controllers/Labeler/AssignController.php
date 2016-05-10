@@ -31,26 +31,10 @@ class AssignController extends Controller {
 
 		// 通过查询User中的userId得到superId，再查询Norm中的superId得到使用到的规范
 		$superId = Proj::find($userId)->belongsToSuper['id'];
-		$norms = Norm::where('superId', '=', $superId)
-					->get();
-
-		$stateArr = [];
-		$BSArr = [];
-		for ($i=0; $i<count($norms); $i++)
-		{
-			$firstLevelArr = explode(',', $norms[$i]['firstLevel']);
-			array_push($stateArr, $norms[$i]['zeroLevel']);
-			array_push($BSArr, Norm::find($norms[$i]['id'])->belongsToFlash['hasBS']);
-			
-			for ($j=0; $j<count($firstLevelArr); $j++)
-			{
-				array_push($stateArr, $firstLevelArr[$j]);
-				array_push($BSArr, Norm::find($norms[$i]['id'])->belongsToFlash['hasBS']);
-			}
-		}
-		// dd($BSArr, $stateArr);
+		
 		\Cookie::queue('labeler', \Auth::user()->labelerName, 120);
-		return view('labeler.assign.index', compact('assigns', 'stateArr', 'BSArr'));
+
+		return view('labeler.assign.index', compact('assigns'));
 	}
 
 	public function getLabel($assignId) 
@@ -71,12 +55,7 @@ class AssignController extends Controller {
 		$norms = Norm::where('superId', '=', $superId)->get();
 		for ($i=0; $i<count($norms); $i++)
 		{
-			$firstLevel = explode(',', $norms[$i]['firstLevel']);
 			array_push($flashPathArr, Norm::find($norms[$i]['id'])->belongsToFlash['flashPath']);
-			for ($j=0; $j<count($firstLevel); $j++)
-			{
-				array_push($flashPathArr, Norm::find($norms[$i]['id'])->belongsToFlash['flashPath']);
-			}
 		}
 		
 		// dd($flashPathArr);

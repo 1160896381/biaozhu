@@ -389,11 +389,14 @@ class NormController extends Controller {
 	            	 . $Tags1[$j]
 	            	 . '">';
 
-	            for ($k=0; $k<count($Tags2); $k++)
+	            $arrTags2 = explode(",", $Tags2[$j]);
+	            for ($k=0; $k<count($arrTags2); $k++)
 	            {
 	                // 获得三层以下的结构
-	                $tag3 = $Tags2[$k];
+	                $tag3 = $arrTags2[$k];
+	                // dd($tag3);
 	                $str .= BuildLayer($tag3);
+	                // dd($str);
 	            }      
 	            $str .= '</Layer2>';
 	        }

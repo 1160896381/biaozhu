@@ -240,6 +240,7 @@ function StringToArray($tag3)
  */
 function BuildLayer($tag3)
 {
+	// dd($tag3);
 	$arr = array();
     $arr = StringToArray($tag3);
 	// 定位最后有几个连续的』，$rear存放个数
@@ -255,6 +256,7 @@ function BuildLayer($tag3)
 			break;
 		}
 	}
+
 	// 用于存放特殊符号
 	$deli = array();
 	for ($i=0; $i<count($arr); $i++)
@@ -376,7 +378,6 @@ function BuildLayer($tag3)
     	$str .= '<Layer'.$cs[count($cs)-2].' label="'.$cs[count($cs)-1].'"/>'.$rearStr.'
     	';
     }
-    // for test
-    // $str .= implode(' ', $rearArr);
+
     return $str;
 }

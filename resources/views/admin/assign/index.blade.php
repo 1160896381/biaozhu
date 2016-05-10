@@ -62,7 +62,7 @@
 			        	</td>
 			        	<td>
 				        	@if (isset($assign['state']) && isset($assign['state2']))
-				        		{{ $stateArr[$assign['state']-1].'///'.$stateArr[$assign['state2']-1] }}
+				        		{{ $assign['state'].'///'.$assign['state2'] }}
 				        	@endif
 			        	</td>
 				        <td>
@@ -228,7 +228,13 @@
 	                // 如果Layer1中的classid属性和网页中classid的val值相同
 	                if ($(this).attr("classid") == $("#class-id").val()) {
 	                    // 构建$option字符串
-	                    $option = "<option value='" + $(this).attr("layerID") + "'>" + $(this).attr('label') + "</option>";
+	                    $option = "<option layerID='" 
+	                    		+ $(this).attr("layerID") 
+	                    		+ "'value='" 
+	                    		+ $(this).attr("label") 
+	                    		+ "'>" 
+	                    		+ $(this).attr('label') 
+	                    		+ "</option>";
 	                    // 通过append方法加入到下拉菜单state中
 	                    $("select[name='state']").append($option);
 	                }
@@ -241,7 +247,8 @@
 	    // 当选择完一级规范后,依据一级规范确定二级规范
 	    $("select[name='state']").change(function() {
 	        // 得到state中被选中option的value值
-	        var $proId = $("select[name='state'] option:selected").attr("value");
+	        var $proId = $("select[name='state'] option:selected").attr("layerID");
+	        var $value = $("select[name='state'] option:selected").attr("value");
 	        var url = "/flash/assets/xml/label_types_" + userId + ".xml";
 
 	        $.ajax({
@@ -255,16 +262,29 @@
 	                $state = $(msg).find("Layer1[layerID=" + $proId + "]");
 	                // 这里只针对gf为1的state列出state2
 	                if ($state.attr("gf") == 1) {
-	                    var $option = "<option value='" + $proId + "'>不限</option>";
+	                    var $option = "<option layerID='" 
+	                    			+ $proId 
+	                    			+ "'value='" 
+	                    			+ $value 
+	                    			+ "'>不限</option>";
 	                    $("select[name='state2']").append($option);
 	                    $state.find("Layer2").each(function() {
-	                        var $option = "<option value='" + $(this).attr("layerID") + "'>" + $(this).attr('label') + "</option>";
+	                        var $option = "<option layerID='" 
+			                    		+ $(this).attr("layerID") 
+			                    		+ "'value='" 
+			                    		+ $(this).attr("label") 
+			                    		+ "'>" 
+			                    		+ $(this).attr('label') 
+			                    		+ "</option>";
 	                        $("select[name='state2']").append($option);
 	                    });
 	                } else {
 	                    // 而对于gf不为1的state，只需显示无即可
 	                    var add = Number($proId) + 1;
-	                    var option = "<option value='" + add + "'>无</option>";
+	                    var option = "<option layerID='" 
+	                    		   + add 
+	                    		   + "'>无</option>";
+	                    
 	                    $("select[name='state2']").append(option);
 	                }
 	            },

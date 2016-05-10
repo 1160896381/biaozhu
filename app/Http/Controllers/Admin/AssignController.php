@@ -32,22 +32,7 @@ class AssignController extends Controller {
 		$projId = User::find($userId)->belongsToProj['id'];
 		$superId = Proj::find($projId)->belongsToSuper['id'];
 
-		$norms = Norm::where('superId', '=', $superId)
-					->get();
-		
-		$stateArr = [];
-		for ($i=0; $i<count($norms); $i++)
-		{
-			$firstLevelArr = explode(',', $norms[$i]['firstLevel']);
-			array_push($stateArr, $norms[$i]['zeroLevel']);
-			for ($j=0; $j<count($firstLevelArr); $j++)
-			{
-				array_push($stateArr, $firstLevelArr[$j]);
-			}
-		}
-		// dd($stateArr);
-
-		return view('admin.assign.index', compact('assigns', 'labelers', 'stateArr'));
+		return view('admin.assign.index', compact('assigns', 'labelers'));
 	}
 
 	public function addTask(Request $request)
@@ -73,9 +58,6 @@ class AssignController extends Controller {
 					    ['claim'    => $claim],
 					    ['deadTime' => $deadTime],
 					    ['labeler'  => $labeler[$i]],
-					    ['receiver' => ''],
-					    ['xml'      => ''],
-					    ['description'=> ''],
 					    ['state'    => $state],
 					    ['state2'   => $state2]
 					));
@@ -93,10 +75,7 @@ class AssignController extends Controller {
 			            ['finishTime' => null],
 			            ['deadTime'   => $deadTime],
 			            ['labeler'    => $labeler[$i]],
-			            ['receiver'   => ''],
 			            ['initXml'    => $oldAssign['initXml']],
-			            ['xml'        => ''],
-			            ['description'=> ''],
 			            ['state'      => $state],
 					    ['state2'     => $state2]
 			        ));
