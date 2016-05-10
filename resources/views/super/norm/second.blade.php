@@ -101,15 +101,27 @@
 
 		$("#getTab").click(function() {
 			var tab_val = '';
+			var tab_val_validate = '';
+
 			for (var i=0; i<size; i++) {
-				tab_val += $("#tag" + i).getTabVals()
+				
+				var get_tab_vals = $("#tag" + i).getTabVals();
+				tab_val_validate += get_tab_vals;
+
+				tab_val += get_tab_vals
 						+ 'XXXXX' 
 						+ $("div[num-index=" + i + "]").attr("flash-id") 
 						+ 'XXXXX' 
 						+ $("div[num-index=" + i + "]").attr("zero-level") 
 						+ ' ';
 			}
-		    // console.log(tab_val)
+
+		    // console.log(tab_val_validate)
+		    if (!tab_val_validate) {
+		    	alert("请至少填写一份具体规范再提交！");
+		    	return false;
+		    }
+
 		    var param = "tab_val=" + tab_val.replace(/(\s*$)/, "");
 		    
 		    $.ajax({

@@ -99,6 +99,7 @@ class NormController extends Controller {
 		$first = array();
 		$second = array();
 		$firstIds = array();
+		$firstHasSelected = 0;
 		for ($i=0; $i<count($norms); $i++)
 		{
 			// 拼接二级字符串
@@ -115,6 +116,13 @@ class NormController extends Controller {
 			else 
 			{
 				// 构成关联数组，哈希
+				if ($firstHasSelected==0 
+					&& $norms[$i]['firstLevel'])
+				{
+					$firstHasSecondNorm = $i;
+					$firstHasSelected = 1;
+					// dd($i);
+				}
 				$first[$norms[$i]['zeroLevel']] = $norms[$i]['firstLevel'];
 				$second[$norms[$i]['zeroLevel']] = $norms[$i]['secondLevel'];
 				array_push($firstIds, $norms[$i]['id']);
@@ -124,7 +132,8 @@ class NormController extends Controller {
 		$secondKeys = array_keys($second);
 		// dd($first, $second);
 
-		return view('super.norm.third', compact('firstIds', 'firstKeys', 'first', 'secondKeys', 'second'));
+		return view('super.norm.third', 
+				compact('firstIds', 'firstKeys', 'first', 'secondKeys', 'second', 'firstHasSecondNorm'));
 	}
 
 	/**

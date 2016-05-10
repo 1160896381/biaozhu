@@ -6,29 +6,18 @@
 
 	<ul class="nav nav-tabs" id="detail-nav">
 		@for ($i = 0; $i < count($firstKeys); $i++)
-			@if ($i == 0) 
-				@if (App\Norm::find($firstIds[0])->belongsToFlash['hasNorm'] == 0)
-					<li class="active disabled">
-						<a href="#" data-toggle="tab">
-							<div 
-								num-index=0 
-								second-level="{{ $second[$secondKeys[0]] }}">
-								{{ $firstKeys[0] }}
-							</div>
-						</a>
-					</li>
-				@else
-					<li class="active">
-						<a href="#tab0" data-toggle="tab">
-							<div 
-								num-index=0 
-								second-level="{{ $second[$secondKeys[0]] }}">
-								{{ $firstKeys[0] }}
-							</div>
-						</a>
-					</li>
-				@endif
-			@elseif (App\Norm::find($firstIds[$i])->belongsToFlash['hasNorm'] == 0)
+			@if ($i == $firstHasSecondNorm) 
+				<li class="active">
+					<a href="#tab{{ $i }}" data-toggle="tab">
+						<div 
+							num-index={{ $i }} 
+							second-level="{{ $second[$secondKeys[$i]] }}">
+							{{ $firstKeys[$i] }}
+						</div>
+					</a>
+				</li>
+			@elseif (App\Norm::find($firstIds[$i])->belongsToFlash['hasNorm']==0
+					|| !$first[$firstKeys[$i]])
 				<li class="disabled">
 					<a href="#">
 						<div 
@@ -54,8 +43,8 @@
 
 	<div class="tab-content" style="min-height: 200px">
 		@for ($i = 0; $i < count($firstKeys); $i++)
-			@if ($i == 0)
-				<div class="tab-pane active tab-norm" id="tab0">
+			@if ($i == $firstHasSecondNorm)
+				<div class="tab-pane active tab-norm" id="tab{{ $i }}">
 			  		<table class="table table-bordered table-condensed">
 			  			<tr>
 			  				<td style="width: 100px;">二级规范</td>
@@ -64,7 +53,7 @@
 			  			@for ($j=0; $j<count(explode(',', $first[$firstKeys[$i]])); $j++)
 			  			<tr>
 			  				<td>{{ explode(',', $first[$firstKeys[$i]])[$j] }}</td>
-			  				<td id="tag{{ '0A'.$j }}"></td>
+			  				<td id="tag{{ $i.'A'.$j }}"></td>
 			  			</tr>
 			  			@endfor
 			  		</table>

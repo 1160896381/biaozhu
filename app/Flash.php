@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Flash extends Model {
 
-	protected $fillable = ['classId', 'superId', 'hasNorm', 'hasBS', 'flashPath', 'flashPathBS'];
+	protected $fillable = ['flashName', 'classId', 'superId', 'hasNorm', 'hasBS', 'flashPath', 'flashPathBS'];
 
 	public function belongsToNorm()
 	{
