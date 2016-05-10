@@ -8,7 +8,7 @@ class Assign extends Model {
 
 	use SoftDeletes;
 
-	protected $fillable = ['classId', 'userId', 'title', 'claim', 'state', 'state2', 'finishTime', 'deadTime', 'labeler', 'receiver', 'initXml', 'xml', 'content'];
+	protected $fillable = ['classId', 'userId', 'title', 'claim', 'state', 'state2', 'finishTime', 'deadTime', 'labeler', 'receiver', 'initXml', 'xml', 'description'];
 
 	protected $dates = ['updated_at', 'deleted_at', 'finishTime', 'deadTime'];
 }

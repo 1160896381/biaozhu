@@ -73,8 +73,11 @@ class AssignController extends Controller {
 					    ['claim'    => $claim],
 					    ['deadTime' => $deadTime],
 					    ['labeler'  => $labeler[$i]],
+					    ['receiver' => ''],
+					    ['xml'      => ''],
+					    ['description'=> ''],
 					    ['state'    => $state],
-					    ['state2'    => $state2]
+					    ['state2'   => $state2]
 					));
 
 			} else if ($task_flag == 'NewTask') { // 创建新任务
@@ -90,7 +93,10 @@ class AssignController extends Controller {
 			            ['finishTime' => null],
 			            ['deadTime'   => $deadTime],
 			            ['labeler'    => $labeler[$i]],
+			            ['receiver'   => ''],
 			            ['initXml'    => $oldAssign['initXml']],
+			            ['xml'        => ''],
+			            ['description'=> ''],
 			            ['state'      => $state],
 					    ['state2'     => $state2]
 			        ));
