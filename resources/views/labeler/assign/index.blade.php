@@ -64,12 +64,17 @@
 				                	<i class="fa fa-cogs fa-lg"></i>工作
 				            	</button>
 		                	</a>
-			                	<a href="/labeler/assign/check/{{ $assigns[$i]['id'] }}">
-					        	    <button type="button" class="btn btn-xs btn-danger">
-					                	<i class="fa fa-eye fa-lg"></i>查看
-					        	    </button>
-					        	</a>
-		                	</a>
+		                	@if (App\Flash::where('id', '=', App\Norm::where('zeroLevel', '=', $assigns[$i]['state'])->first()['flashId'])->first()['hasBS'] == 1)
+		                	<a href="/labeler/assign/check/{{ $assigns[$i]['id'] }}">
+				        	    <button type="button" class="btn btn-xs btn-danger">
+				                	<i class="fa fa-eye fa-lg"></i>查看
+				        	    </button>
+				        	</a>
+				        	@else
+			        		    <button type="button" class="btn btn-xs btn-danger disabled">
+			        	        	<i class="fa fa-eye fa-lg"></i>查看
+			        		    </button>
+			        	    @endif
 				        </td>
 				    </tr>
 				@endfor

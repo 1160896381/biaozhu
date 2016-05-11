@@ -2,6 +2,7 @@
 
 use App\Assign;
 use App\Norm;
+use App\Flash;
 use App\Labeler;
 use App\User;
 use App\Proj;
@@ -49,17 +50,11 @@ class AssignController extends Controller {
 
 		$assign['labelerId'] = Labeler::where('labelerName', '=', $assign['labeler'])->first()['id'];
 
-		$flashPathArr = [];
 		$projId = User::find($assign['userId'])->belongsToProj['id'];
 		$superId = Proj::find($projId)->belongsToSuper['id'];
 		$norms = Norm::where('superId', '=', $superId)->get();
-		for ($i=0; $i<count($norms); $i++)
-		{
-			array_push($flashPathArr, Norm::find($norms[$i]['id'])->belongsToFlash['flashPath']);
-		}
-		
-		// dd($flashPathArr);
-		$assign['flashPath'] = $flashPathArr[$assign['state2']-1];
+	
+		$assign['flashPath'] = Flash::where('id', '=', Norm::where('zeroLevel', '=', $assign['state'])->first()['flashId'])->first()['flashPath'];
 		
 		// dd($assign);
 		return view('labeler.assign.label', compact('assign'));
@@ -76,21 +71,12 @@ class AssignController extends Controller {
 		$assign = Assign::where('id', '=', $assignId)->first();
 		$assign['labelerId'] = Labeler::where('labelerName', '=', $assign['labeler'])->first()['id'];
 
-		$flashPathArr = [];
 		$projId = User::find($assign['userId'])->belongsToProj['id'];
 		$superId = Proj::find($projId)->belongsToSuper['id'];
 		$norms = Norm::where('superId', '=', $superId)->get();
-		for ($i=0; $i<count($norms); $i++)
-		{
-			$firstLevel = explode(',', $norms[$i]['firstLevel']);
-			array_push($flashPathArr, Norm::find($norms[$i]['id'])->belongsToFlash['flashPathBS']);
-			for ($j=0; $j<count($firstLevel); $j++)
-			{
-				array_push($flashPathArr, Norm::find($norms[$i]['id'])->belongsToFlash['flashPathBS']);
-			}
-		}
-		$assign['flashPath'] = $flashPathArr[$assign['state2']-1];
-
+		
+		$assign['flashPath'] = Flash::where('id', '=', Norm::where('zeroLevel', '=', $assign['state'])->first()['flashId'])->first()['flashPathBS'];
+		
 		return view('labeler.assign.check', compact('assign'));
 	}
 
