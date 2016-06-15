@@ -4,7 +4,7 @@
 + 从[Github代码托管处](https://github.com/sunlidev/biaozhu/archive/master.zip)下载源码
 + 在根目录下仿照`.env.example`添加`.env`文件
 + 导入数据库(laravel5_2016-05-11.sql)
-+ 进入根目录下运行`php myartisan serve`命令
++ 进入根目录下运行`php artisan serve`命令
 + 登录`localhost:8000`
 
 ## 代码说明
