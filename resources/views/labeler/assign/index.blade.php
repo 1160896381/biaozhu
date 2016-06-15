@@ -9,7 +9,7 @@
 
 <div id="labeler-page-wrapper">
 	<div class="row" style="margin-top: 80px">
-	    <div class="col-sm-8 col-sm-offset-2">     
+	    <div class="col-sm-10 col-sm-offset-1">     
 	      
 	        <table id="labeler-assign-table" class="table table-striped table-bordered">
 	            <thead>

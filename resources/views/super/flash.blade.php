@@ -7,7 +7,7 @@
 
 @section('contentSuper')
 
-<div id="page-wrapper">
+<div id="page-wrapper" style="width: 100%">
     <div class="row" style="margin-bottom: 10px">
         <div class="col-md-6">
             <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#modal-super-flash">
@@ -20,18 +20,18 @@
         <div class="col-sm-12">
             @include('partials.errors')     
             @include('partials.success')  
-            <table id="super-flash-table" class="table table-striped table-bordered">
+            <table id="super-flash-table" class="table table-striped table-bordered" width="1200px">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>名称</th>
+                        <th style="min-width: 50px">名称</th>
                         <th>类型</th>
                         <th>需要规范</th>
                         <th>需要浏览面板</th>
                         <th>工作路径</th>
                         <th>浏览路径</th>
-                        <th>更新时间</th>
-                        <th data-sortable="false">操作</th>
+                        <th style="min-width: 100px">更新时间</th>
+                        <th data-sortable="false" width="180px">操作</th>
                     </tr>
                 </thead>
                 <tbody>

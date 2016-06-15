@@ -8,22 +8,22 @@
 
 @section('contentAdmin')
 
-<div id="page-wrapper">
+<div id="page-wrapper" style="width: 100%">
 	<div class="row">
-	    <div class="col-sm-12">     
+	    <div class="col-sm-18">     
 	      
-	        <table id="assign-table" class="table table-striped table-bordered">
+	        <table id="assign-table" class="table table-striped table-bordered" width="1200px">
 	            <thead>
 	                <tr>
-	                    <th>ID</th>
-	                    <th>文件名</th>
-	                    <th>当前状态</th>
-	                    <th>发布时间</th>
-	                    <th>提交时间</th>
-	                    <th>截止时间</th>
-	                    <th>标注者</th>
-	                    <th>任务</th>
-	                    <th data-sortable="false" width="150px">操作</th>
+	                    <th style="min-width: 30px">ID</th>
+	                    <th style="min-width: 80px">文件名</th>
+	                    <th style="min-width: 70px">当前状态</th>
+	                    <th style="min-width: 80px">发布时间</th>
+	                    <th style="min-width: 80px">提交时间</th>
+	                    <th style="min-width: 80px">截止时间</th>
+	                    <th style="min-width: 50px">标注者</th>
+	                    <th style="min-width: 80px">任务</th>
+	                    <th data-sortable="false" width="160px">操作</th>
 	                </tr>
 	            </thead>
 	            <tbody>
