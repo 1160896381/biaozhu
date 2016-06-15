@@ -1,0 +1,109 @@
+
+* {
+	padding: 0;
+	margin: 0;
+}
+body{
+	position:relative;
+}
+body {
+	font-family: "宋体",Arial,Helvetica,sans-serif;
+	padding:0px;
+	height:100%;
+	background-color:#FFFFFF;
+}
+#content {
+	MARGIN:0 AUTO;
+	width:1024px;
+	vertical-align:middle; 
+	position:relative;
+	background-color:#FFFFFF;
+}
+#middle {
+	position:relative;
+	width: 100%;
+	height:auto;
+	top: 10px;
+	left:0px;
+	vertical-align:middle;
+	background-color:#FFFFFF;
+	table-layout:fixed;
+	word-wrap:break-word;
+}
+
+#right {
+	float:right;
+	width:860px;
+	height:100%;
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+ 
+object:focus { outline:none; }
+#flashContent { 
+	float:left;
+    display:none; 
+    vertical-align:middle;
+     }
+#big_button{
+	width:1024px;
+	height:60px;
+	}
+.big_button_left {
+    float:left;
+    width: 55px;
+    height: 30px;
+    font-size: 28px;
+    margin-left: 350px;
+    margin-right: 10px;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    border: #7b9ebd 1px solid;
+    PADDING-RIGHT: 2px; 
+    BORDER-TOP: #7b9ebd 1px solid; 
+    PADDING-LEFT: 2px; FONT-SIZE: 12px; 
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#ffffff, EndColorStr=#cecfde); 
+    BORDER-LEFT: #7b9ebd 1px solid; 
+    CURSOR: hand; 
+    COLOR: black; 
+    PADDING-TOP: 2px; 
+    BORDER-BOTTOM: #7b9ebd 1px solid;
+}
+
+.big_button_right {
+    float:left;
+    width: 55px;
+    height: 30px;
+    font-size: 28px;
+    margin-left: 10px;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    border: #7b9ebd 1px solid;
+    PADDING-RIGHT: 2px; 
+    BORDER-TOP: #7b9ebd 1px solid; 
+    PADDING-LEFT: 2px; FONT-SIZE: 12px; 
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#ffffff, EndColorStr=#cecfde); 
+    BORDER-LEFT: #7b9ebd 1px solid; 
+    CURSOR: hand; 
+    COLOR: black; 
+    PADDING-TOP: 2px; 
+    BORDER-BOTTOM: #7b9ebd 1px solid;
+}
+#footer {
+	float:left;
+	width: 100%;
+	height:50px;
+	font-size: 12px;
+	margin-top:200px;
+	padding-bottom:50px;
+	padding-top:10px;
+	text-align:center;
+	vertical-align:middle; 
+	background-color:#FFFFFF;
+}
+#footer p {
+	margin-top:10px;
+	padding-top:10px;
+	width: 960px;
+	

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <Types>
+    <Layer1 layerID="1" label="标注" classid="1" gf="1">
+      <Layer2 layerID="2" label="汉字">
+          <Layer3 label="汉字111"/>
+      </Layer2>
+    </Layer1>
+      <Layer1 layerID="3" label="标注" classid="2" gf="1">
+      <Layer2 layerID="4" label="">
+      </Layer2>
+    </Layer1>
+      <Layer1 layerID="5" label="预处理" classid="2" gf="0">
+      <Layer2 layerID="6" label="">
+      </Layer2>
+    </Layer1>
+      <Layer1 layerID="7" label="转录" classid="2" gf="0">
+      <Layer2 layerID="8" label="">
+      </Layer2>
+    </Layer1>
+    </Types>

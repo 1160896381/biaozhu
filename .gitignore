@@ -1,6 +1,6 @@
 /vendor
 /node_modules
 .env
-/public/uploads
-/public/flash
+/public/uploads/pic
+/public/uploads/text
 .DS_Store
